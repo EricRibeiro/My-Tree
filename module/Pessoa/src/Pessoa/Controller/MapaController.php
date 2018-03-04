@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: ericribeiro
- * Date: 3/2/18
- * Time: 3:48 PM
+ * Date: 3/3/18
+ * Time: 11:29 PM
  */
 
 namespace Pessoa\Controller;
@@ -11,15 +11,9 @@ namespace Pessoa\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class IndexController extends AbstractActionController
+class MapaController extends AbstractActionController
 {
-    public function indexAction()
-    {
-        return new ViewModel();
-    }
-
-    public function cadastrarAction()
-    {
+    public function indexAction() {
         return new ViewModel();
     }
 }

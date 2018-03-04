@@ -3,21 +3,26 @@ return array(
     'router' => array(
         'routes' => array(
             'pessoa' => array(
-                'type'    => 'Literal',
+                'type' => 'Segment',
                 'options' => array(
-                    'route'    => '/pessoa',
+                    'route' => '/pessoa[/:controller[/:action[/:id]]]',
+                    'constraints' => array(
+                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]*'
+                    ),
                     'defaults' => array(
                         '__NAMESPACE__' => 'Pessoa\Controller',
-                        'controller'    => 'Index',
-                        'action'        => 'index',
-                    ),
+                        'controller' => 'Dashboard',
+                        'action' => 'index'
+                    )
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
                     'default' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '/[:controller[/:action]]',
+                            'route'    => '/pessoa[:controller[/:action]]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -32,7 +37,10 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Pessoa\Controller\Index' => 'Pessoa\Controller\IndexController'
+            'Pessoa\Controller\Dashboard' => 'Pessoa\Controller\DashboardController',
+            'Pessoa\Controller\Perfil' => 'Pessoa\Controller\PerfilController',
+            'Pessoa\Controller\Cadastro' => 'Pessoa\Controller\CadastroController',
+            'Pessoa\Controller\Mapa' => 'Pessoa\Controller\MapaController'
         ),
     ),
     'view_manager' => array(
