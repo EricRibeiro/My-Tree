@@ -14,6 +14,7 @@ This will install the project dependencies and get you ready to go.
 Current available pages are:
 
     localhost:8080/application
+    localhost:8080/application/cadastro-pessoa
     localhost:8080/pessoa
     localhost:8080/pessoa/dashboard
     localhost:8080/pessoa/perfil
