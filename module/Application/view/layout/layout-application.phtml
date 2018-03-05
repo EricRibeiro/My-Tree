@@ -20,10 +20,6 @@
 
     <!-- Scripts -->
     <?php echo $this->headScript()
-        ->prependFile($this->basePath() . '/js/application/gaia.js')
-        ->prependFile($this->basePath() . 'https://maps.googleapis.com/maps/api/js')
-        ->prependFile($this->basePath() . '/js/application/modernizr.js')
-        ->prependFile($this->basePath() . '/js/bootstrap.min.js')
         ->prependFile($this->basePath() . '/js/jquery.min.js')
         ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
         ->prependFile($this->basePath() . '/js/html5shiv.js', 'text/javascript', array('conditional' => 'lt IE 9',)); ?>
@@ -340,5 +336,11 @@
         </div>
     </div>
 </footer>
+
+<!-- More Scripts -->
+<?php echo $this->inlineScript()
+    ->prependFile($this->basePath() . '/js/application/gaia.js')
+    ->prependFile($this->basePath() . '/js/application/modernizr.js')
+    ->prependFile($this->basePath() . '/js/bootstrap.min.js') ?>
 </body>
 </html>

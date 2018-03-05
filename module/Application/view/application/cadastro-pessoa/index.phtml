@@ -22,6 +22,12 @@
         ->prependStylesheet($this->basePath() . '/css/font-awesome.min.css')
         ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
 
+    <!-- Scripts -->
+    <?php echo $this->headScript()
+        ->prependFile($this->basePath() . '/js/jquery.min.js')
+        ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+        ->prependFile($this->basePath() . '/js/html5shiv.js', 'text/javascript', array('conditional' => 'lt IE 9',)); ?>
+
 </head>
 <body>
 <div class="container-contact100">
@@ -70,8 +76,8 @@
 
 <div id="dropDownSelect1"></div>
 
-<!-- Scripts -->
-<?php echo $this->headScript()
+<!-- More Scripts -->
+<?php echo $this->inlineScript()
     ->prependFile($this->basePath() . '/js/form/main.js')
     ->prependFile($this->basePath() . '/js/form/countdowntime.js')
     ->prependFile($this->basePath() . '/js/form/daterangepicker.js')
@@ -79,9 +85,6 @@
     ->prependFile($this->basePath() . '/js/form/select2.min.js')
     ->prependFile($this->basePath() . '/js/bootstrap.js')
     ->prependFile($this->basePath() . '/js/form/popper.min.js')
-    ->prependFile($this->basePath() . '/js/form/animsition.min.js')
-    ->prependFile($this->basePath() . '/js/jquery.min.js')
-    ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
-    ->prependFile($this->basePath() . '/js/html5shiv.js', 'text/javascript', array('conditional' => 'lt IE 9',)); ?>
+    ->prependFile($this->basePath() . '/js/form/animsition.min.js') ?>
 </body>
 </html>
