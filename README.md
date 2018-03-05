@@ -7,7 +7,7 @@ In the project folder, execute:
 
     composer install
 
-This will install the project dependencies and get you ready to go.
+This will install the project dependencies and get you ready to code.
 
 ### Usage
 

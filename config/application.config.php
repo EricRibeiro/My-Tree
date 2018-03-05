@@ -7,8 +7,11 @@
  */
 return array(
     'modules' => array(
+        'ZendDeveloperTools',
+        'DoctrineModule',
+        'DoctrineORMModule',
         'Application',
-        'Pessoa',
+        'Pessoa'
     ),
     'module_listener_options' => array(
         'module_paths' => array(
