@@ -359,7 +359,7 @@ body > .navbar-collapse a {
 }
 
 *::selection {
-  background: #e78b90;
+  background: #5cb85c;
   color: #FFFFFF;
 }
 

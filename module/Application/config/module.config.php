@@ -37,6 +37,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
+            'Application\Controller\Cadastro-Pessoa' => 'Application\Controller\CadastroPessoaController',
         ),
     ),
     'view_manager' => array(
