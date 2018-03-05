@@ -18,7 +18,6 @@
         ->prependStylesheet($this->basePath() . '/css/font-awesome.min.css')
         ->prependStylesheet($this->basePath() . '/css/paper-dashboard/paper-dashboard.css')
         ->prependStylesheet($this->basePath() . '/css/paper-dashboard/animate.min.css')
-        ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
         ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
 
     <!-- Scripts -->
@@ -154,13 +153,13 @@
                     </ul>
                 </nav>
                 <div class="copyright pull-right">
-                    &copy; <script>document.write(new Date().getFullYear())</script>, made with <i class="fa fa-heart heart"></i> by <a href="http://www.creative-tim.com">Creative Tim</a>
+                    &copy;
+                    <script>document.write(new Date().getFullYear())</script>
+                    , made with <i class="fa fa-heart heart"></i> by <a href="http://www.creative-tim.com">Creative
+                        Tim</a>
                 </div>
             </div>
         </footer>
-
-        <?php echo $this->inlineScript() ?>
-
     </div>
 </div>
 

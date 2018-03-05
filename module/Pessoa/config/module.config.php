@@ -20,15 +20,14 @@ return array(
                 'may_terminate' => true,
                 'child_routes' => array(
                     'default' => array(
-                        'type'    => 'Segment',
+                        'type' => 'Segment',
                         'options' => array(
-                            'route'    => '/pessoa[:controller[/:action]]',
+                            'route' => '/pessoa[:controller[/:action]]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                             ),
-                            'defaults' => array(
-                            ),
+                            'defaults' => array(),
                         ),
                     ),
                 ),
@@ -39,16 +38,15 @@ return array(
         'invokables' => array(
             'Pessoa\Controller\Dashboard' => 'Pessoa\Controller\DashboardController',
             'Pessoa\Controller\Perfil' => 'Pessoa\Controller\PerfilController',
-            'Pessoa\Controller\Cadastro' => 'Pessoa\Controller\CadastroController',
             'Pessoa\Controller\Mapa' => 'Pessoa\Controller\MapaController'
         ),
     ),
     'view_manager' => array(
-        'template_map' => array(
-            'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
-        ),
         'template_path_stack' => array(
-            __DIR__.'/../view/',
+            __DIR__ . '/../view/',
         )
     ),
+    'moduleLayouts' => array(
+        'Pessoa' => 'layout/layout-pessoa'
+    )
 );

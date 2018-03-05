@@ -9,6 +9,17 @@ In the project folder, execute:
 
 This will install the project dependencies and get you ready to go.
 
+### Usage
+
+Current available pages are:
+
+    localhost:8080/application
+    localhost:8080/pessoa
+    localhost:8080/pessoa/dashboard
+    localhost:8080/pessoa/perfil
+    localhost:8080/pessoa/mapa
+
+
 ### Modules
 
 To list the existing modules just execute this one in the root folder:
