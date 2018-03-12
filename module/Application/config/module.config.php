@@ -49,6 +49,8 @@ return array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Cadastro-Pessoa' => 'Application\Controller\CadastroPessoaController',
+             'Application\Controller\Cadastro-Investidor' => 'Application\Controller\CadastroInvestidorController'
+
         ),
     ),
     'view_manager' => array(
@@ -77,7 +79,7 @@ return array(
             ),
             'orm_default' => array(
                 'drivers' => array(
-                    'Estoque\Entity' => 'application_entities'
+                    'Application\Entity' => 'application_entities'
                 ),
             ),
         ),

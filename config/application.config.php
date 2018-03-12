@@ -11,7 +11,8 @@ return array(
         'DoctrineModule',
         'DoctrineORMModule',
         'Application',
-        'Pessoa'
+        'Pessoa',
+        'Investidor',
     ),
     'module_listener_options' => array(
         'module_paths' => array(
