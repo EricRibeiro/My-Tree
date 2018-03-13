@@ -9,7 +9,7 @@ return array(
                     'defaults' => array(
                         '__NAMESPACE__' => 'Application\Controller',
                         'controller' => 'Index',
-                        'action'     => 'index',
+                        'action' => 'index',
                     ),
                 ),
             ),
@@ -49,23 +49,19 @@ return array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Cadastro-Pessoa' => 'Application\Controller\CadastroPessoaController',
-<<<<<<< Updated upstream
-             'Application\Controller\Cadastro-Investidor' => 'Application\Controller\CadastroInvestidorController'
-
-=======
+            'Application\Controller\Cadastro-Investidor' => 'Application\Controller\CadastroInvestidorController',
             'Application\Controller\Login' => 'Application\Controller\LoginController',
->>>>>>> Stashed changes
-        ),
+        )
     ),
     'view_manager' => array(
         'display_not_found_reason' => true,
-        'display_exceptions'       => true,
-        'doctype'                  => 'HTML5',
-        'not_found_template'       => 'error/404',
-        'exception_template'       => 'error/index',
+        'display_exceptions' => true,
+        'doctype' => 'HTML5',
+        'not_found_template' => 'error/404',
+        'exception_template' => 'error/index',
         'template_map' => array(
-            'error/404'               => __DIR__ . '/../view/error/404.phtml',
-            'error/index'             => __DIR__ . '/../view/error/index.phtml',
+            'error/404' => __DIR__ . '/../view/error/404.phtml',
+            'error/index' => __DIR__ . '/../view/error/index.phtml',
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view/',
@@ -77,7 +73,7 @@ return array(
     'doctrine' => array(
         'driver' => array(
             'application_entities' => array(
-                'class' =>'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
                 'cache' => 'array',
                 'paths' => array(__DIR__ . '/../src/Application/Entity')
             ),
@@ -91,8 +87,7 @@ return array(
     // Placeholder for console routes
     'console' => array(
         'router' => array(
-            'routes' => array(
-            ),
+            'routes' => array(),
         ),
     ),
 );
