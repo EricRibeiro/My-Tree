@@ -49,8 +49,12 @@ return array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Cadastro-Pessoa' => 'Application\Controller\CadastroPessoaController',
+<<<<<<< Updated upstream
              'Application\Controller\Cadastro-Investidor' => 'Application\Controller\CadastroInvestidorController'
 
+=======
+            'Application\Controller\Login' => 'Application\Controller\LoginController',
+>>>>>>> Stashed changes
         ),
     ),
     'view_manager' => array(
