@@ -38,7 +38,9 @@ return array(
         'invokables' => array(
         'Investidor\Controller\Dashboard' => 'Investidor\Controller\DashboardController',
             'Investidor\Controller\Perfil' => 'Investidor\Controller\PerfilController',
-            'Investidor\Controller\Mapa' => 'Investidor\Controller\MapaController'
+            'Investidor\Controller\Mapa' => 'Investidor\Controller\MapaController',
+           'Application\Controller\cadastro-investidor' => 'Investidor\Controller\CadastroInvestidorController',
+
         ),
     ),
     'view_manager' => array(
@@ -48,5 +50,23 @@ return array(
     ),
     'moduleLayouts' => array(
         'Investidor' => 'layout/layout-investidor'
-    )
+    ),
+
+    'doctrine' => array(
+          'driver' => array(
+            'application_entities' => array(
+              'class' =>'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+              'cache' => 'array',
+              'paths' => array(__DIR__ . '/../src/Investidor/Entity')
+            ),
+
+            'orm_default' => array(
+                'drivers' => array(
+                    'Investidor\Entity' => 'application_entities'
+                ),
+            ),
+        ),
+      ),
+
+
 );

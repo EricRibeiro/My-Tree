@@ -1,6 +1,6 @@
 <?php
 
-	namespace Application\Entity;
+	namespace Investidor\Entity;
 	use Doctrine\ORM\Mapping as ORM;	
 
 
