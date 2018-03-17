@@ -11,6 +11,7 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Application\Entity\Pessoa;
 
 class CadastroPessoaController extends AbstractActionController
 {
@@ -19,5 +20,23 @@ class CadastroPessoaController extends AbstractActionController
         $viewModel = new ViewModel();
         $viewModel->setTerminal(true);
         return $viewModel;
+    }
+
+    public function cadastrarAction()
+    {
+        if ($this->request->isPost()) {
+            $nome = $this->request->getPost('nome');
+            $email = $this->request->getPost('email');
+            $senha = $this->request->getPost('senha');
+            $telefone = $this->request->getPost('celular');
+
+            $pessoa = new Pessoa($nome, $email, $senha, $telefone);
+
+            $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+            $entityManager->persist($pessoa);
+            $entityManager->flush();
+
+            return $this->redirect()->toUrl('/');
+        }
     }
 }
