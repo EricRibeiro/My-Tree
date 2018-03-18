@@ -93,7 +93,8 @@
             <div class="wrap-input100 validate-input" data-validate="Celular é obrigatório">
                 <span class="label-input100">Celular:</span>
                 <input class="input100" data-mask="(00) 00000-0000" type="tel" name="celular"
-                       placeholder="Insira o número do seu celular com DDD">
+                       placeholder="Insira o número do seu celular com DDD" pattern=".{15}"
+                       title="Insira um número de celular válido">
                 <span class="focus-input100"></span>
             </div>
 
