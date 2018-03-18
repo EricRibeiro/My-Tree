@@ -14,11 +14,15 @@ This will install the project dependencies and get you ready to code.
 Current available pages are:
 
     localhost:8080/application
-    localhost:8080/application/cadastro-pessoa
-    localhost:8080/pessoa
+    localhost:8080/application/login
+    localhost:8080/pessoa/cadastro-pessoa
     localhost:8080/pessoa/dashboard
     localhost:8080/pessoa/perfil
     localhost:8080/pessoa/mapa
+    localhost:8080/investidor/cadastro-investidor
+    localhost:8080/investidor/dashboard
+    localhost:8080/investidor/perfil
+    localhost:8080/investidor/mapa
 
 
 ### Modules
