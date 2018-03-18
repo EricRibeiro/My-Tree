@@ -45,19 +45,19 @@
 
             <ul class="nav">
                 <li class="dashboard aba">
-                    <a href="#">
+                    <a href="<?= $this->url('investidor', array('controller' => 'dashboard', 'action' => 'index')); ?>">
                         <i class="ti-panel"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
                 <li class="perfil aba">
-                    <a href="#">
+                    <a href="<?= $this->url('investidor', array('controller' => 'perfil', 'action' => 'index')); ?>">
                         <i class="ti-user"></i>
                         <p>Perfil do Usuário</p>
                     </a>
                 </li>
                 <li class="mapa aba">
-                    <a href="#">
+                    <a href="<?= $this->url('investidor', array('controller' => 'mapa', 'action' => 'index')); ?>">
                         <i class="ti-map"></i>
                         <p>Mapa</p>
                     </a>

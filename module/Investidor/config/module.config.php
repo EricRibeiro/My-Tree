@@ -2,7 +2,7 @@
 return array(
     'router' => array(
         'routes' => array(
-            'pessoa' => array(
+            'investidor' => array(
                 'type' => 'Segment',
                 'options' => array(
                     'route' => '/investidor[/:controller[/:action[/:id]]]',

@@ -36,6 +36,7 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
+            'Pessoa\Controller\Cadastro-Pessoa' => 'Pessoa\Controller\CadastroPessoaController',
             'Pessoa\Controller\Dashboard' => 'Pessoa\Controller\DashboardController',
             'Pessoa\Controller\Perfil' => 'Pessoa\Controller\PerfilController',
             'Pessoa\Controller\Mapa' => 'Pessoa\Controller\MapaController'
@@ -48,5 +49,19 @@ return array(
     ),
     'moduleLayouts' => array(
         'Pessoa' => 'layout/layout-pessoa'
-    )
+    ),
+    'doctrine' => array(
+        'driver' => array(
+            'pessoa_entities' => array(
+                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                'cache' => 'array',
+                'paths' => array(__DIR__ . '/../src/Pessoa/Entity')
+            ),
+            'orm_default' => array(
+                'drivers' => array(
+                    'Pessoa\Entity' => 'pessoa_entities'
+                ),
+            ),
+        ),
+    ),
 );
