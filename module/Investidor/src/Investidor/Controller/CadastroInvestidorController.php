@@ -13,43 +13,31 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Investidor\Entity\Investidor;
 
-
 class CadastroInvestidorController extends AbstractActionController
 {
     public function indexAction()
     {
-
         $viewModel = new ViewModel();
         $viewModel->setTerminal(true);
-       
         return $viewModel;
     }
 
+    public function cadastrarAction()
+    {
+        if ($this->request->isPost()) {
+            $nome = $this->request->getPost('nome');
+            $email = $this->request->getPost('email');
+            $senha = $this->request->getPost('senha');
+            $telefone = $this->request->getPost('celular');
+            $ramo = $this->request->getPost('ramo');
 
-    public function cadastrarAction(){
-    	if($this->request->isPost()){
-                
-                $nome=$this->request->getPost('nome');
-                $email=$this->request->getPost('email');
-                $senha=$this->request->getPost('senha');
-                $telefone=$this->request->getPost('celular');
-                $ramo=$this->request->getPost('ramo');
+            $investidor = new Investidor($nome, $email, $senha, $telefone, $ramo);
 
-                $investidor= new Investidor($nome,$email,$senha,$telefone,$ramo);
-                
-                $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-                $entityManager->persist($investidor);
-                $entityManager->flush();
-            
-                return $this->redirect()->toUrl('/investidor/dashboard');
+            $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+            $entityManager->persist($investidor);
+            $entityManager->flush();
 
-            }
-    	
-
-
+            return $this->redirect()->toUrl('/application/login');
+        }
     }
-
-
-
-
 }

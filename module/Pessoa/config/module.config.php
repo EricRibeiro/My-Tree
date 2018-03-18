@@ -38,8 +38,8 @@ return array(
         'invokables' => array(
             'Pessoa\Controller\Cadastro-Pessoa' => 'Pessoa\Controller\CadastroPessoaController',
             'Pessoa\Controller\Dashboard' => 'Pessoa\Controller\DashboardController',
-            'Pessoa\Controller\Perfil' => 'Pessoa\Controller\PerfilController',
-            'Pessoa\Controller\Mapa' => 'Pessoa\Controller\MapaController'
+            'Pessoa\Controller\Mapa' => 'Pessoa\Controller\MapaController',
+            'Pessoa\Controller\Perfil' => 'Pessoa\Controller\PerfilController'
         ),
     ),
     'view_manager' => array(

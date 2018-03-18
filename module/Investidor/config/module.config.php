@@ -36,11 +36,10 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-        'Investidor\Controller\Dashboard' => 'Investidor\Controller\DashboardController',
-            'Investidor\Controller\Perfil' => 'Investidor\Controller\PerfilController',
+            'Investidor\Controller\Cadastro-Investidor' => 'Investidor\Controller\CadastroInvestidorController',
+            'Investidor\Controller\Dashboard' => 'Investidor\Controller\DashboardController',
             'Investidor\Controller\Mapa' => 'Investidor\Controller\MapaController',
-           'Application\Controller\cadastro-investidor' => 'Investidor\Controller\CadastroInvestidorController',
-
+            'Investidor\Controller\Perfil' => 'Investidor\Controller\PerfilController'
         ),
     ),
     'view_manager' => array(
@@ -53,20 +52,19 @@ return array(
     ),
 
     'doctrine' => array(
-          'driver' => array(
-            'application_entities' => array(
-              'class' =>'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
-              'cache' => 'array',
-              'paths' => array(__DIR__ . '/../src/Investidor/Entity')
+        'driver' => array(
+            'investidor_entities' => array(
+                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                'cache' => 'array',
+                'paths' => array(__DIR__ . '/../src/Investidor/Entity')
             ),
-
             'orm_default' => array(
                 'drivers' => array(
-                    'Investidor\Entity' => 'application_entities'
+                    'Investidor\Entity' => 'investidor_entities'
                 ),
             ),
         ),
-      ),
+    ),
 
 
 );
