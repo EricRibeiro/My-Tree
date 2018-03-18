@@ -60,7 +60,7 @@ return array(
         'template_map' => array(
             'error/404' => __DIR__ . '/../view/error/404.phtml',
             'error/index' => __DIR__ . '/../view/error/index.phtml',
-            
+
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view/',
@@ -68,7 +68,29 @@ return array(
     ),
     'moduleLayouts' => array(
         'Application' => 'layout/layout-application',
-        
+
+    ),
+    'doctrine' => array(
+        'driver' => array(
+            'application_entities' => array(
+                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                'cache' => 'array',
+                'paths' => array(__DIR__ . '/../src/Application/Entity')
+            ),
+            'orm_default' => array(
+                'drivers' => array(
+                    'Application\Entity' => 'application_entities'
+                ),
+            ),
+        ),
+        'authentication' => array(
+            'orm_default' => array(
+                'object_manager' => 'Doctrine\ORM\EntityManager',
+                'identity_property' => 'email',
+                'credential_property' => 'senha',
+                'identityClass' => 'Application\Entity\Usuario'
+            )
+        ),
     ),
     // Placeholder for console routes
     'console' => array(

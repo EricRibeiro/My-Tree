@@ -14,6 +14,9 @@ use Zend\View\Model\ViewModel;
 class DashboardController extends AbstractActionController
 {
     public function indexAction() {
-        return new ViewModel();
+        if ($user = $this->identity()) {
+            return new ViewModel();
+        }
+        return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
     }
 }

@@ -62,6 +62,6 @@ return array(
                     'Pessoa\Entity' => 'pessoa_entities'
                 ),
             ),
-        ),
+        )
     ),
 );
