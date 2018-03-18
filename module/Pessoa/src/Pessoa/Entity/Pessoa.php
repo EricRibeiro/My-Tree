@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Entity;
+namespace Pessoa\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 

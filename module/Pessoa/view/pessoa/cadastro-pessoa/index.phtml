@@ -11,7 +11,7 @@
     ?>
 
     <?php
-    $url = $this->url('application', ['controller' => 'Cadastro-Pessoa', 'action' => 'cadastrar']);
+    $url = $this->url('pessoa', ['controller' => 'cadastro-pessoa', 'action' => 'cadastrar']);
     ?>
 
     <!-- Le styles -->
@@ -69,10 +69,12 @@
 				</span>
         </div>
 
-        <form class="contact100-form validate-form" action="<?= $url; ?>" method="post" data-toggle="validator" role="form">
+        <form class="contact100-form validate-form" action="<?= $url; ?>" method="post" data-toggle="validator"
+              role="form">
             <div class="wrap-input100 validate-input" data-validate="Nome é obrigatório">
                 <span class="label-input100">Nome:</span>
-                <input class="input100" type="text" name="nome" placeholder="Insira o seu nome completo" pattern="[a-zA-Z]*">
+                <input class="input100" type="text" name="nome" placeholder="Insira o seu nome completo"
+                       pattern="[a-zA-Z]*">
                 <span class="focus-input100"></span>
             </div>
 
@@ -90,7 +92,8 @@
 
             <div class="wrap-input100 validate-input" data-validate="Celular é obrigatório">
                 <span class="label-input100">Celular:</span>
-                <input class="input100" data-mask="(00) 00000-0000" type="tel" name="celular" placeholder="Insira o número do seu celular com DDD">
+                <input class="input100" data-mask="(00) 00000-0000" type="tel" name="celular"
+                       placeholder="Insira o número do seu celular com DDD">
                 <span class="focus-input100"></span>
             </div>
 

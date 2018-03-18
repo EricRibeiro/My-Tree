@@ -48,12 +48,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
-            'Application\Controller\Cadastro-Pessoa' => 'Application\Controller\CadastroPessoaController',
-            
             'Application\Controller\Login' => 'Application\Controller\LoginController',
-            
-           
-            
         )
     ),
     'view_manager' => array(

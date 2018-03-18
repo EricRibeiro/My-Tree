@@ -7,11 +7,11 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Application\Controller;
+namespace Pessoa\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Application\Entity\Pessoa;
+use Pessoa\Entity\Pessoa;
 
 class CadastroPessoaController extends AbstractActionController
 {
@@ -36,7 +36,7 @@ class CadastroPessoaController extends AbstractActionController
             $entityManager->persist($pessoa);
             $entityManager->flush();
 
-            return $this->redirect()->toUrl('/');
+            return $this->redirect()->toUrl('/application/login');
         }
     }
 }
