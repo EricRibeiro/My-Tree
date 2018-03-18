@@ -7,25 +7,26 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Application\Controller;
+namespace Investidor\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Application\Entity\Investidor;
+use Investidor\Entity\Investidor;
 
 
 class CadastroInvestidorController extends AbstractActionController
 {
     public function indexAction()
     {
+
         $viewModel = new ViewModel();
         $viewModel->setTerminal(true);
+       
         return $viewModel;
     }
 
 
     public function cadastrarAction(){
-
     	if($this->request->isPost()){
                 
                 $nome=$this->request->getPost('nome');
@@ -39,8 +40,8 @@ class CadastroInvestidorController extends AbstractActionController
                 $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
                 $entityManager->persist($investidor);
                 $entityManager->flush();
-              
-                return $this->redirect()->toUrl('/');
+            
+                return $this->redirect()->toUrl('/investidor/dashboard');
 
             }
     	

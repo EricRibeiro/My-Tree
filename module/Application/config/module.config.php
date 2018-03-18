@@ -48,7 +48,6 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
-            'Application\Controller\Cadastro-Investidor' => 'Application\Controller\CadastroInvestidorController',
             'Application\Controller\Login' => 'Application\Controller\LoginController',
         )
     ),
@@ -61,13 +60,15 @@ return array(
         'template_map' => array(
             'error/404' => __DIR__ . '/../view/error/404.phtml',
             'error/index' => __DIR__ . '/../view/error/index.phtml',
+            
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view/',
         )
     ),
     'moduleLayouts' => array(
-        'Application' => 'layout/layout-application'
+        'Application' => 'layout/layout-application',
+        
     ),
     'doctrine' => array(
         'driver' => array(
