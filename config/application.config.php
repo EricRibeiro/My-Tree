@@ -13,6 +13,7 @@ return array(
         'Application',
         'Pessoa',
         'Investidor',
+        'Concedente',
     ),
     'module_listener_options' => array(
         'module_paths' => array(
