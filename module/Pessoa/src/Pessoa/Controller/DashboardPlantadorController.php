@@ -11,7 +11,7 @@ namespace Pessoa\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class PerfilController extends AbstractActionController
+class DashboardPlantadorController extends AbstractActionController
 {
     public function indexAction() {
         if ($user = $this->identity()) {

@@ -13,7 +13,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Pessoa\Entity\Pessoa;
 
-class CadastroPessoaController extends AbstractActionController
+class PessoaController extends AbstractActionController
 {
     public function indexAction()
     {

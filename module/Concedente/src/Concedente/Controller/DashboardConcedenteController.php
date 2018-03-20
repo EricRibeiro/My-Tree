@@ -11,7 +11,7 @@ namespace Concedente\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class PerfilController extends AbstractActionController
+class DashboardConcedenteController extends AbstractActionController
 {
     public function indexAction() {
         if ($user = $this->identity()) {

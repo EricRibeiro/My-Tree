@@ -6,12 +6,12 @@
  * Time: 8:42 PM
  */
 
-namespace Investidor\Controller;
+namespace Concedente\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class DashboardController extends AbstractActionController
+class PerfilConcedenteController extends AbstractActionController
 {
     public function indexAction() {
         if ($user = $this->identity()) {

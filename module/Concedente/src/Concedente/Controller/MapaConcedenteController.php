@@ -6,12 +6,12 @@
  * Time: 11:29 PM
  */
 
-namespace Pessoa\Controller;
+namespace Concedente\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class MapaController extends AbstractActionController
+class MapaConcedenteController extends AbstractActionController
 {
     public function indexAction() {
         if ($user = $this->identity()) {

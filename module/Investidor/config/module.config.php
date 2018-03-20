@@ -36,10 +36,10 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Investidor\Controller\Cadastro-Investidor' => 'Investidor\Controller\CadastroInvestidorController',
-            'Investidor\Controller\Dashboard' => 'Investidor\Controller\DashboardController',
-            'Investidor\Controller\Mapa' => 'Investidor\Controller\MapaController',
-            'Investidor\Controller\Perfil' => 'Investidor\Controller\PerfilController'
+            'Investidor\Controller\Cadastro' => 'Investidor\Controller\InvestidorController',
+            'Investidor\Controller\Dashboard' => 'Investidor\Controller\DashboardInvestidorController',
+            'Investidor\Controller\Mapa' => 'Investidor\Controller\MapaInvestidorController',
+            'Investidor\Controller\Perfil' => 'Investidor\Controller\PerfilInvestidorController'
         ),
     ),
     'view_manager' => array(

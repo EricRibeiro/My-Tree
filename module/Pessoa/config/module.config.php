@@ -36,10 +36,10 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Pessoa\Controller\Cadastro-Pessoa' => 'Pessoa\Controller\CadastroPessoaController',
-            'Pessoa\Controller\Dashboard' => 'Pessoa\Controller\DashboardController',
-            'Pessoa\Controller\Mapa' => 'Pessoa\Controller\MapaController',
-            'Pessoa\Controller\Perfil' => 'Pessoa\Controller\PerfilController'
+            'Pessoa\Controller\Cadastro' => 'Pessoa\Controller\PessoaController',
+            'Pessoa\Controller\Dashboard' => 'Pessoa\Controller\DashboardPlantadorController',
+            'Pessoa\Controller\Mapa' => 'Pessoa\Controller\MapaPlantadorController',
+            'Pessoa\Controller\Perfil' => 'Pessoa\Controller\PerfilPlantadorController'
         ),
     ),
     'view_manager' => array(

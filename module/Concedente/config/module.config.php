@@ -36,10 +36,10 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Concedente\Controller\Cadastro-Concedente' => 'Concedente\Controller\ConcedenteController',
-            'Concedente\Controller\Dashboard' => 'Concedente\Controller\DashboardController',
-            'Concedente\Controller\Mapa' => 'Concedente\Controller\MapaController',
-            'Concedente\Controller\Perfil' => 'Concedente\Controller\PerfilController'
+            'Concedente\Controller\Cadastro' => 'Concedente\Controller\ConcedenteController',
+            'Concedente\Controller\Dashboard' => 'Concedente\Controller\DashboardConcedenteController',
+            'Concedente\Controller\Mapa' => 'Concedente\Controller\MapaConcedenteController',
+            'Concedente\Controller\Perfil' => 'Concedente\Controller\PerfilConcedenteController'
         ),
     ),
     'view_manager' => array(

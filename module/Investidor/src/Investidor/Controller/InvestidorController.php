@@ -13,7 +13,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Investidor\Entity\Investidor;
 
-class CadastroInvestidorController extends AbstractActionController
+class InvestidorController extends AbstractActionController
 {
     public function indexAction()
     {
