@@ -36,7 +36,7 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Concedente\Controller\Cadastro-Concedente' => 'Concedente\Controller\CadastroConcedenteController',
+            'Concedente\Controller\Cadastro-Concedente' => 'Concedente\Controller\ConcedenteController',
             'Concedente\Controller\Dashboard' => 'Concedente\Controller\DashboardController',
             'Concedente\Controller\Mapa' => 'Concedente\Controller\MapaController',
             'Concedente\Controller\Perfil' => 'Concedente\Controller\PerfilController'

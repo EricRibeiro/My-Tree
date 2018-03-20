@@ -13,7 +13,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Concedente\Entity\Concedente;
 
-class CadastroConcedenteController extends AbstractActionController
+class ConcedenteController extends AbstractActionController
 {
     public function indexAction()
     {
