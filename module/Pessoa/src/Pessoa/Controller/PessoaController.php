@@ -20,6 +20,7 @@ class PessoaController extends AbstractActionController
         $viewModel = new ViewModel();
         $viewModel->setTerminal(true);
         return $viewModel;
+
     }
 
     public function cadastrarAction()
@@ -37,39 +38,7 @@ class PessoaController extends AbstractActionController
             $entityManager->flush();
 
             return $this->redirect()->toUrl('/application/login');
+
         }
     }
-
-
-    public function editarAction(){
-
-        $id=$this->params()->fromRoute('id');
-
-            if(is_null($id)){
-                $id=$this->request->getPost('id');
-            }
-
-            $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-            $repositorio= $entityManager->getRepository("Pessoa\Entity\Pessoa");
-            $pessoa=$repositorio->find($id);
-
-
-            if($this->request->isPost()){
-                $pessoa->setNome($this->request->getPost('nome'));
-                $pessoa->setTelefone($this->request->getPost('celular'));
-                $pessoa->setEmail($this->request->getPost('email'));
-                 $pessoa->setSenha($this->request->getPost('senha'));
-
-                $entityManager->persist($pessoa);
-                $entityManager->flush();
-            }
-
-            return new ViewModel(['pessoa'=>$pessoa]);
-
-    }
-
-
-
-
-
 }

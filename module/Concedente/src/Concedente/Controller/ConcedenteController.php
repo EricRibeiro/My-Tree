@@ -20,6 +20,7 @@ class ConcedenteController extends AbstractActionController
         $viewModel = new ViewModel();
         $viewModel->setTerminal(true);
         return $viewModel;
+
     }
 
     public function cadastrarAction()
@@ -37,38 +38,7 @@ class ConcedenteController extends AbstractActionController
             $entityManager->flush();
 
             return $this->redirect()->toUrl('/application/login');
+
         }
     }
-
-    public function editarAction(){
-
-        $id=$this->params()->fromRoute('id');
-
-            if(is_null($id)){
-                $id=$this->request->getPost('id');
-            }
-
-            $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-            $repositorio= $entityManager->getRepository("Concedente\Entity\Concedente");
-            $concedente=$repositorio->find($id);
-
-
-            if($this->request->isPost()){
-                $concedente->setNome($this->request->getPost('nome'));
-                $concedente->setTelefone($this->request->getPost('telefone'));
-                $concedente->setSenha($this->request->getPost('descricao'));
-                $concedente->setEmail($this->request->getPost('email'));
-                $entityManager->persist($concedente);
-                $entityManager->flush();
-                
-            }
-            return new ViewModel();
-
-
-    }
-
-
-
-
-
 }

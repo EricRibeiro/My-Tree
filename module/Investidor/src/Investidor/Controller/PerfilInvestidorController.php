@@ -14,55 +14,42 @@ use Investidor\Entity\Investidor;
 
 class PerfilInvestidorController extends AbstractActionController
 {
-    public function indexAction() {
+    public function indexAction()
+    {
         if ($user = $this->identity()) {
-            
-        	 	$view_params=array(
-				'investidor'=>$user,
-			);
-
+            $view_params = array(
+                'investidor' => $user,
+            );
             return new ViewModel($view_params);
 
         }
         return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
+
     }
 
-     public function editarAction()
-     {
-
+    public function editarAction()
+    {
         if ($user = $this->identity()) {
+            if ($this->request->isPost()) {
 
-            if($this->request->isPost())
-            {
-
-                $id=$this->request->getPost('id');
+                $id = $this->request->getPost('id');
                 $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
                 $repositorio = $entityManager->getRepository("Investidor\Entity\Investidor");
-                $investidor=$repositorio->find($id);
+                $investidor = $repositorio->find($id);
 
                 $investidor->setNome($this->request->getPost('nome'));
                 $investidor->setTelefone($this->request->getPost('telefone'));
                 $investidor->setRamo($this->request->getPost('ramo'));
                 $investidor->setEmail($this->request->getPost('email'));
                 $investidor->setSenha($this->request->getPost('senha'));
+
                 $entityManager->persist($investidor);
                 $entityManager->flush();
-                return $this->redirect()->toRoute('investidor', ['controller' => 'perfil', 'action' => 'index']);
-            }else 
-            {
-                return $this->redirect()->toRoute('investidor', ['controller' => 'perfil', 'action' => 'index']);
-            }                    	       
-        }
-        else 
-        {
+            }
+            return $this->redirect()->toRoute('investidor', ['controller' => 'perfil', 'action' => 'index']);
+
+        } else
             return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
-        }
-        
-        return new ViewModel();
+
     }
-
-
-
-
-
 }
