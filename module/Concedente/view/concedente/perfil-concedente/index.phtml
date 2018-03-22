@@ -1,3 +1,10 @@
+
+<?php    
+    $url = $this->url('concedente', ['controller' => 'perfil', 'action' => 'editar']);
+
+?>
+
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-4 col-md-5">
@@ -117,7 +124,9 @@
                     <h4 class="title">Edit Profile</h4>
                 </div>
                 <div class="content">
-                    <form>
+                    <form method="" action="<?= $url;?>">
+                        <input type="hidden" value="<?= $concedente->getId(); ?>" name="id">
+
                         <div class="row">
                             <div class="col-md-5">
                                 <div class="form-group">
@@ -128,15 +137,14 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label>Username</label>
-                                    <input type="text" class="form-control border-input" placeholder="Username"
-                                           value="michael23">
+                                    <label>Nome</label>
+                                    <input type="text" class="form-control border-input" placeholder="Username" value="<?= $concedente->getNome();?>" >
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" class="form-control border-input" placeholder="Email">
+                                    <input type="email" class="form-control border-input" placeholder="Email" name="email" value="<?= $concedente->getEmail(); ?>">
                                 </div>
                             </div>
                         </div>
@@ -144,16 +152,16 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>First Name</label>
-                                    <input type="text" class="form-control border-input" placeholder="Company"
-                                           value="Chet">
+                                    <label>Celular</label>
+                                    <input type="text" class="form-control border-input" placeholder="Celular" name="celular"
+                                           value="<?= $concedente->getTelefone(); ?>">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Last Name</label>
-                                    <input type="text" class="form-control border-input" placeholder="Last Name"
-                                           value="Faker">
+                                    <label>Senha</label>
+                                    <input type="password" class="form-control border-input" placeholder="senha" name="senha"
+                                           value= "<?= $concedente->getSenha();?>">
                                 </div>
                             </div>
                         </div>
