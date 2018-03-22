@@ -1,3 +1,8 @@
+
+<?php
+    $url=$this->url("investidor", ['controller' => 'perfil', 'action' => 'editar']);
+?>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-4 col-md-5">
@@ -117,7 +122,8 @@
                     <h4 class="title">Edit Profile</h4>
                 </div>
                 <div class="content">
-                    <form>
+                    <form method="post" action="<?= $url ?>">
+                         <input type="hidden" value="<?= $investidor->getId(); ?>" name="id">
                         <div class="row">
                             <div class="col-md-5">
                                 <div class="form-group">
@@ -128,15 +134,15 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label>Username</label>
-                                    <input type="text" class="form-control border-input" placeholder="Username"
-                                           value="michael23">
+                                    <label>Nome:</label>
+                                    <input type="text" class="form-control border-input" placeholder="Nome" name="nome"
+                                           value="<?= $investidor->getNome(); ?>">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" class="form-control border-input" placeholder="Email">
+                                    <input type="email" name="email" class="form-control border-input" value="<?= $investidor->getEmail(); ?>" placeholder="Email">
                                 </div>
                             </div>
                         </div>
@@ -144,16 +150,16 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>First Name</label>
-                                    <input type="text" class="form-control border-input" placeholder="Company"
-                                           value="Chet">
+                                    <label>Senha</label>
+                                    <input type="password" class="form-control border-input" placeholder="Senha" name="senha"
+                                           value="<?= $investidor->getSenha(); ?>">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Last Name</label>
-                                    <input type="text" class="form-control border-input" placeholder="Last Name"
-                                           value="Faker">
+                                    <label>Ramo</label>
+                                    <input type="text" class="form-control border-input" placeholder="Ramo" name="ramo" 
+                                           value="<?= $investidor->getRamo(); ?>">
                                 </div>
                             </div>
                         </div>

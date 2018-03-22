@@ -6,6 +6,10 @@ function mudarInfoAbaAtiva() {
     var nomeDoCaminho = window.location.pathname;
     nomeDoCaminho = nomeDoCaminho.substring(nomeDoCaminho.lastIndexOf('/') + 1);
 
+    if(nomeDoCaminho === "investidor" || nomeDoCaminho === "pessoa" || nomeDoCaminho === "concedente" ||
+        nomeDoCaminho === "plantador")
+        nomeDoCaminho = "dashboard";
+
     var $abas = $('.aba');
     $abas.removeClass('active');
 

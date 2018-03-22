@@ -35,6 +35,11 @@ class Usuario
         $this->email = $email;
         $this->senha = $senha;
     }
+    
+    public function getId()
+    {
+        return $this->id;
+    }
 
     public function getEmail()
     {

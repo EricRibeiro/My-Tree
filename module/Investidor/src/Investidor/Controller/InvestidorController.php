@@ -20,6 +20,7 @@ class InvestidorController extends AbstractActionController
         $viewModel = new ViewModel();
         $viewModel->setTerminal(true);
         return $viewModel;
+
     }
 
     public function cadastrarAction()
@@ -38,6 +39,7 @@ class InvestidorController extends AbstractActionController
             $entityManager->flush();
 
             return $this->redirect()->toUrl('/application/login');
+
         }
     }
 }
