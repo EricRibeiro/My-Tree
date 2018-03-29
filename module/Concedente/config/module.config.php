@@ -39,7 +39,9 @@ return array(
             'Concedente\Controller\Cadastro' => 'Concedente\Controller\ConcedenteController',
             'Concedente\Controller\Dashboard' => 'Concedente\Controller\DashboardConcedenteController',
             'Concedente\Controller\Mapa' => 'Concedente\Controller\MapaConcedenteController',
-            'Concedente\Controller\Perfil' => 'Concedente\Controller\PerfilConcedenteController'
+            'Concedente\Controller\Perfil' => 'Concedente\Controller\PerfilConcedenteController',
+            'Concedente\Controller\Local' => 'Concedente\Controller\LocalConcedenteController'
+
         ),
     ),
     'view_manager' => array(

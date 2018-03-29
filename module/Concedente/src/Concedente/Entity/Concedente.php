@@ -4,6 +4,9 @@ namespace Concedente\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Application\Entity\Usuario;
+use Concedente\Entity\Local;
+
+
 
 
 /**
@@ -20,6 +23,11 @@ class Concedente extends Usuario
      * @ORM\Column(type="string")
      */
     private $telefone;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Concedente\Entity\Local", mappedBy="concedente")
+     */
+    private $local;
 
     public function __construct($nome, $email, $senha, $telefone)
     {

@@ -37,7 +37,8 @@ class PessoaController extends AbstractActionController
             $entityManager->persist($pessoa);
             $entityManager->flush();
 
-            return $this->redirect()->toUrl('/application/login');
+            return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
+
 
         }
     }
