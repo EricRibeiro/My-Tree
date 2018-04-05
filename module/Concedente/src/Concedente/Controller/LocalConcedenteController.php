@@ -5,6 +5,7 @@ namespace Concedente\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Concedente\Entity\Local;
 
 class LocalConcedenteController extends AbstractActionController
 {
@@ -19,6 +20,60 @@ class LocalConcedenteController extends AbstractActionController
         }
         return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
 
+    }
+
+    public function cadastrarAction()
+    {
+        $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+
+        $repositorio = $entityManager->getRepository('Concedente\Entity\Local');
+       
+        if ($this->request->isPost()) {
+            $logradouro = $this->request->getPost('logradouro');
+            $bairro = $this->request->getPost('bairro');
+            $municipio = $this->request->getPost('municipio');
+            $uf = $this->request->getPost('uf');
+            $cep = $this->request->getPost('cep');
+            $numero = "1";
+            $complemento = "complemento";
+            $latitude = "";
+            $longitude = "";
+            $concedente = null;
+
+            //$query = $repositorio->createQueryBuilder('o')->where('o.numero = :numeroAnimal')->setParameter('numeroAnimal', $numeroAnimal)->getQuery();
+            //$animal = $query->getSingleResult();
+
+            $local = new Local($uf, $municipio, $cep, $bairro, $logradouro, $numero, $complemento, $latitude, $longitude);
+
+                        //var_dump($local->getCep()); exit;
+
+            $entityManager->persist($local);
+            $entityManager->flush();
+        }
+
+        return $this->redirect()->toRoute('concedente', array(
+            'controller' => 'local',
+            'action' => 'index',
+        ));
+    }
+
+    public function removerAction()
+    {
+        $id = $this->params()->fromRoute('id');
+
+        if (!is_null($id)) {
+            $entityManager = $this->sm->get('Doctrine\ORM\EntityManager');
+            $repositorio = $entityManager->getRepository("Concedente\Entity\Local");
+
+            $local = $repositorio->find($id);
+            $entityManager->remove($local);
+            $entityManager->flush();
+        }
+
+        return $this->redirect()->toRoute('concedente', array(
+            'controller' => 'index',
+            'action' => 'index',
+        ));
     }
 
     public function editarAction()

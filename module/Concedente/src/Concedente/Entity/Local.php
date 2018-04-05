@@ -56,12 +56,12 @@ class Local
     private $longitude;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Concedente\Entity\Concedente")
+     * @ORM\ManyToOne(targetEntity="Concedente\Entity\Concedente", inversedBy="local")
      * @ORM\JoinColumn(name="concedente_id", referencedColumnName="id")
      */
     private $concedente;
 
-    public function __construct($uf, $municipio, $bairro, $logradouro, $numero, $complemento, $latitude, $longitude)
+    public function __construct($uf, $municipio, $cep, $bairro, $logradouro, $numero, $complemento, $latitude, $longitude)
     {
         $this->uf = $uf;
         $this->municipio = $municipio;
@@ -71,7 +71,8 @@ class Local
         $this->complemento = $complemento;
         $this->latitude = $latitude;
         $this->longitude = $longitude;
-
+        $this->cep = $cep;
+        $this->concedente = null;
 
     }
 
@@ -103,6 +104,11 @@ class Local
     public function getComplemento()
     {
         return $this->complemento;
+    }
+
+    public function getCep()
+    {
+        return $this->cep;
     }
 
     public function getLatitude()
@@ -148,6 +154,11 @@ class Local
     public function setLatitude($latitude)
     {
         $this->latitude = $latitude;
+    }
+
+    public function setCep($cep)
+    {
+        $this->cep = $cep;
     }
 
     public function setLongitude($longitude)
