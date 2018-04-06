@@ -49,11 +49,16 @@ class LoginController extends AbstractActionController
             $authResult = $authService->authenticate();
 
             if ($authResult->isValid()) {
-                return $this->redirect()->toRoute($route);
+                $identity = get_class($authResult->getIdentity());
+                $class = substr($identity, strrpos($identity,"\\") +  1);
+
+                if($class == $usuario)
+                    return $this->redirect()->toRoute($route);
+                else {
+                    //RETORNAR MENSAGEM AQUI
+                    return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
+                }
             }
-
-            return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
-
         }
 
         return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
