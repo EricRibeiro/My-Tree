@@ -34,11 +34,15 @@ class PlantadorController extends AbstractActionController
             $plantador = new Plantador($nome, $email, $senha, $telefone);
 
             $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-            $entityManager->persist($plantador);
-            $entityManager->flush();
 
+            try {
+                $entityManager->persist($plantador);
+                $entityManager->flush();
+            } catch (DBALException $e) {
+                $this->flashMessenger()->addErrorMessage("O email informado já existe no sistema.");
+                return $this->redirect()->toRoute('plantador', ['controller' => 'cadastro', 'action' => 'index']);
+            }
             return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
-
 
         }
     }

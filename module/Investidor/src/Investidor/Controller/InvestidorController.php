@@ -9,6 +9,7 @@
 
 namespace Investidor\Controller;
 
+use Doctrine\DBAL\DBALException;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Investidor\Entity\Investidor;
@@ -35,9 +36,14 @@ class InvestidorController extends AbstractActionController
             $investidor = new Investidor($nome, $email, $senha, $telefone, $ramo);
 
             $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-            $entityManager->persist($investidor);
-            $entityManager->flush();
 
+            try {
+                $entityManager->persist($investidor);
+                $entityManager->flush();
+            } catch (DBALException $e) {
+                $this->flashMessenger()->addErrorMessage("O email informado já existe no sistema.");
+                return $this->redirect()->toRoute('investidor', ['controller' => 'cadastro', 'action' => 'index']);
+            }
             return $this->redirect()->toUrl('/application/login');
 
         }

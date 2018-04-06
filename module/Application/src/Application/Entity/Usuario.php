@@ -3,6 +3,7 @@
 namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 
 /**
@@ -10,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="tipo_usuario", type="string")
  * @ORM\DiscriminatorMap({"plantador" = "Plantador\Entity\Plantador", "investidor" = "Investidor\Entity\Investidor", "concedente" = "Concedente\Entity\Concedente"})
+ * @ORM\Table(uniqueConstraints={@UniqueConstraint(name="usuario_email_UK", columns={"email"})})
  */
 class Usuario
 {
