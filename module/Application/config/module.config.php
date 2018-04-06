@@ -80,7 +80,6 @@ return array(
     ),
     'moduleLayouts' => array(
         'Application' => 'layout/layout-application',
-
     ),
     'doctrine' => array(
         'driver' => array(

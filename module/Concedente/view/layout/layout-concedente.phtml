@@ -12,19 +12,18 @@
 
     <!-- Le styles -->
     <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
-        ->prependStylesheet($this->basePath() . '/css/pessoa/style.css')
-        ->prependStylesheet($this->basePath() . '/css/paper-dashboard/themify-icons.css')
         ->prependStylesheet('https://fonts.googleapis.com/css?family=Muli:400,300')
-        ->prependStylesheet($this->basePath() . '/css/font-awesome.min.css')
+        ->prependStylesheet($this->basePath() . '/css/paper-dashboard/themify-icons.css')
         ->prependStylesheet($this->basePath() . '/css/paper-dashboard/paper-dashboard.css')
-        ->prependStylesheet($this->basePath() . '/css/animate.min.css')
-        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
+        ->prependStylesheet($this->basePath() . '/css/vendor/font-awesome.min.css')
+        ->prependStylesheet($this->basePath() . '/css/vendor/animate.min.css')
+        ->prependStylesheet($this->basePath() . '/css/vendor/bootstrap.min.css') ?>
 
     <!-- Scripts -->
     <?php echo $this->headScript()
-        ->prependFile($this->basePath() . '/js/jquery.min.js')
-        ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
-        ->prependFile($this->basePath() . '/js/html5shiv.js', 'text/javascript', array('conditional' => 'lt IE 9',)); ?>
+        ->prependFile($this->basePath() . '/js/vendor/jquery.min.js')
+        ->prependFile($this->basePath() . '/js/vendor/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+        ->prependFile($this->basePath() . '/js/vendor/html5shiv.js', 'text/javascript', array('conditional' => 'lt IE 9',)); ?>
 
 </head>
 <body>
@@ -56,7 +55,7 @@
                         <p>Perfil do Concedente</p>
                     </a>
                 </li>
-                 <li class="local aba">
+                <li class="local aba">
                     <a href="<?= $this->url('concedente', array('controller' => 'local', 'action' => 'index')); ?>">
                         <i class="ti-user"></i>
                         <p>Gerenciar Local</p>
@@ -170,6 +169,6 @@
     ->prependFile($this->basePath() . '/js/paper-dashboard/bootstrap-notify.js')
     ->prependFile($this->basePath() . '/js/paper-dashboard/chartist.min.js')
     ->prependFile($this->basePath() . '/js/paper-dashboard/bootstrap-checkbox-radio.js')
-    ->prependFile($this->basePath() . '/js/bootstrap.min.js') ?>
+    ->prependFile($this->basePath() . '/js/vendor/bootstrap.min.js') ?>
 </body>
 </html>

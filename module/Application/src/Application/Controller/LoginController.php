@@ -34,7 +34,7 @@ class LoginController extends AbstractActionController
 
             switch ($usuario) {
                 case 'Plantador':
-                    $route = 'pessoa';
+                    $route = 'plantador';
                     break;
                 case 'Concedente':
                     $route = 'concedente';
@@ -50,20 +50,24 @@ class LoginController extends AbstractActionController
 
             if ($authResult->isValid()) {
                 $identity = get_class($authResult->getIdentity());
-                $class = substr($identity, strrpos($identity,"\\") +  1);
+                $class = substr($identity, strrpos($identity, "\\") + 1);
 
-                if($class == $usuario)
+                if ($class == $usuario)
                     return $this->redirect()->toRoute($route);
+
+                else
+                    $this->flashMessenger()->addErrorMessage("Email cadastrado em outro tipo de usuário.");
+
+            } else {
+                $this->flashMessenger()->addErrorMessage("Email ou senha incorretos.");
             }
-
-            $this->flashMessenger()->addErrorMessage("Email ou senha incorretos.");
-            return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
         }
-
         return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
+
     }
 
-    function logoutAction() {
+    function logoutAction()
+    {
         $authService = $this->getServiceLocator()->get('Zend\Authentication\AuthenticationService');
         $authService->clearIdentity();
         return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);

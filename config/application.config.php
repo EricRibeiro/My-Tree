@@ -11,7 +11,7 @@ return array(
         'DoctrineModule',
         'DoctrineORMModule',
         'Application',
-        'Pessoa',
+        'Plantador',
         'Investidor',
         'Concedente',
     ),

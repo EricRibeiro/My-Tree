@@ -9,10 +9,10 @@
 
 namespace Concedente\Controller;
 
+use Doctrine\DBAL\DBALException;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Concedente\Entity\Concedente;
-
 class ConcedenteController extends AbstractActionController
 {
     public function indexAction()
@@ -34,9 +34,14 @@ class ConcedenteController extends AbstractActionController
             $concedente = new Concedente($nome, $email, $senha, $telefone);
 
             $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-            $entityManager->persist($concedente);
-            $entityManager->flush();
 
+            try {
+                $entityManager->persist($concedente);
+                $entityManager->flush();
+            } catch (DBALException $e) {
+                $this->flashMessenger()->addErrorMessage("O email informado já existe no sistema.");
+                return $this->redirect()->toRoute('concedente', ['controller' => 'cadastro', 'action' => 'index']);
+            }
             return $this->redirect()->toUrl('/application/login');
 
         }

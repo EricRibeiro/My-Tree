@@ -6,7 +6,7 @@ function mudarInfoAbaAtiva() {
     var nomeDoCaminho = window.location.pathname;
     nomeDoCaminho = nomeDoCaminho.substring(nomeDoCaminho.lastIndexOf('/') + 1);
 
-    if(nomeDoCaminho === "investidor" || nomeDoCaminho === "pessoa" || nomeDoCaminho === "concedente" ||
+    if(nomeDoCaminho === "investidor" || nomeDoCaminho === "concedente" || nomeDoCaminho === "concedente" ||
         nomeDoCaminho === "plantador")
         nomeDoCaminho = "dashboard";
 

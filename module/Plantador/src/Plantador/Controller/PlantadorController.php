@@ -7,14 +7,13 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Investidor\Controller;
+namespace Plantador\Controller;
 
-use Doctrine\DBAL\DBALException;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Investidor\Entity\Investidor;
+use Plantador\Entity\Plantador;
 
-class InvestidorController extends AbstractActionController
+class PlantadorController extends AbstractActionController
 {
     public function indexAction()
     {
@@ -31,20 +30,19 @@ class InvestidorController extends AbstractActionController
             $email = $this->request->getPost('email');
             $senha = $this->request->getPost('senha');
             $telefone = $this->request->getPost('celular');
-            $ramo = $this->request->getPost('ramo');
 
-            $investidor = new Investidor($nome, $email, $senha, $telefone, $ramo);
+            $plantador = new Plantador($nome, $email, $senha, $telefone);
 
             $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 
             try {
-                $entityManager->persist($investidor);
+                $entityManager->persist($plantador);
                 $entityManager->flush();
             } catch (DBALException $e) {
                 $this->flashMessenger()->addErrorMessage("O email informado já existe no sistema.");
-                return $this->redirect()->toRoute('investidor', ['controller' => 'cadastro', 'action' => 'index']);
+                return $this->redirect()->toRoute('plantador', ['controller' => 'cadastro', 'action' => 'index']);
             }
-            return $this->redirect()->toUrl('/application/login');
+            return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
 
         }
     }
