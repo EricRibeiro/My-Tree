@@ -7,13 +7,13 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Pessoa\Controller;
+namespace Plantador\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Pessoa\Entity\Pessoa;
+use Plantador\Entity\Plantador;
 
-class PessoaController extends AbstractActionController
+class PlantadorController extends AbstractActionController
 {
     public function indexAction()
     {
@@ -31,10 +31,10 @@ class PessoaController extends AbstractActionController
             $senha = $this->request->getPost('senha');
             $telefone = $this->request->getPost('celular');
 
-            $pessoa = new Pessoa($nome, $email, $senha, $telefone);
+            $plantador = new Plantador($nome, $email, $senha, $telefone);
 
             $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-            $entityManager->persist($pessoa);
+            $entityManager->persist($plantador);
             $entityManager->flush();
 
             return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);

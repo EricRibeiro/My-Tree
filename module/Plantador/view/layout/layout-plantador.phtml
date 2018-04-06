@@ -12,7 +12,7 @@
 
     <!-- Le styles -->
     <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
-        ->prependStylesheet($this->basePath() . '/css/pessoa/style.css')
+        ->prependStylesheet($this->basePath() . '/css/plantador/style.css')
         ->prependStylesheet($this->basePath() . '/css/paper-dashboard/themify-icons.css')
         ->prependStylesheet('https://fonts.googleapis.com/css?family=Muli:400,300')
         ->prependStylesheet($this->basePath() . '/css/font-awesome.min.css')
@@ -45,19 +45,19 @@
 
             <ul class="nav">
                 <li class="dashboard aba">
-                    <a href="<?= $this->url('pessoa', array('controller' => 'dashboard', 'action' => 'index')); ?>">
+                    <a href="<?= $this->url('plantador', array('controller' => 'dashboard', 'action' => 'index')); ?>">
                         <i class="ti-panel"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
                 <li class="perfil aba">
-                    <a href="<?= $this->url('pessoa', array('controller' => 'perfil', 'action' => 'index')); ?>">
+                    <a href="<?= $this->url('plantador', array('controller' => 'perfil', 'action' => 'index')); ?>">
                         <i class="ti-user"></i>
                         <p>Perfil do Usuário</p>
                     </a>
                 </li>
                 <li class="mapa aba">
-                    <a href="<?= $this->url('pessoa', array('controller' => 'mapa', 'action' => 'index')); ?>">
+                    <a href="<?= $this->url('plantador', array('controller' => 'mapa', 'action' => 'index')); ?>">
                         <i class="ti-map"></i>
                         <p>Mapa</p>
                     </a>

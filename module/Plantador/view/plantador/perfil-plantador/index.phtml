@@ -1,7 +1,7 @@
 
 
 <?php
-    $url = $this->url('pessoa', ['controller' => 'perfil', 'action' => 'editar']);
+    $url = $this->url('plantador', ['controller' => 'perfil', 'action' => 'editar']);
 ?>
 
 
@@ -125,7 +125,7 @@
                 </div>
                 <div class="content">
                     <form method="post" action="<?= $url; ?>">
-                    <input type="hidden" value="<?= $pessoa->getId(); ?>" name="id">
+                    <input type="hidden" value="<?= $plantador->getId(); ?>" name="id">
                         
 
                         <div class="row">
@@ -140,7 +140,7 @@
                                 <div class="form-group">
                                     <label>Nome</label>
                                     <input type="text" class="form-control border-input" name="nome" placeholder="nome"
-                                           value="<?= $pessoa->getNome();?>">
+                                           value="<?= $plantador->getNome();?>">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -148,7 +148,7 @@
                                     <label for="exampleInputEmail1">Email
                                     </label>
                                     
-                                    <input type="email" class="form-control border-input" name= "email" placeholder="Email" value="<?= $pessoa->getEmail();?>">
+                                    <input type="email" class="form-control border-input" name= "email" placeholder="Email" value="<?= $plantador->getEmail();?>">
                                 </div>
                             </div>
                         </div>
@@ -158,14 +158,14 @@
                                 <div class="form-group">
                                     <label>Senha</label>
                                     <input type="password" class="form-control border-input" placeholder="Company"
-                                           value="<?= $pessoa->getSenha();?>" name="senha">
+                                           value="<?= $plantador->getSenha();?>" name="senha">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Celular</label>
                                     <input type="text" class="form-control border-input" name="celular" placeholder="celular"
-                                           value="<?= $pessoa->getTelefone();?>">
+                                           value="<?= $plantador->getTelefone();?>">
                                 </div>
                             </div>
                         </div>

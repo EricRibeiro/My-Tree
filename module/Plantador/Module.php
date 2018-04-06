@@ -1,5 +1,5 @@
 <?php
-namespace Pessoa;
+namespace Plantador;
 
 class Module
 {

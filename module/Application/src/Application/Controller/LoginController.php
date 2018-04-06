@@ -34,7 +34,7 @@ class LoginController extends AbstractActionController
 
             switch ($usuario) {
                 case 'Plantador':
-                    $route = 'pessoa';
+                    $route = 'plantador';
                     break;
                 case 'Concedente':
                     $route = 'concedente';

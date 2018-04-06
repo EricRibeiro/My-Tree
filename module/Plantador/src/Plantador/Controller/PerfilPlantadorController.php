@@ -6,11 +6,11 @@
  * Time: 8:42 PM
  */
 
-namespace Pessoa\Controller;
+namespace Plantador\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Pessoa\Entity\Pessoa;
+use Plantador\Entity\Plantador;
 
 class PerfilPlantadorController extends AbstractActionController
 {
@@ -19,7 +19,7 @@ class PerfilPlantadorController extends AbstractActionController
     {
         if ($user = $this->identity()) {
             $view_params = array(
-                'pessoa' => $user,
+                'plantador' => $user,
             );
             return new ViewModel($view_params);
 
@@ -36,18 +36,18 @@ class PerfilPlantadorController extends AbstractActionController
                 $id = $this->request->getPost('id');
 
                 $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-                $repositorio = $entityManager->getRepository("Pessoa\Entity\Pessoa");
-                $pessoa = $repositorio->find($id);
+                $repositorio = $entityManager->getRepository("Plantador\Entity\Plantador");
+                $plantador = $repositorio->find($id);
 
-                $pessoa->setNome($this->request->getPost('nome'));
-                $pessoa->setTelefone($this->request->getPost('celular'));
-                $pessoa->setEmail($this->request->getPost('email'));
-                $pessoa->setSenha($this->request->getPost('senha'));
+                $plantador->setNome($this->request->getPost('nome'));
+                $plantador->setTelefone($this->request->getPost('celular'));
+                $plantador->setEmail($this->request->getPost('email'));
+                $plantador->setSenha($this->request->getPost('senha'));
 
-                $entityManager->persist($pessoa);
+                $entityManager->persist($plantador);
                 $entityManager->flush();
             }
-            return $this->redirect()->toRoute('pessoa', ['controller' => 'perfil', 'action' => 'index']);
+            return $this->redirect()->toRoute('plantador', ['controller' => 'perfil', 'action' => 'index']);
 
         } else {
             return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);

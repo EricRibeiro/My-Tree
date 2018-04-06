@@ -1,6 +1,6 @@
 <?php
 
-namespace Pessoa\Entity;
+namespace Plantador\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Application\Entity\Usuario;
@@ -9,7 +9,7 @@ use Application\Entity\Usuario;
 /**
  * @ORM\Entity
  */
-class Pessoa extends Usuario
+class Plantador extends Usuario
 {
     /**
      * @ORM\Column(type="string")
@@ -28,7 +28,6 @@ class Pessoa extends Usuario
         $this->telefone = $telefone;
     }
 
-    
     public function getNome()
     {
         return $this->nome;

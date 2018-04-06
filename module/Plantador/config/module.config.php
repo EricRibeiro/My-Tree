@@ -2,17 +2,17 @@
 return array(
     'router' => array(
         'routes' => array(
-            'pessoa' => array(
+            'plantador' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/pessoa[/:controller[/:action[/:id]]]',
+                    'route' => '/plantador[/:controller[/:action[/:id]]]',
                     'constraints' => array(
                         'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id' => '[0-9]*'
                     ),
                     'defaults' => array(
-                        '__NAMESPACE__' => 'Pessoa\Controller',
+                        '__NAMESPACE__' => 'Plantador\Controller',
                         'controller' => 'Dashboard',
                         'action' => 'index'
                     )
@@ -22,7 +22,7 @@ return array(
                     'default' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/pessoa[:controller[/:action]]',
+                            'route' => '/plantador[:controller[/:action]]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -36,10 +36,10 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Pessoa\Controller\Cadastro' => 'Pessoa\Controller\PessoaController',
-            'Pessoa\Controller\Dashboard' => 'Pessoa\Controller\DashboardPlantadorController',
-            'Pessoa\Controller\Mapa' => 'Pessoa\Controller\MapaPlantadorController',
-            'Pessoa\Controller\Perfil' => 'Pessoa\Controller\PerfilPlantadorController'
+            'Plantador\Controller\Cadastro' => 'Plantador\Controller\PlantadorController',
+            'Plantador\Controller\Dashboard' => 'Plantador\Controller\DashboardPlantadorController',
+            'Plantador\Controller\Mapa' => 'Plantador\Controller\MapaPlantadorController',
+            'Plantador\Controller\Perfil' => 'Plantador\Controller\PerfilPlantadorController'
         ),
     ),
     'view_manager' => array(
@@ -48,18 +48,18 @@ return array(
         )
     ),
     'moduleLayouts' => array(
-        'Pessoa' => 'layout/layout-pessoa'
+        'Plantador' => 'layout/layout-plantador'
     ),
     'doctrine' => array(
         'driver' => array(
-            'pessoa_entities' => array(
+            'plantador_entities' => array(
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
                 'cache' => 'array',
-                'paths' => array(__DIR__ . '/../src/Pessoa/Entity')
+                'paths' => array(__DIR__ . '/../src/Plantador/Entity')
             ),
             'orm_default' => array(
                 'drivers' => array(
-                    'Pessoa\Entity' => 'pessoa_entities'
+                    'Plantador\Entity' => 'plantador_entities'
                 ),
             ),
         )
