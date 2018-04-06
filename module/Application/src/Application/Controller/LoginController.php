@@ -54,11 +54,10 @@ class LoginController extends AbstractActionController
 
                 if($class == $usuario)
                     return $this->redirect()->toRoute($route);
-                else {
-                    //RETORNAR MENSAGEM AQUI
-                    return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
-                }
             }
+
+            $this->flashMessenger()->addErrorMessage("Email ou senha incorretos.");
+            return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
         }
 
         return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
