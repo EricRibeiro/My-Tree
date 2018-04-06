@@ -17,17 +17,17 @@
     <!-- Le styles -->
     <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
         ->prependStylesheet($this->basePath() . '/css/style.css')
-        ->prependStylesheet($this->basePath() . '/css/form/main.css')
         ->prependStylesheet($this->basePath() . '/css/application/gaia.css')
-        ->prependStylesheet($this->basePath() . '/css/form/util.css')
-        ->prependStylesheet($this->basePath() . '/css/font-awesome.min.css')
-        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
+        ->prependStylesheet($this->basePath() . '/css/signup/main.css')
+        ->prependStylesheet($this->basePath() . '/css/signup/util.css')
+        ->prependStylesheet($this->basePath() . '/css/vendor/font-awesome.min.css')
+        ->prependStylesheet($this->basePath() . '/css/vendor/bootstrap.min.css') ?>
 
     <!-- Scripts -->
     <?php echo $this->headScript()
-        ->prependFile($this->basePath() . '/js/jquery.min.js')
-        ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
-        ->prependFile($this->basePath() . '/js/html5shiv.js', 'text/javascript', array('conditional' => 'lt IE 9',)); ?>
+        ->prependFile($this->basePath() . '/js/vendor/jquery.min.js')
+        ->prependFile($this->basePath() . '/js/vendor/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+        ->prependFile($this->basePath() . '/js/vendor/html5shiv.js', 'text/javascript', array('conditional' => 'lt IE 9',)); ?>
 
 </head>
 <body>
@@ -71,7 +71,7 @@
         </div>
 
         <?php
-            echo $this->flashHelper();
+        echo $this->flashHelper();
         ?>
 
         <form class="contact100-form validate-form" action="<?= $url; ?>" method="post" data-toggle="validator"
@@ -120,10 +120,10 @@
 
 <!-- More Scripts -->
 <?php echo $this->inlineScript()
-    ->prependFile($this->basePath() . '/js/form/main.js')
-    ->prependFile($this->basePath() . '/js/form/jquery.mask.js')
+    ->prependFile($this->basePath() . '/js/signup/main.js')
+    ->prependFile($this->basePath() . '/js/signup/jquery.mask.js')
     ->prependFile($this->basePath() . '/js/application/gaia.js')
     ->prependFile($this->basePath() . '/js/application/modernizr.js')
-    ->prependFile($this->basePath() . '/js/bootstrap.js') ?>
+    ->prependFile($this->basePath() . '/js/vendor/bootstrap.js') ?>
 </body>
 </html>
