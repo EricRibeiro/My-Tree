@@ -19,19 +19,18 @@
 
                         <?php foreach ($locais as $local) { ?>
                             <tr>
-                                <td hidden><?= $concedente->getId(); ?></td>
                                 <td><?= $local->getNumero(); ?></td>
                                 <td><?= $local->getMunicipio(); ?></td>
                                 <td><?= $local->getCEP(); ?></td>
 
                                 <td>
                                     <a type="button"
-                                       href="<?= $this->url('concedente/local', ['action' => 'editar', 'id' => $local->getId()]) ?>"
+                                       href="<?= $this->url('concedente', ['controller' => 'local', 'action' => 'editar', 'id' => $local->getId()]) ?>"
                                        class="btn btn-info btn-fill">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </a>
 
-                                    <a href="<?= $this->url('concedente/local', ['action' => 'remover', 'id' => $local->getId()]) ?>"
+                                    <a href="<?= $this->url('concedente', ['controller' => 'local', 'action' => 'remover', 'id' => $local->getId()]) ?>"
                                        class="btn btn-danger btn-fill">
                                         <i class="fa fa-trash" aria-hidden="true" type="hidden"></i>
                                     </a>

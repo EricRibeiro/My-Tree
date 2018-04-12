@@ -12,9 +12,15 @@ class LocalConcedenteController extends AbstractActionController
     public function indexAction()
     {
         if ($user = $this->identity()) {
+            $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+            $repositorio = $entityManager->getRepository('Concedente\Entity\Local');
+            $locais = $repositorio->findAll();
+
             $view_params = array(
                 'concedente' => $user,
-            );
+                'locais' => $locais,
+
+            );  
             return new ViewModel($view_params);
 
         }
@@ -26,9 +32,13 @@ class LocalConcedenteController extends AbstractActionController
     {
         $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 
-        $repositorio = $entityManager->getRepository('Concedente\Entity\Local');
+        $repositorio = $entityManager->getRepository('Concedente\Entity\Concedente');
        
         if ($this->request->isPost()) {
+
+            /**
+            *Preenche as informações de local com os campos do formulario.
+            **/
             $logradouro = $this->request->getPost('logradouro');
             $bairro = $this->request->getPost('bairro');
             $municipio = $this->request->getPost('municipio');
@@ -38,12 +48,17 @@ class LocalConcedenteController extends AbstractActionController
             $complemento = "complemento";
             $latitude = "";
             $longitude = "";
-            $concedente = null;
+            $ocupado = false;
 
-            //$query = $repositorio->createQueryBuilder('o')->where('o.numero = :numeroAnimal')->setParameter('numeroAnimal', $numeroAnimal)->getQuery();
-            //$animal = $query->getSingleResult();
-
-            $local = new Local($uf, $municipio, $cep, $bairro, $logradouro, $numero, $complemento, $latitude, $longitude);
+            /**
+            *Resgata o objeto usuario do tipo concedente por query,
+            *como parametro o id da sessao da identidade.
+            **/
+            $user = $this->identity();
+            $query = $repositorio->createQueryBuilder('o')->where('o.id = :id')->setParameter('id', $user->getId())->getQuery();
+            $concedente = $query->getSingleResult();
+            
+            $local = new Local($uf, $municipio, $cep, $bairro, $logradouro, $numero, $complemento, $latitude, $longitude, $concedente, $ocupado);
 
                         //var_dump($local->getCep()); exit;
 

@@ -61,7 +61,12 @@ class Local
      */
     private $concedente;
 
-    public function __construct($uf, $municipio, $cep, $bairro, $logradouro, $numero, $complemento, $latitude, $longitude)
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $ocupado;
+
+    public function __construct($uf, $municipio, $cep, $bairro, $logradouro, $numero, $complemento, $latitude, $longitude, $concedente, $ocupado)
     {
         $this->uf = $uf;
         $this->municipio = $municipio;
@@ -72,8 +77,14 @@ class Local
         $this->latitude = $latitude;
         $this->longitude = $longitude;
         $this->cep = $cep;
-        $this->concedente = null;
+        $this->concedente = $concedente;
+        $this->ocupado = $ocupado;
 
+    }
+
+        public function getId()
+    {
+        return $this->id;
     }
 
     public function getUF()
@@ -83,7 +94,7 @@ class Local
 
     public function getMunicipio()
     {
-        return $this->telefone;
+        return $this->municipio;
     }
 
     public function getBairro()
