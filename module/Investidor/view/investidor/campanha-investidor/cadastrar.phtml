@@ -1,0 +1,163 @@
+<?php
+
+$url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadastrar']);
+
+?>
+
+<div class="col-lg-12 col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">Cadastrar Campanha</h4>
+        </div>
+        <div class="content">
+         <form method="post" action="<?= $url; ?>">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <input type="text" class="form-control border-input" placeholder="Nome da Campanha" name="nome">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Valor:</label>
+                        <input type="text" class="form-control border-input" placeholder="Valor para a Campanha" name="valor">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Data de Início da Campanha</label>
+                        <input type="text"
+                        class="form-control border-input validate-date"
+                        name="dataInicio"
+                        placeholder="Dia/Mês/Ano"
+                        data-mask="00/00/0000"
+                        oninvalid="this.setCustomValidity('Insira uma data válida no formato: Dia/Mês/Ano')"
+                        oninput="setCustomValidity('')"
+                        required/>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Data de Término da Campanha</label>
+                        <input type="text"
+                        class="form-control border-input validate-date"
+                        name="dataTermino"
+                        placeholder="Dia/Mês/Ano"
+                        data-mask="00/00/0000"
+                        oninvalid="this.setCustomValidity('Insira uma data válida no formato: Dia/Mês/Ano')"
+                        oninput="setCustomValidity('')"
+                        required/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table id="locais" class="table table-hover display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Id</th>
+                                <th>Cidade</th>
+                                <th>UF</th>
+                                <th>Bairro</th>
+                                <th>CEP</th>
+                                <th>Detalhes</th>
+                                <th>Concedente</th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <?php foreach ($locais as $local ) { ?>
+                            <tr>
+                                <td></td>
+                                <td class="idLocal"><?= $local->getId(); ?></td>
+                                <td><?= $local->getMunicipio(); ?></td>
+                                <td><?= $local->getUF(); ?></td>
+                                <td><?= $local->getBairro(); ?></td>
+                                <td><?= $local->getCep(); ?></td>
+                                <td>
+                                    <a href="<?= $this->url('investidor', [ 'controller'=>'campanha','action' => 'exibirDadosLocal', 'id' => $local->getId()]) ?>"
+                                     class="btn btn-info btn-fill">
+                                     <i class="fa fa-trash" aria-hidden="true" type="hidden"></i>
+                                 </a>
+
+
+
+                             </td>
+                             <td></td>
+                         </tr>
+                         <?php }?>
+                     </tbody>
+                 </table>
+             </div>
+         </div>
+
+         <div class="row" style="display: none;">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input type="text" name="idLocal" required/>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center ">
+            <button type="submit" class="btn btn-info btn-fill btn-wd">Cadastrar</button>
+        </div>
+        <div class="clearfix"></div>
+    </form>
+</div>
+</div>
+</div>
+
+<?php
+echo $this->inlineScript()
+->prependFile($this->basePath() . '/js/datehelper.js');
+?>
+
+
+<script>
+    jQuery(function ($) {
+        $('#locais').DataTable( {
+            columnDefs: [ {
+                orderable: false,
+                className: 'select-checkbox',
+                targets:   0
+            } ],
+            select: {
+                style:    'os',
+                selector: 'td:first-child'
+            },
+            order: [[ 1, 'asc' ]],
+            paging:true
+        } );
+    });
+
+</script>
+
+<script>
+
+   jQuery(function ($) {
+
+    var table = $('#locais').DataTable();
+    $('#locais tbody').on( 'click', 'tr', function () {
+        var linhaSelecionada= table.row(this).index();
+        var data = table.rows(linhaSelecionada).data();
+        var infoLocal=data[0];
+        var idLocal=infoLocal[1];
+        $("input[name='idLocal']").val(idLocal);
+
+    } );
+
+});
+
+</script>
+
+
+

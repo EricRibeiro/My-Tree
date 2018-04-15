@@ -11,6 +11,7 @@ class LocalConcedenteController extends AbstractActionController
 {
     public function indexAction()
     {
+        
         if ($user = $this->identity()) {
             $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
             $repositorio = $entityManager->getRepository('Concedente\Entity\Local');
@@ -33,7 +34,7 @@ class LocalConcedenteController extends AbstractActionController
         $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 
         $repositorio = $entityManager->getRepository('Concedente\Entity\Concedente');
-       
+
         if ($this->request->isPost()) {
 
             /**

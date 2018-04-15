@@ -19,4 +19,6 @@ class DashboardInvestidorController extends AbstractActionController
         }
         return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
     }
+
+
 }

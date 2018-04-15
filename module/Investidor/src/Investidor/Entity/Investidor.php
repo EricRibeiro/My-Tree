@@ -26,6 +26,13 @@ class Investidor extends Usuario
      */
     private $ramo;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Investidor\Entity\Campanha", mappedBy="investidor")
+     */
+    private $campanha;
+
+
+
     public function __construct($nome, $email, $senha, $telefone, $ramo)
     {
         parent::__construct($email, $senha);

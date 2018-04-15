@@ -39,7 +39,10 @@ return array(
             'Investidor\Controller\Cadastro' => 'Investidor\Controller\InvestidorController',
             'Investidor\Controller\Dashboard' => 'Investidor\Controller\DashboardInvestidorController',
             'Investidor\Controller\Mapa' => 'Investidor\Controller\MapaInvestidorController',
-            'Investidor\Controller\Perfil' => 'Investidor\Controller\PerfilInvestidorController'
+            'Investidor\Controller\Perfil' => 'Investidor\Controller\PerfilInvestidorController',
+             'Investidor\Controller\campanha' => 'Investidor\Controller\CampanhaInvestidorController',
+
+
         ),
     ),
     'view_manager' => array(

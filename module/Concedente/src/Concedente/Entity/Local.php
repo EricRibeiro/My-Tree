@@ -66,6 +66,7 @@ class Local
      */
     private $ocupado;
 
+
     public function __construct($uf, $municipio, $cep, $bairro, $logradouro, $numero, $complemento, $latitude, $longitude, $concedente, $ocupado)
     {
         $this->uf = $uf;
@@ -82,7 +83,7 @@ class Local
 
     }
 
-        public function getId()
+    public function getId()
     {
         return $this->id;
     }
@@ -157,7 +158,7 @@ class Local
         $this->numero = $numero;
     }
 
-        public function setComplemento($complemento)
+    public function setComplemento($complemento)
     {
         $this->complemento = $complemento;
     }
@@ -176,6 +177,7 @@ class Local
     {
         $this->longitude = $longitude;
     }
+
 
 }
 
