@@ -70,7 +70,7 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'editar
                             <th>Bairro</th>
                             <th>CEP</th>
                             <th>Detalhes</th>
-                            <th>Concedente</th>
+
                         </tr>
                     </thead>
 
@@ -85,31 +85,66 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'editar
                             <td><?= $local->getBairro(); ?></td>
                             <td><?= $local->getCep(); ?></td>
                             <td>
-                            </td>
-                            <td></td>
-                        </tr>
-                        <?php }?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    
-        <div class="row" style="display: none;">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <input type="text" name="idLocalSelecionado" value="<?= $campanha->getLocal()->getId() ?>" />
-                </div>
-            </div>
-        </div>
+                                    <!--
+                                   <a type="button" 
+                                   href="<?= $this->url('investidor', [ 'controller'=>'campanha','action' => 'exibir-Dados-Local', 'id' => $local->getId()]) ?>"
+                                   class="btn btn-info btn-fill">
+                                   <i class="glyphicon glyphicon-plus" aria-hidden="true" type="hidden"></i>
+                               </a>
+                           -->
 
-        <div class="text-center ">
-            <button type="submit" class="btn btn-info btn-fill btn-wd">Editar</button>
+                           <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+
+
+
+
+                       </td>
+                   </tr>
+                   <?php }?>
+               </tbody>
+           </table>
+       </div>
+   </div>
+
+   <div class="row" style="display: none;">
+    <div class="col-md-12">
+        <div class="form-group">
+            <input type="text" name="idLocalSelecionado" value="<?= $campanha->getLocal()->getId() ?>" />
         </div>
-        <div class="clearfix"></div>
-    </form>
+    </div>
+</div>
+
+<div class="text-center ">
+    <button type="submit" class="btn btn-info btn-fill btn-wd">Editar</button>
+</div>
+<div class="clearfix"></div>
+</form>
 </div>
 </div>
 </div>
+
+
+
+<div id="myModal" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+            <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
 
 <script>
     jQuery(function ($) {

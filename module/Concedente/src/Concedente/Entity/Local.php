@@ -80,9 +80,13 @@ class Local
         $this->cep = $cep;
         $this->concedente = $concedente;
         $this->ocupado = $ocupado;
+    }
+    
+    public function getConcedente(){
+        return $this->concedente;
 
     }
-
+    
     public function getId()
     {
         return $this->id;

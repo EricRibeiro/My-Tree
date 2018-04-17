@@ -14,25 +14,25 @@ class CampanhaInvestidorController extends AbstractActionController
 
         if ($user = $this->identity()) {
 
-         $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-         $repositorio = $entityManager->getRepository('Investidor\Entity\Campanha');
+           $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+           $repositorio = $entityManager->getRepository('Investidor\Entity\Campanha');
 
-         $campanhas = $repositorio->findBy(array('investidor'=>$user));
+           $campanhas = $repositorio->findBy(array('investidor'=>$user));
 
-         $view_params= array(
+           $view_params= array(
             "campanhas"=> $campanhas,
 
         );      
 
-         return new ViewModel($view_params);
-     }
-     return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
- }
- public function cadastrarAction(){
+           return new ViewModel($view_params);
+       }
+       return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
+   }
+   public function cadastrarAction(){
 
-     $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+       $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 
-     if ($this->request->isPost()) {
+       if ($this->request->isPost()) {
 
         $idLocal=$this->request->getPost('idLocal');
         $nome = $this->request->getPost('nome');
@@ -119,9 +119,9 @@ public function editarAction(){
 
 public function removerAction(){
 
- $id = $this->params()->fromRoute('id');
+   $id = $this->params()->fromRoute('id');
 
- if (!is_null($id)) {
+   if (!is_null($id)) {
     $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
     $repositorio = $entityManager->getRepository("Investidor\Entity\Campanha");
     $campanha = $repositorio->find($id);
@@ -138,11 +138,19 @@ return $this->redirect()->toRoute('investidor', array(
 
 public function exibirDadosLocalAction(){
 
-     return new ViewModel();
+  $id = $this->params()->fromRoute('id');
+  $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+  $repositorio = $entityManager->getRepository('Concedente\Entity\Local');
+
+  $local = $repositorio->find($id);
+
+  $view_params= array(
+    "local"=> $local,    
+);
+
+  return new ViewModel($view_params);
 
 }
-
-
 
 
 }
