@@ -43,6 +43,7 @@ class Campanha {
 	 /**
      * @ORM\OneToOne(targetEntity="Concedente\Entity\Local")
      * @ORM\JoinColumn(name="local_id", referencedColumnName="id")
+     * 
      */
 	 private $local;
 
@@ -54,14 +55,12 @@ class Campanha {
 	 private $investidor;
 
 
-	 public function __construct($nome, $valor, $dataInicio, $dataFinal, $investidor,$local){
+	 public function __construct($nome, $valor, $dataInicio, $dataFinal, $investidor){
 	 	$this->nome=$nome;
 	 	$this->valor=$valor;
 	 	$this->setDataInicio($dataInicio);
 	 	$this->setDataFinal($dataFinal);
 	 	$this->investidor=$investidor;
-	 	$this->local=$local;
-
 	 }
 
 	 public function getId(){
@@ -128,11 +127,6 @@ class Campanha {
 	 	return $this->dataFinal=Data::setData($data);
 
 	 }
-
-
-
-
-
 
 
 	}

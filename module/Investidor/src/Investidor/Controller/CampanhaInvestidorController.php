@@ -10,146 +10,147 @@ use Investidor\Entity\Campanha;
 
 class CampanhaInvestidorController extends AbstractActionController
 {
-    public function indexAction() {
+  public function indexAction() {
 
-        if ($user = $this->identity()) {
+    if ($user = $this->identity()) {
 
-           $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-           $repositorio = $entityManager->getRepository('Investidor\Entity\Campanha');
+     $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+     $repositorio = $entityManager->getRepository('Investidor\Entity\Campanha');
 
-           $campanhas = $repositorio->findBy(array('investidor'=>$user));
+     $campanhas = $repositorio->findBy(array('investidor'=>$user));
 
-           $view_params= array(
-            "campanhas"=> $campanhas,
+     $view_params= array(
+      "campanhas"=> $campanhas,
 
-        );      
+    );      
 
-           return new ViewModel($view_params);
-       }
-       return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
+     return new ViewModel($view_params);
    }
-   public function cadastrarAction(){
+   return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
+ }
+ public function cadastrarAction(){
 
-       $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+   $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 
-       if ($this->request->isPost()) {
+   if ($this->request->isPost()) {
 
-        $idLocal=$this->request->getPost('idLocal');
-        $nome = $this->request->getPost('nome');
-        $valor = $this->request->getPost('valor');
-        $dataInicio = $this->request->getPost('dataInicio');
-        $dataTermino= $this->request->getPost('dataTermino');
+    $idLocal=$this->request->getPost('idLocal');
+    $nome = $this->request->getPost('nome');
+    $valor = $this->request->getPost('valor');
+    $dataInicio = $this->request->getPost('dataInicio');
+    $dataTermino= $this->request->getPost('dataTermino');
 
-        $local=$entityManager->getRepository('Concedente\Entity\Local')->find($idLocal);
+    $user = $this->identity();
+    $campanha = new Campanha($nome,$valor,$dataInicio,$dataTermino,$user);
+    
 
-        $repositorio = $entityManager->getRepository('Investidor\Entity\Investidor');
-
-        $user = $this->identity();
-        $query = $repositorio->createQueryBuilder('o')->where('o.id = :id')->setParameter('id', $user->getId())->getQuery();
-
-        $investidor = $query->getSingleResult();
-
-        $campanha = new Campanha($nome,$valor,$dataInicio,$dataTermino,$investidor,$local);
-
-        $entityManager->persist($campanha);
-        
-        $entityManager->flush();
-
-        return $this->redirect()->toRoute('investidor', array(
-            'controller' => 'campanha',
-            'action' => 'index',
-        ));
+    if($idLocal!=""){
+      $local=$entityManager->getRepository('Concedente\Entity\Local')->find($idLocal);
+      $campanha->setLocal($local);
+      $entityManager->persist($campanha);
     }
 
-    $repositorio = $entityManager->getRepository('Concedente\Entity\Local');
-
-    $locais = $repositorio->findAll();
-
+    
     $entityManager->flush();
+    
 
-    $view_params = array(
-        'locais' => $locais,
-    );  
+    return $this->redirect()->toRoute('investidor', array(
+      'controller' => 'campanha',
+      'action' => 'index',
+    ));
+  }
 
-    return new ViewModel($view_params);
+  $repositorio = $entityManager->getRepository('Concedente\Entity\Local');
+
+  $locais = $repositorio->findALL();
+  
+
+  $view_params = array(
+    'locais' => $locais,
+  );  
+
+  return new ViewModel($view_params);
 }
 
 
 public function editarAction(){
 
-    $id = $this->params()->fromRoute('id');
+  $id = $this->params()->fromRoute('id');
 
-    if (is_null($id)) {
-        $id = $this->request->getPost('id');
-    }
+  if (is_null($id)) {
+    $id = $this->request->getPost('id');
+  }
+
+  $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+
+  $repositorio = $entityManager->getRepository("Investidor\Entity\Campanha");
+
+  $campanha = $repositorio->find($id);
+
+  if ($this->request->isPost()) {
+
+    $idLocal=$this->request->getPost('idLocalSelecionado');
+    $campanha->setValor($this->request->getPost('valor'));
+    $campanha->setNome($this->request->getPost('nome'));
+    $campanha->setDataInicio($this->request->getPost('dataInicio'));
+    $campanha->setDataFinal($this->request->getPost('dataTermino'));      
     
-    $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-    
-    $repositorio = $entityManager->getRepository("Investidor\Entity\Campanha");
-    
-    $campanha = $repositorio->find($id);
-    
-    if ($this->request->isPost()) {
-        $campanha->setValor($this->request->getPost('valor'));
-        $campanha->setNome($this->request->getPost('nome'));
-        $campanha->setDataInicio($this->request->getPost('dataInicio'));
-        $campanha->setDataFinal($this->request->getPost('dataTermino'));      
-        $entityManager->persist($campanha);
-        $entityManager->flush();
-        
-        return $this->redirect()->toRoute('investidor', array(
-            'controller' => 'campanha',
-            'action' => 'index',
-        ));
-    }
+    $repositorio = $entityManager->getRepository("Concedente\Entity\Local");
+    $local = $repositorio->find($idLocal);
 
-    $repositorio = $entityManager->getRepository('Concedente\Entity\Local');
+    $campanha->setLocal($local);
 
-    $locais = $repositorio->findAll();
-
-    $view_params = array(
-        'locais' => $locais,
-        'campanha'=> $campanha
-    );  
-
+    $entityManager->persist($campanha);
     $entityManager->flush();
-    return new ViewModel($view_params);
 
+    return $this->redirect()->toRoute('investidor', array(
+      'controller' => 'campanha',
+      'action' => 'index',
+    ));
+  }
+
+  $repositorio = $entityManager->getRepository('Concedente\Entity\Local');
+
+  $locais = $repositorio->findAll();
+
+  $view_params = array(
+    'locais' => $locais,
+    'campanha'=> $campanha
+  );  
+
+  $entityManager->flush();
+  return new ViewModel($view_params);
 }
 
 public function removerAction(){
 
-   $id = $this->params()->fromRoute('id');
+ $id = $this->params()->fromRoute('id');
+ if (!is_null($id)) {
 
-   if (!is_null($id)) {
-    $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-    $repositorio = $entityManager->getRepository("Investidor\Entity\Campanha");
-    $campanha = $repositorio->find($id);
-    $entityManager->remove($campanha);
-    $entityManager->flush();
-}
-
-return $this->redirect()->toRoute('investidor', array(
-    'controller' => 'campanha',
-    'action' => 'index',
-));
-
-}
-
-public function exibirDadosLocalAction(){
-
-  $id = $this->params()->fromRoute('id');
   $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-  $repositorio = $entityManager->getRepository('Concedente\Entity\Local');
+  $repositorio = $entityManager->getRepository("Investidor\Entity\Campanha");
+  $campanha = $repositorio->find($id);
+  $local=$campanha->getLocal();
+  $entityManager->remove($campanha);
+  
+  if(!is_null($local)){
 
-  $local = $repositorio->find($id);
+   $repositorio = $entityManager->getRepository("Concedente\Entity\Local");
+   $local = $repositorio->find($local->getId());
+   $local->alterarOcupacao(false);
+   $entityManager->persist($local);
+   $entityManager->flush();
+   
+ }
 
-  $view_params= array(
-    "local"=> $local,    
-);
+ $entityManager->flush();
 
-  return new ViewModel($view_params);
 
+}
+return $this->redirect()->toRoute('investidor', array(
+  'controller' => 'campanha',
+  'action' => 'index',
+));
 }
 
 

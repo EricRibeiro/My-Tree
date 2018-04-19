@@ -29,11 +29,21 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
 
                             <?php foreach ($campanhas as $campanha) { ?>
                             <tr>
+
                                 <td><?= $campanha->getNome(); ?></td>
                                 <td><?= $campanha->getDataIncialString(); ?></td>
                                 <td><?= $campanha->getDataFinalString(); ?></td>
-                                <td><?= $campanha->getLocal()->getMunicipio(); ?></td> 
-                                <td><?= $campanha->getLocal()->getUF(); ?></td>
+                                
+                                <?php if($campanha->getLocal()!=null) {?>
+                                    <td><?= $campanha->getLocal()->getMunicipio(); ?></td> 
+                                    <td><?= $campanha->getLocal()->getUF(); ?></td>
+                                 <?php }?>
+
+                                <?php if($campanha->getLocal()==null) {?>                               
+                                    <td></td>
+                                    <td></td>
+                                <?php }?>
+
                                 <td></td>
                                 <td>
                                     <a href="<?= $this->url('investidor', [ 'controller'=>'campanha','action' => 'remover', 'id' => $campanha->getId()]) ?>"

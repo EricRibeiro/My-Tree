@@ -49,7 +49,6 @@ class LocalConcedenteController extends AbstractActionController
             $complemento = "complemento";
             $latitude = "";
             $longitude = "";
-            $ocupado = false;
 
             /**
             *Resgata o objeto usuario do tipo concedente por query,
@@ -59,7 +58,7 @@ class LocalConcedenteController extends AbstractActionController
             $query = $repositorio->createQueryBuilder('o')->where('o.id = :id')->setParameter('id', $user->getId())->getQuery();
             $concedente = $query->getSingleResult();
             
-            $local = new Local($uf, $municipio, $cep, $bairro, $logradouro, $numero, $complemento, $latitude, $longitude, $concedente, $ocupado);
+            $local = new Local($uf, $municipio, $cep, $bairro, $logradouro, $numero, $complemento, $latitude, $longitude, $concedente);
 
                         //var_dump($local->getCep()); exit;
 

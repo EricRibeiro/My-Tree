@@ -10,7 +10,7 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
             <h4 class="title">Cadastrar Campanha</h4>
         </div>
         <div class="content">
-           <form method="post" action="<?= $url; ?>">
+         <form method="post" action="<?= $url; ?>">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -73,48 +73,42 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
                         <tbody>
 
                             <?php foreach ($locais as $local ) { ?>
-                            <tr>
+                                 
+                                    <tr>
 
-                                <td></td>
-                                <td><?= $local->getId(); ?></td>
-                                <td><?= $local->getMunicipio(); ?></td>
-                                <td><?= $local->getUF(); ?></td>
-                                <td><?= $local->getBairro(); ?></td>
-                                <td><?= $local->getCep(); ?></td>
-                                <td>
+                                    <td></td>
+                                    <td><?= $local->getId(); ?></td>
+                                    <td><?= $local->getMunicipio(); ?></td>
+                                    <td><?= $local->getUF(); ?></td>
+                                    <td><?= $local->getBairro(); ?></td>
+                                    <td><?= $local->getCep(); ?></td>
+                                    <td>
+                                      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#detalhes-local">Open Modal</button>
 
-                                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#detalhes-local">Open Modal</button>
+                                </td>
+                                </tr>
 
-                                    <!--
-                                    <a type="button" 
-                                    href="<?= $this->url('investidor', [ 'controller'=>'campanha','action' => 'exibir-Dados-Local', 'id' => $local->getId()]) ?>"
-                                    class="btn btn-info btn-fill">
-                                    <i class="glyphicon glyphicon-plus" aria-hidden="true" type="hidden"></i>
-                                </a>
-                            -->
-                        </td>
-                    </tr>
-                    <?php }?>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="row" style="display: none;">
-        <div class="col-md-12">
-            <div class="form-group">
-                <input type="text" name="idLocal" required/>
+                            <?php }?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
-    </div>
+
+            <div class="row" style="display: none;">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="text" name="idLocal"/>
+                    </div>
+                </div>
+            </div>
 
 
-    <div class="text-center ">
-        <button type="submit" class="btn btn-info btn-fill btn-wd">Cadastrar</button>
+            <div class="text-center ">
+                <button type="submit" class="btn btn-info btn-fill btn-wd">Cadastrar</button>
+            </div>
+            <div class="clearfix"></div>
+        </form>
     </div>
-    <div class="clearfix"></div>
-</form>
-</div>
 </div>
 
 
@@ -144,7 +138,7 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
 
 <script>
 
- jQuery(function ($) {
+   jQuery(function ($) {
 
     var table = $('#locais').DataTable();
     $('#locais tbody').on( 'click', 'tr', function () {
@@ -152,7 +146,6 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
         var data = table.rows(linhaSelecionada).data();
         var infoLocal=data[0];
         var idLocal=infoLocal[1];
-    
         $("input[name='idLocal']").val(idLocal);
 
     } );
@@ -163,36 +156,37 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
 
 <script>
 
-   jQuery(function ($) {
+ jQuery(function ($) {
 
-       var modal="<div id='detalhes-local' class='modal fade' role='dialog'>";
-       modal+="<div class='modal-dialog'>";
-       modal+="<div class='modal-content'>";
-       modal+=" <div class='modal-header'>";
-       modal+= "<button type='button' class='close' data-dismiss='modal'>&times;</button>";
-       modal+="<h4 class='modal-title'>Modal Header</h4>";
-       modal+="</div>";
-       modal+="<div class='modal-body'>";
-       modal+="<p id='corpo'></p>";
-       modal+=" </div>";
-       modal+="<div class='modal-footer'>";
-       modal+="<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>";
-       modal+="</div>";
-       modal+="</div>";
-       modal+="</div>";
-       modal+="</div>";
+     var modal="<div id='detalhes-local' class='modal fade' role='dialog'>";
+     modal+="<div class='modal-dialog'>";
+     modal+="<div class='modal-content'>";
+     modal+=" <div class='modal-header'>";
+     modal+= "<button type='button' class='close' data-dismiss='modal'>&times;</button>";
+     modal+="<h4 class='modal-title'>Modal Header</h4>";
+     modal+="</div>";
+     modal+="<div class='modal-body'>";
+     modal+="<p id='corpo'></p>";
+     modal+=" </div>";
+     modal+="<div class='modal-footer'>";
+     modal+="<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>";
+     modal+="</div>";
+     modal+="</div>";
+     modal+="</div>";
+     modal+="</div>";
 
-       $('body').append(modal);
+     $('body').append(modal);
 
 
-       var table = $('#locais').DataTable();
-       $('#locais tbody').on( 'click', 'tr', function () {
+     var table = $('#locais').DataTable();
+     $('#locais tbody').on( 'click', 'tr', function () {
         var linhaSelecionada= table.row(this).index();
         var data = table.rows(linhaSelecionada).data();
         var infoLocal=data[0];
         var idLocal=infoLocal[1];
         var cidade=infoLocal[2];
         var uf=infoLocal[3];
+        
 
         $('#corpo').html(cidade);
 
@@ -202,7 +196,7 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
 
 
 
-});
+ });
 
 </script>
 

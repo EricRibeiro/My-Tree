@@ -85,40 +85,40 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'editar
                             <td><?= $local->getBairro(); ?></td>
                             <td><?= $local->getCep(); ?></td>
                             <td>
-                                    <!--
-                                   <a type="button" 
-                                   href="<?= $this->url('investidor', [ 'controller'=>'campanha','action' => 'exibir-Dados-Local', 'id' => $local->getId()]) ?>"
-                                   class="btn btn-info btn-fill">
-                                   <i class="glyphicon glyphicon-plus" aria-hidden="true" type="hidden"></i>
-                               </a>
-                           -->
 
-                           <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+                             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
 
+                         </td>
+                     </tr>
+                     <?php }?>
+                 </tbody>
+             </table>
+         </div>
+     </div>
 
-
-
-
-                       </td>
-                   </tr>
-                   <?php }?>
-               </tbody>
-           </table>
-       </div>
-   </div>
-
-   <div class="row" style="display: none;">
-    <div class="col-md-12">
-        <div class="form-group">
-            <input type="text" name="idLocalSelecionado" value="<?= $campanha->getLocal()->getId() ?>" />
+     <div class="row" style="display: none;">
+        <div class="col-md-12">
+            <div class="form-group">
+                <input type="text" name="idLocalSelecionado" 
+                value="<?php if($campanha->getLocal()!=null){$campanha->getLocal()->getId();}?>" />
+            </div>
         </div>
     </div>
-</div>
 
-<div class="text-center ">
-    <button type="submit" class="btn btn-info btn-fill btn-wd">Editar</button>
-</div>
-<div class="clearfix"></div>
+    <div class="row" style="display: none;">
+        <div class="col-md-12">
+            <div class="form-group">
+                <input type="text" name="idLocalInicial" 
+                value="<?=$campanha->getLocal()->getId();?>" />
+            </div>
+        </div>
+    </div>
+
+
+    <div class="text-center ">
+        <button type="submit" class="btn btn-info btn-fill btn-wd">Editar</button>
+    </div>
+    <div class="clearfix"></div>
 </form>
 </div>
 </div>
@@ -159,18 +159,18 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'editar
                 selector: 'td:first-child'
             },
             order: [[ 1, 'asc' ]],
-            paging:true
+            paging:false
         } );
+
 
         var table = $('#locais').DataTable();
         var info = table.page.info();
         
         var localCampanhaAtual= $("input[name='idLocalSelecionado']").val();
+        
         var table = $('#locais').DataTable();
         var linhas= table.rows();
-
         var arrayLinhas=new String(linhas[0]).split(",");
-
         var chave=false;
         var cont=0;
         
@@ -178,7 +178,6 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'editar
             var data = table.rows(arrayLinhas[cont]).data();
             var infoLocal=data[0];
             var idLocal=infoLocal[1];
-
             if(idLocal==localCampanhaAtual){
                 chave==true;
                 var info = table.page.info();
@@ -188,8 +187,8 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'editar
                 
             }
             cont++;
-
         }
+        alert(localCampanhaAtual);
 
     });
 
