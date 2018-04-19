@@ -61,13 +61,17 @@ class Local
      */
     private $concedente;
 
-    /**
-     * @ORM\Column(type="boolean")
+   
+     /**
+     * @ORM\OneToOne(targetEntity="Investidor\Entity\Campanha", inversedBy="local")
+     * @ORM\JoinColumn(name="campanha_id", referencedColumnName="id", onDelete="SET NULL")
      */
-    private $ocupado;
+     private $campanha;
 
-    public function __construct($uf, $municipio, $cep, $bairro, $logradouro, $numero, $complemento, $latitude, $longitude, $concedente, $ocupado)
-    {
+
+
+     public function __construct($uf, $municipio, $cep, $bairro, $logradouro, $numero, $complemento, $latitude, $longitude, $concedente)
+     {
         $this->uf = $uf;
         $this->municipio = $municipio;
         $this->bairro = $bairro;
@@ -78,11 +82,21 @@ class Local
         $this->longitude = $longitude;
         $this->cep = $cep;
         $this->concedente = $concedente;
-        $this->ocupado = $ocupado;
-
+    }
+    
+    public function setCampanha($campanha){
+        $this->campanha=$campanha;
     }
 
-        public function getId()
+    public function getCampanha(){
+        return $this->campanha;
+    }
+
+    public function getConcedente(){
+        return $this->concedente;
+    }
+
+    public function getId()
     {
         return $this->id;
     }
@@ -157,7 +171,7 @@ class Local
         $this->numero = $numero;
     }
 
-        public function setComplemento($complemento)
+    public function setComplemento($complemento)
     {
         $this->complemento = $complemento;
     }
@@ -176,6 +190,7 @@ class Local
     {
         $this->longitude = $longitude;
     }
+
 
 }
 

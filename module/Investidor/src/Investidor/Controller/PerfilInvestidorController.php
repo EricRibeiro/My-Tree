@@ -49,7 +49,7 @@ class PerfilInvestidorController extends AbstractActionController
             return $this->redirect()->toRoute('investidor', ['controller' => 'perfil', 'action' => 'index']);
 
         } else
-            return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
+        return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
 
     }
 }

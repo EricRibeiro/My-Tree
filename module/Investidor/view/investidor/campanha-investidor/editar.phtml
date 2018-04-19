@@ -1,0 +1,217 @@
+<?php
+
+$url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'editar']);
+
+?>
+
+<div class="col-lg-12 col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">Editar Campanha</h4>
+        </div>
+        <div class="content">
+         <form method="post" action="<?= $url; ?>">
+           <input type="hidden" value="<?= $campanha->getId(); ?>" name="id">
+           <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Nome</label>
+                    <input type="text" class="form-control border-input" placeholder="Nome da Campanha" name="nome" value="<?= $campanha->getNome(); ?>">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Valor:</label>
+                    <input type="text" class="form-control border-input" placeholder="Valor para a Campanha" name="valor" value="<?= $campanha->getValor(); ?>">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Data de Início da Campanha</label>
+                    <input type="text"
+                    class="form-control border-input validate-date"
+                    value="<?= $campanha->getDataIncialString() ?>"
+                    name="dataInicio"
+                    placeholder="Dia/Mês/Ano"
+                    data-mask="00/00/0000"
+                    oninvalid="this.setCustomValidity('Insira uma data válida no formato: Dia/Mês/Ano')"
+                    oninput="setCustomValidity('')"
+                    required/>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Data de Término da Campanha</label>
+                    <input type="text"
+                    class="form-control border-input validate-date"
+                    value="<?= $campanha->getDataFinalString() ?>"
+                    name="dataTermino"
+                    placeholder="Dia/Mês/Ano"
+                    data-mask="00/00/0000"
+                    oninvalid="this.setCustomValidity('Insira uma data válida no formato: Dia/Mês/Ano')"
+                    oninput="setCustomValidity('')"
+                    required/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <table id="locais" class="table table-hover display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Id</th>
+                            <th>Cidade</th>
+                            <th>UF</th>
+                            <th>Bairro</th>
+                            <th>CEP</th>
+                            <th>Detalhes</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <?php foreach ($locais as $local) { ?>
+                        <tr>
+                            <td></td>
+                            <td><?= $local->getId(); ?></td>
+                            <td><?= $local->getMunicipio(); ?></td>
+                            <td><?= $local->getUF(); ?></td>
+                            <td><?= $local->getBairro(); ?></td>
+                            <td><?= $local->getCep(); ?></td>
+                            <td>
+
+                             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+                         </td>
+                     </tr>
+                     <?php }?>
+                 </tbody>
+             </table>
+         </div>
+     </div>
+
+     <div class="row" style="display: none;">
+        <div class="col-md-12">
+            <div class="form-group">
+                <input type="text" name="idLocalSelecionado" 
+                value="<?php if($campanha->getLocal()!=null){$campanha->getLocal()->getId();}?>" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="display: none;">
+        <div class="col-md-12">
+            <div class="form-group">
+                <input type="text" name="idLocalInicial" 
+                value="<?=$campanha->getLocal()->getId();?>" />
+            </div>
+        </div>
+    </div>
+
+
+    <div class="text-center ">
+        <button type="submit" class="btn btn-info btn-fill btn-wd">Editar</button>
+    </div>
+    <div class="clearfix"></div>
+</form>
+</div>
+</div>
+</div>
+
+
+
+<div id="myModal" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+            <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+
+<script>
+    jQuery(function ($) {
+        $('#locais').DataTable( {
+            columnDefs: [ {
+                orderable: false,
+                className: 'select-checkbox',
+                targets:   0
+            } ],
+            select: {
+                style:    'os',
+                selector: 'td:first-child'
+            },
+            order: [[ 1, 'asc' ]],
+            paging:false
+        } );
+
+
+        var table = $('#locais').DataTable();
+        var info = table.page.info();
+        
+        var localCampanhaAtual= $("input[name='idLocalSelecionado']").val();
+        
+        var table = $('#locais').DataTable();
+        var linhas= table.rows();
+        var arrayLinhas=new String(linhas[0]).split(",");
+        var chave=false;
+        var cont=0;
+        
+        while(chave==false && cont<arrayLinhas.length){
+            var data = table.rows(arrayLinhas[cont]).data();
+            var infoLocal=data[0];
+            var idLocal=infoLocal[1];
+            if(idLocal==localCampanhaAtual){
+                chave==true;
+                var info = table.page.info();
+                var ultimoRegPagAtual= info.end;
+                table.page(arrayLinhas[cont]/ultimoRegPagAtual).draw(false);
+                table.row(arrayLinhas[cont]).select();
+                
+            }
+            cont++;
+        }
+        alert(localCampanhaAtual);
+
+    });
+
+</script>
+
+<script>
+
+   jQuery(function ($) {
+
+    var table = $('#locais').DataTable();
+    $('#locais tbody').on( 'click', 'tr', function () {
+        var linhaSelecionada= table.row(this).index();
+        var data = table.rows(linhaSelecionada).data();
+        var infoLocal=data[0];
+        var idLocal=infoLocal[1];
+        $("input[name='idLocal']").val(idLocal);
+
+    } );
+});
+
+</script>
+
+
+
+
+
