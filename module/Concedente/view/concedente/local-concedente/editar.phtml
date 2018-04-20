@@ -1,38 +1,43 @@
 <?php
-//DANDO BUG NO SISTEMA echo $this->inlineScript()->prependFile($this->basePath() . '/js/datehelper.js');
-$url = $this->url('concedente', ['controller' => 'local', 'action' => 'cadastrar']);
+echo $this->inlineScript()->prependFile($this->basePath() . '/js/datehelper.js');
+$url = $this->url('concedente', ['controller' => 'local', 'action' => 'editar']);
 ?>
 <div class="container-fluid">
     <div class="col-lg-12 col-md-12">
         <div class="card">
             <div class="header">
-                <h4 class="title">Cadastrar Local</h4>
+                <h4 class="title">Editar Local</h4>
             </div>
             <div class="content">
                 <form method="post" action="<?= $url; ?>">
+                    <input type="hidden" value="<?= $local->getId(); ?>" name="id">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Logradouro</label>
-                                <input type="text" class="form-control border-input" placeholder="Ex: Rua Feliz" name="logradouro">
+                                <input type="text" class="form-control border-input" name="logradouro"
+                                       value="<?= $local->getLogradouro(); ?>">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>Número</label>
-                                <input type="text" class="form-control border-input" placeholder="Ex: 143" name="numero">
+                                <input type="text" class="form-control border-input" name="numero"
+                                       value="<?= $local->getNumero(); ?>">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Complemento</label>
-                                <input type="text" class="form-control border-input" placeholder="Ex: Perto do Shopping" name="complemento">
+                                <input type="text" class="form-control border-input" name="complemento"
+                                       value="<?= $local->getComplemento(); ?>">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>CEP</label>
-                                <input type="number" class="form-control border-input" placeholder="Ex: 30450650" name="cep">
+                                <input type="number" class="form-control border-input" name="cep"
+                                       value="<?= $local->getCep(); ?>">
                             </div>
                         </div>
                     </div>
@@ -40,27 +45,30 @@ $url = $this->url('concedente', ['controller' => 'local', 'action' => 'cadastrar
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Bairro</label>
-                                <input type="text" class="form-control border-input" placeholder="Ex: Jardins" name="bairro">
+                                <input type="text" class="form-control border-input" name="bairro"
+                                       value="<?= $local->getBairro(); ?>">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Município</label>
-                                <input type="text" class="form-control border-input" placeholder="Ex: Belo Horizonte" name="municipio">
+                                <input type="text" class="form-control border-input" name="municipio"
+                                       value="<?= $local->getMunicipio(); ?>">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>UF</label>
-                                <input type="text" class="form-control border-input" placeholder="Ex: Minas Gerais" name="uf">
+                                <input type="text" class="form-control border-input" name="uf"
+                                       value="<?= $local->getUF(); ?>">
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        
-                    </div>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-info btn-fill btn-wd">Cadastrar</button>
+                        <a type="button" onclick="window.history.back()"
+                           class="btn btn-info btn-fill btn-wd" style="margin: 3%">Cancelar</a>
+                        <button type="submit" class="btn btn-info btn-fill btn-wd" style="margin: 3%">Confirmar
+                        </button>
                     </div>
                     <div class="clearfix"></div>
                 </form>

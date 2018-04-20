@@ -18,38 +18,47 @@ class Local
      * @ORM\Column(type="integer")
      */
     private $id;
+
     /**
      * @ORM\Column(type="string")
      */
     private $uf;
+
     /**
      * @ORM\Column(type="string")
      */
     private $municipio;
+
     /**
      * @ORM\Column(type="string")
-     */    
+     */
     private $cep;
+
     /**
      * @ORM\Column(type="string")
-     */  
+     */
     private $bairro;
+
     /**
      * @ORM\Column(type="string")
      */
     private $logradouro;
+
     /**
      * @ORM\Column(type="string")
      */
     private $numero;
+
     /**
      * @ORM\Column(type="string")
      */
     private $complemento;
+
     /**
      * @ORM\Column(type="string")
      */
     private $latitude;
+
     /**
      * @ORM\Column(type="string")
      */
@@ -61,7 +70,6 @@ class Local
      */
     private $concedente;
 
-   
      /**
      * @ORM\OneToOne(targetEntity="Investidor\Entity\Campanha", inversedBy="local")
      * @ORM\JoinColumn(name="campanha_id", referencedColumnName="id", onDelete="SET NULL")
@@ -83,7 +91,7 @@ class Local
         $this->cep = $cep;
         $this->concedente = $concedente;
     }
-    
+
     public function setCampanha($campanha){
         $this->campanha=$campanha;
     }
