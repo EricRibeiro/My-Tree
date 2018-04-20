@@ -19,6 +19,7 @@
 
                         <?php foreach ($locais as $local) { ?>
                             <tr>
+                                <td hidden><?= $local->getId(); ?></td>
                                 <td><?= $local->getNumero(); ?></td>
                                 <td><?= $local->getMunicipio(); ?></td>
                                 <td><?= $local->getCEP(); ?></td>

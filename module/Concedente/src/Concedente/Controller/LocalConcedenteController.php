@@ -60,7 +60,7 @@ class LocalConcedenteController extends AbstractActionController
             
             $local = new Local($uf, $municipio, $cep, $bairro, $logradouro, $numero, $complemento, $latitude, $longitude, $concedente);
 
-                        //var_dump($local->getCep()); exit;
+            //var_dump($local->getCep()); exit;
 
             $entityManager->persist($local);
             $entityManager->flush();
@@ -77,7 +77,7 @@ class LocalConcedenteController extends AbstractActionController
         $id = $this->params()->fromRoute('id');
 
         if (!is_null($id)) {
-            $entityManager = $this->sm->get('Doctrine\ORM\EntityManager');
+            $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
             $repositorio = $entityManager->getRepository("Concedente\Entity\Local");
 
             $local = $repositorio->find($id);
@@ -86,7 +86,7 @@ class LocalConcedenteController extends AbstractActionController
         }
 
         return $this->redirect()->toRoute('concedente', array(
-            'controller' => 'index',
+            'controller' => 'local',
             'action' => 'index',
         ));
     }
