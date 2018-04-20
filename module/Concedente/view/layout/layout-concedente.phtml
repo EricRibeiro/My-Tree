@@ -41,7 +41,6 @@
                     MyTree
                 </a>
             </div>
-
             <ul class="nav">
                 <li class="dashboard aba">
                     <a href="<?= $this->url('concedente', array('controller' => 'dashboard', 'action' => 'index')); ?>">
@@ -55,10 +54,16 @@
                         <p>Perfil do Concedente</p>
                     </a>
                 </li>
-                <li class="local aba">
+                <li class="cadastrar aba">
+                    <a href="<?= $this->url('concedente', array('controller' => 'local', 'action' => 'cadastrar')); ?>">
+                        <i class="ti-map"></i>
+                        <p>Cadastrar Local</p>
+                    </a>
+                </li>
+                <li class="gerenciar aba">
                     <a href="<?= $this->url('concedente', array('controller' => 'local', 'action' => 'index')); ?>">
-                        <i class="ti-user"></i>
-                        <p>Gerenciar Local</p>
+                        <i class="ti-map"></i>
+                        <p>Gerenciar Locais</p>
                     </a>
                 </li>
                 <li class="mapa aba">

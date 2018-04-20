@@ -11,7 +11,6 @@ class LocalConcedenteController extends AbstractActionController
 {
     public function indexAction()
     {
-        
         if ($user = $this->identity()) {
             $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
             $repositorio = $entityManager->getRepository('Concedente\Entity\Local');
@@ -34,7 +33,7 @@ class LocalConcedenteController extends AbstractActionController
         $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 
         $repositorio = $entityManager->getRepository('Concedente\Entity\Concedente');
-
+       
         if ($this->request->isPost()) {
 
             /**
@@ -45,8 +44,8 @@ class LocalConcedenteController extends AbstractActionController
             $municipio = $this->request->getPost('municipio');
             $uf = $this->request->getPost('uf');
             $cep = $this->request->getPost('cep');
-            $numero = "1";
-            $complemento = "complemento";
+            $numero = $this->request->getPost('numero');
+            $complemento = $this->request->getPost('complemento');
             $latitude = "";
             $longitude = "";
 
@@ -60,10 +59,17 @@ class LocalConcedenteController extends AbstractActionController
             
             $local = new Local($uf, $municipio, $cep, $bairro, $logradouro, $numero, $complemento, $latitude, $longitude, $concedente);
 
-                        //var_dump($local->getCep()); exit;
+            //var_dump($local->getCep()); exit;
 
             $entityManager->persist($local);
             $entityManager->flush();
+        }else{
+            if ($user = $this->identity()){
+                $view_params = array(
+                    'concedente' => $user,
+                );
+                return new ViewModel($view_params);
+            }
         }
 
         return $this->redirect()->toRoute('concedente', array(
@@ -77,7 +83,7 @@ class LocalConcedenteController extends AbstractActionController
         $id = $this->params()->fromRoute('id');
 
         if (!is_null($id)) {
-            $entityManager = $this->sm->get('Doctrine\ORM\EntityManager');
+            $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
             $repositorio = $entityManager->getRepository("Concedente\Entity\Local");
 
             $local = $repositorio->find($id);
@@ -86,7 +92,7 @@ class LocalConcedenteController extends AbstractActionController
         }
 
         return $this->redirect()->toRoute('concedente', array(
-            'controller' => 'index',
+            'controller' => 'local',
             'action' => 'index',
         ));
     }
@@ -94,23 +100,43 @@ class LocalConcedenteController extends AbstractActionController
     public function editarAction()
     {
         if ($user = $this->identity()) {
+
+            $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+            $repositorio = $entityManager->getRepository("Concedente\Entity\Local");
+
+            $id = $this->params()->fromRoute('id');
+
+            if (is_null($id)) {
+                $id = $this->request->getPost('id');
+            }
+
+            $local = $repositorio->find($id);
+
             if ($this->request->isPost()) {
 
                 $id = $this->request->getPost('id');
 
-                $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-                $repositorio = $entityManager->getRepository("Concedente\Entity\Concedente");
-                $concedente = $repositorio->find($id);
 
-                $concedente->setNome($this->request->getPost('nome'));
-                $concedente->setTelefone($this->request->getPost('celular'));
-                $concedente->setEmail($this->request->getPost('email'));
-                $concedente->setSenha($this->request->getPost('senha'));
+                $local->setLogradouro($this->request->getPost('logradouro'));
+                $local->setNumero($this->request->getPost('numero'));
+                $local->setComplemento($this->request->getPost('complemento'));
+                $local->setBairro($this->request->getPost('bairro'));
+                $local->setMunicipio($this->request->getPost('municipio'));
+                $local->setUF($this->request->getPost('uf'));
+                $local->setCep($this->request->getPost('cep'));
 
-                $entityManager->persist($concedente);
+
+                $entityManager->persist($local);
                 $entityManager->flush();
+
+                return $this->redirect()->toRoute('concedente', array(
+                    'controller' => 'local',
+                    'action' => 'index',
+                ));
+
             }
-            return $this->redirect()->toRoute('concedente', ['controller' => 'local', 'action' => 'index']);
+            return new ViewModel(['local' => $local]);
+
 
         } else {
             return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
