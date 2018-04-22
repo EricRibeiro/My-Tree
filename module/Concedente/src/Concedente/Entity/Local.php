@@ -61,13 +61,11 @@ class Local
      */
     private $concedente;
 
-   
      /**
-     * @ORM\OneToOne(targetEntity="Investidor\Entity\Campanha", inversedBy="local")
+     * @ORM\OneToOne(targetEntity="Investidor\Entity\Campanha", mappedBy="local")
      * @ORM\JoinColumn(name="campanha_id", referencedColumnName="id", onDelete="SET NULL")
      */
      private $campanha;
-
 
 
      public function __construct($uf, $municipio, $cep, $bairro, $logradouro, $numero, $complemento, $latitude, $longitude, $concedente)
