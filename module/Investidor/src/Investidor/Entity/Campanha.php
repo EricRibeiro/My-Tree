@@ -37,12 +37,11 @@ class Campanha {
 	 /**
      * @ORM\Column(type="date")
      */
-
 	 private $dataFinal;
 
 	 /**
-     * @ORM\OneToOne(targetEntity="Concedente\Entity\Local")
-     * @ORM\JoinColumn(name="local_id", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="Concedente\Entity\Local", inversedBy="campanha")
+     * @ORM\JoinColumn(name="local_id", referencedColumnName="id", onDelete="SET NULL")
      * 
      */
 	 private $local;
@@ -128,7 +127,9 @@ class Campanha {
 
 	 }
 
+	
 
+	 
 	}
 
 
