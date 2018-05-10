@@ -11,8 +11,10 @@ return array(
         'DoctrineModule',
         'DoctrineORMModule',
         'Application',
-        'Pessoa',
+        'Plantador',
         'Investidor',
+        'Concedente',
+        'Administrador'
     ),
     'module_listener_options' => array(
         'module_paths' => array(

@@ -5,6 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Application\helper\Data;
 use Concedente\Entity\Local;
 use Investidor\Entity\Investidor;
+use Plantador\Entity\Plantador;
 
 
 /**
@@ -52,6 +53,14 @@ class Campanha {
      */
 
 	 private $investidor;
+
+
+	 private $plantador;
+
+	 /**
+		*@ORM\Column(type="boolean", nullable=true)
+	 */
+	 private $status;
 
 
 	 public function __construct($nome, $valor, $dataInicio, $dataFinal, $investidor){
@@ -127,7 +136,13 @@ class Campanha {
 
 	 }
 
-	
+	public function getStatus(){
+		return $this->status;
+	}
+
+	public function setStatus($status){
+		$this->status=$status;
+	}
 
 	 
 	}

@@ -6,32 +6,32 @@
     <?php echo $this->headTitle('MyTree - Investidor') ?>
 
     <?php echo $this->headMeta()
-        ->appendName('viewport', 'width=device-width, initial-scale=1.0')
-        ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+    ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+    ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
     ?>
 
     <!-- Le styles -->
     <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
-        ->prependStylesheet('https://fonts.googleapis.com/css?family=Muli:400,300')
-        ->prependStylesheet($this->basePath() . '/css/paper-dashboard/themify-icons.css')
-        ->prependStylesheet($this->basePath() . '/css/paper-dashboard/paper-dashboard.css')
-         ->prependStylesheet($this->basePath() . '/css/data-tables/jquery.dataTables.min.css')
+    ->prependStylesheet('https://fonts.googleapis.com/css?family=Muli:400,300')
+    ->prependStylesheet($this->basePath() . '/css/paper-dashboard/themify-icons.css')
+    ->prependStylesheet($this->basePath() . '/css/paper-dashboard/paper-dashboard.css')
+    ->prependStylesheet($this->basePath() . '/css/data-tables/jquery.dataTables.min.css')
         //->prependStylesheet($this->basePath() . '/css/data-tables/select.dataTables.min.css')
-        ->prependStylesheet($this->basePath() . '/css/vendor/font-awesome.min.css')
-        ->prependStylesheet($this->basePath() . '/css/animate.min.css')
-        ->prependStylesheet($this->basePath() . '/css/vendor/bootstrap.min.css') 
-        ?>
+    ->prependStylesheet($this->basePath() . '/css/vendor/font-awesome.min.css')
+    ->prependStylesheet($this->basePath() . '/css/animate.min.css')
+    ->prependStylesheet($this->basePath() . '/css/vendor/bootstrap.min.css') 
+    ?>
 
     <!-- Scripts -->
     <?php echo $this->headScript()
-        ->prependFile($this->basePath() . '/js/vendor/jquery.min.js')
-        ->prependFile($this->basePath() . '/js/vendor/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
-        ->prependFile($this->basePath() . '/js/vendor/html5shiv.js', 'text/javascript', array('conditional' => 'lt IE 9',)); ?>
+    ->prependFile($this->basePath() . '/js/vendor/jquery.min.js')
+    ->prependFile($this->basePath() . '/js/vendor/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+    ->prependFile($this->basePath() . '/js/vendor/html5shiv.js', 'text/javascript', array('conditional' => 'lt IE 9',)); ?>
 
 </head>
 <body>
-<div class="wrapper">
-    <div class="sidebar" data-background-color="black" data-active-color="danger">
+    <div class="wrapper">
+        <div class="sidebar" data-background-color="black" data-active-color="danger">
 
         <!--
             Tip 1: you can change the color of the sidebar's background using: data-background-color="white | black"
@@ -166,7 +166,7 @@
                     &copy;
                     <script>document.write(new Date().getFullYear())</script>
                     , made with <i class="fa fa-heart heart"></i> by <a href="http://www.creative-tim.com">Creative
-                        Tim</a>
+                    Tim</a>
                 </div>
             </div>
         </footer>
@@ -175,17 +175,17 @@
 
 <!-- More Scripts -->
 <?php echo $this->inlineScript()
-    ->prependFile($this->basePath() . '/js/style.js')
-    ->prependFile($this->basePath() . '/js/data-tables/jquery.js')
-    ->prependFile($this->basePath() . '/js/paper-dashboard/demo.js')
-    ->prependFile($this->basePath() . '/js/paper-dashboard/paper-dashboard.js')
-    ->prependFile($this->basePath() . '/js/paper-dashboard/bootstrap-notify.js')
-    ->prependFile($this->basePath() . '/js/paper-dashboard/chartist.min.js')
-    ->prependFile($this->basePath() . '/js/paper-dashboard/bootstrap-checkbox-radio.js')
-     ->prependFile($this->basePath() . '/js/data-tables/dataTables.select.min.js')
-     ->prependFile($this->basePath() . '/js/data-tables/jquery.dataTables.min.js')
-    ->prependFile($this->basePath() . '/js/vendor/bootstrap.min.js') ?>
+->prependFile($this->basePath() . '/js/style.js')
+->prependFile($this->basePath() . '/js/data-tables/jquery.js')
+->prependFile($this->basePath() . '/js/paper-dashboard/demo.js')
+->prependFile($this->basePath() . '/js/paper-dashboard/paper-dashboard.js')
+->prependFile($this->basePath() . '/js/paper-dashboard/bootstrap-notify.js')
+->prependFile($this->basePath() . '/js/paper-dashboard/chartist.min.js')
+->prependFile($this->basePath() . '/js/paper-dashboard/bootstrap-checkbox-radio.js')
+->prependFile($this->basePath() . '/js/data-tables/dataTables.select.min.js')
+->prependFile($this->basePath() . '/js/data-tables/jquery.dataTables.min.js')
+->prependFile($this->basePath() . '/js/vendor/bootstrap.min.js') ?>
 </body>
 <!-- Modal -->
-    
+
 </html>

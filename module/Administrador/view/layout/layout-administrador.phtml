@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <?php echo $this->headTitle('MyTree - Concedente') ?>
+    <?php echo $this->headTitle('MyTree - Administrador') ?>
 
     <?php echo $this->headMeta()
     ->appendName('viewport', 'width=device-width, initial-scale=1.0')
@@ -15,13 +15,10 @@
     ->prependStylesheet('https://fonts.googleapis.com/css?family=Muli:400,300')
     ->prependStylesheet($this->basePath() . '/css/paper-dashboard/themify-icons.css')
     ->prependStylesheet($this->basePath() . '/css/paper-dashboard/paper-dashboard.css')
+    ->prependStylesheet($this->basePath() . '/css/data-tables/jquery.dataTables.min.css')
     ->prependStylesheet($this->basePath() . '/css/vendor/font-awesome.min.css')
-    ->prependStylesheet($this->basePath() . '/css/vendor/animate.min.css')
-    ->prependStylesheet($this->basePath() . '/css/vendor/bootstrap.min.css')
-    ->prependStylesheet($this->basePath() . '/css/vendor/bootstrap-multiselect.css')
-
-
-
+    ->prependStylesheet($this->basePath() . '/css/animate.min.css')
+    ->prependStylesheet($this->basePath() . '/css/vendor/bootstrap.min.css') 
     ?>
 
     <!-- Scripts -->
@@ -29,6 +26,7 @@
     ->prependFile($this->basePath() . '/js/vendor/jquery.min.js')
     ->prependFile($this->basePath() . '/js/vendor/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
     ->prependFile($this->basePath() . '/js/vendor/html5shiv.js', 'text/javascript', array('conditional' => 'lt IE 9',)); ?>
+
 
 </head>
 <body>
@@ -46,35 +44,24 @@
                     MyTree
                 </a>
             </div>
+
             <ul class="nav">
                 <li class="dashboard aba">
-                    <a href="<?= $this->url('concedente', array('controller' => 'dashboard', 'action' => 'index')); ?>">
+                    <a href="<?= $this->url('administrador', array('controller' => 'dashboard', 'action' => 'index')); ?>">
                         <i class="ti-panel"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
                 <li class="perfil aba">
-                    <a href="<?= $this->url('concedente', array('controller' => 'perfil', 'action' => 'index')); ?>">
+                    <a href="<?= $this->url('administrador', array('controller' => 'campanha', 'action' => 'gerenciar')); ?>">
                         <i class="ti-user"></i>
-                        <p>Perfil do Concedente</p>
+                        <p>Campanhas a gerenciar</p>
                     </a>
                 </li>
                 <li class="cadastrar aba">
-                    <a href="<?= $this->url('concedente', array('controller' => 'local', 'action' => 'cadastrar')); ?>">
+                    <a href="<?= $this->url('administrador', array('controller' => 'local', 'action' => 'cadastrar')); ?>">
                         <i class="ti-map"></i>
-                        <p>Cadastrar Local</p>
-                    </a>
-                </li>
-                <li class="gerenciar aba">
-                    <a href="<?= $this->url('concedente', array('controller' => 'local', 'action' => 'index')); ?>">
-                        <i class="ti-map"></i>
-                        <p>Gerenciar Locais</p>
-                    </a>
-                </li>
-                <li class="mapa aba">
-                    <a href="<?= $this->url('concedente', array('controller' => 'mapa', 'action' => 'index')); ?>">
-                        <i class="ti-map"></i>
-                        <p>Mapa</p>
+                        <p>Campanhas Gerenciadas</p>
                     </a>
                 </li>
                 <li class="active-pro">
@@ -173,21 +160,23 @@
 
 <!-- More Scripts -->
 <?php echo $this->inlineScript()
+
 ->prependFile($this->basePath() . '/js/style.js')
+->prependFile($this->basePath() . '/js/data-tables/jquery.js')
 ->prependFile($this->basePath() . '/js/paper-dashboard/demo.js')
 ->prependFile($this->basePath() . '/js/paper-dashboard/paper-dashboard.js')
 ->prependFile($this->basePath() . '/js/paper-dashboard/bootstrap-notify.js')
 ->prependFile($this->basePath() . '/js/paper-dashboard/chartist.min.js')
 ->prependFile($this->basePath() . '/js/paper-dashboard/bootstrap-checkbox-radio.js')
-->prependFile($this->basePath() . '/js/vendor/bootstrap.min.js') 
-->prependFile($this->basePath() . '/js/bootstrap-multiselect.js')
-->prependFile($this->basePath() . '/js/jquery.min.js')
-->prependFile($this->basePath() . '/js/vendor/prettify.min.js')
-->prependFile($this->basePath() . '/js/vendor/require-2.3.5.min.js')
+->prependFile($this->basePath() . '/js/data-tables/dataTables.select.min.js')
+->prependFile($this->basePath() . '/js/data-tables/jquery.dataTables.min.js')
+->prependFile($this->basePath() . '/js/vendor/bootstrap.min.js');
+
+
+
 
 
 ?>
-
 
 </body>
 </html>

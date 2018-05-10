@@ -28,20 +28,22 @@ class LoginController extends AbstractActionController
             $senha = $this->request->getPost('senha');
             $usuario = $this->request->getPost('usuario');
             $route = "";
-
             $authService = $this->getServiceLocator()->get('Zend\Authentication\AuthenticationService');
             $authAdapter = $authService->getAdapter();
 
             switch ($usuario) {
                 case 'Plantador':
-                    $route = 'plantador';
-                    break;
+                $route = 'plantador';
+                break;
                 case 'Concedente':
-                    $route = 'concedente';
-                    break;
+                $route = 'concedente';
+                break;
                 case 'Investidor':
-                    $route = 'investidor';
-                    break;
+                $route = 'investidor';
+                break;
+                case 'Administrador':
+                $route = 'administrador';
+                break;
             }
 
             $authAdapter->setIdentityValue($email);
@@ -49,27 +51,26 @@ class LoginController extends AbstractActionController
             $authResult = $authService->authenticate();
 
             if ($authResult->isValid()) {
-                $identity = get_class($authResult->getIdentity());
-                $class = substr($identity, strrpos($identity, "\\") + 1);
 
-                if ($class == $usuario)
-                    return $this->redirect()->toRoute($route);
+             $identity = get_class($authResult->getIdentity());
+             $class = substr($identity, strrpos($identity, "\\") + 1);
 
-                else
-                    $this->flashMessenger()->addErrorMessage("Email cadastrado em outro tipo de usuário.");
-
-            } else {
-                $this->flashMessenger()->addErrorMessage("Email ou senha incorretos.");
-            }
+             if ($class == $usuario)
+                return $this->redirect()->toRoute($route);
+            else
+                $this->flashMessenger()->addErrorMessage("Email cadastrado em outro tipo de usuário.");
+        } else {
+            $this->flashMessenger()->addErrorMessage("Email ou senha incorretos.");
         }
-        return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
-
     }
+    return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
 
-    function logoutAction()
-    {
-        $authService = $this->getServiceLocator()->get('Zend\Authentication\AuthenticationService');
-        $authService->clearIdentity();
-        return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
-    }
+}
+
+function logoutAction()
+{
+    $authService = $this->getServiceLocator()->get('Zend\Authentication\AuthenticationService');
+    $authService->clearIdentity();
+    return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
+}
 }
