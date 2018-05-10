@@ -1,6 +1,6 @@
 <?php
-//DANDO BUG NO SISTEMA echo $this->inlineScript()->prependFile($this->basePath() . '/js/datehelper.js');
 $url = $this->url('concedente', ['controller' => 'local', 'action' => 'cadastrar']);
+
 ?>
 <div class="container-fluid">
     <div class="col-lg-12 col-md-12">
@@ -57,14 +57,64 @@ $url = $this->url('concedente', ['controller' => 'local', 'action' => 'cadastrar
                         </div>
                     </div>
                     <div class="row">
-                        
+                        <div class="col-md-10">
+                            <div class="form-group">
+                              <label>Selecione os tipos de Muda: </label>      
+                              <select id="example-getting-started" multiple="multiple">
+                                <?php
+
+                                foreach ($mudas as $muda){
+                                    $idMuda=$muda->getId();
+                                    echo "<option value='$idMuda'>".$muda->TipoMudaToString(). "</option>";
+                                }
+                                ?>
+                            </select>
+                        </div> 
                     </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-info btn-fill btn-wd">Cadastrar</button>
-                    </div>
-                    <div class="clearfix"></div>
-                </form>
+                </div>  
             </div>
-        </div>
+
+            <div class="row" style="display: none;">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <input type="text" name="tiposMudaLocal"/>
+              </div>
+          </div>
+      </div>
+
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-info btn-fill btn-wd">Cadastrar</button>
     </div>
+    <div class="clearfix"></div>
+</form>
 </div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+
+    var arraysMudas=[];
+
+    $(document).ready(function() {
+        $('#example-getting-started').multiselect({
+            enableFiltering: true,
+            filterPlaceholder: 'Search',
+
+            onChange: function(element, checked) {
+                if (checked === true) {
+                    arraysMudas.push(element.val());
+                    $("input[name='tiposMudaLocal']").val(arraysMudas.join('-'));
+                }
+                else if (checked === false) {
+                 var indice=arraysMudas.indexOf(element.val());
+                 arraysMudas.splice(indice,1);
+                 $("input[name='tiposMudaLocal']").val(arraysMudas.join('-'));
+             }
+         }
+
+     });
+    });
+</script>
+

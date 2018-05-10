@@ -19,6 +19,7 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
                                 <th>data Início</th>
                                 <th>data Término</th>
                                 <th>Cidade</th>
+                                <th>UF</th>
                                 <th>Estado</th>
                                 <th hidden>Complemento</th>
                                 <th hidden>Logradouro</th>
@@ -45,7 +46,17 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
                                 <?php if($campanha->getLocal()!=null) {?>
                                 <td><?= $campanha->getLocal()->getMunicipio(); ?></td> 
                                 <td><?= $campanha->getLocal()->getUF(); ?></td>
+                                <td>
+                                    
+                                    <?php if($campanha->getStatus()==null){ ?>
+                                        <td>A. Liberação</td>
+                                    <?php } else if ($campanha->getStatus()==true) { ?> 
+                                        <td>Liberada</td>
+                                    <?php } else { ?>
+                                        <td>Não liberada</td>
+                                    <?php } ?>
 
+                                </td>
                                 <td hidden><?= $campanha->getLocal()->getComplemento(); ?></td>
                                 <td hidden><?= $campanha->getLocal()->getLogradouro(); ?></td>
                                 <td hidden><?= $campanha->getLocal()->getCep(); ?></td>

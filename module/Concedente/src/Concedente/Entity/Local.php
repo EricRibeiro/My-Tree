@@ -4,7 +4,9 @@ namespace Concedente\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Concedente\Entity\Concedente;
-
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Administrador\Entity\TipoMuda;
 
 /**
  * @ORM\Entity
@@ -76,6 +78,16 @@ class Local
      */
      private $campanha;
 
+     /**
+     *@var \Doctrine\Common\Collections\Collection|listaMudas[]
+     *@ORM\ManyToMany(targetEntity="Administrador\Entity\TipoMuda", inversedBy="local")
+     *@ORM\JoinTable(name="localMuda",
+     joinColumns={@ORM\JoinColumn(name="local_id", referencedColumnName="id")},
+     inverseJoinColumns={@ORM\JoinColumn(name="TipoMuda_id", referencedColumnName="id")}
+     )
+     */
+     private $listaMudas;
+
 
      public function __construct($uf, $municipio, $cep, $bairro, $logradouro, $numero, $complemento, $latitude, $longitude, $concedente)
      {
@@ -89,6 +101,12 @@ class Local
         $this->longitude = $longitude;
         $this->cep = $cep;
         $this->concedente = $concedente;
+        $this->listaMudas= new ArrayCollection();
+    }
+
+    public function addTipoMuda(TipoMuda $TMuda){
+        $this->listaMudas->add($TMuda);
+
     }
 
     public function setCampanha($campanha){
@@ -198,6 +216,17 @@ class Local
         $this->longitude = $longitude;
     }
 
+    public function getMudas(){
+        return $this->listaMudas;
+    }
+
+    public function getMudasToString(){
+        $tMudas;
+        foreach ($this->getMudas() as $tMuda) {
+            $mudas.=$tMuda->dadosTipoMudaToString()." ";          
+        }
+        return $mudas;
+    }
 
 }
 

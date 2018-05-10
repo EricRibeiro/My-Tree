@@ -2,18 +2,18 @@
 return array(
     'router' => array(
         'routes' => array(
-            'plantador' => array(
+            'administrador' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/plantador[/:controller[/:action[/:id]]]',
+                    'route' => '/administrador[/:controller[/:action[/:id]]]',
                     'constraints' => array(
                         'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id' => '[0-9]*'
                     ),
                     'defaults' => array(
-                        '__NAMESPACE__' => 'Plantador\Controller',
-                        'controller' => 'Dashboard',
+                        '__NAMESPACE__' => 'Administrador\Controller',
+                        'controller' => 'dashboard',
                         'action' => 'index'
                     )
                 ),
@@ -22,7 +22,7 @@ return array(
                     'default' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/plantador[:controller[/:action]]',
+                            'route' => '/administrador[:controller[/:action]]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -36,11 +36,9 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Plantador\Controller\Cadastro' => 'Plantador\Controller\PlantadorController',
-            'Plantador\Controller\Dashboard' => 'Plantador\Controller\DashboardPlantadorController',
-            'Plantador\Controller\Mapa' => 'Plantador\Controller\MapaPlantadorController',
-            'Plantador\Controller\Perfil' => 'Plantador\Controller\PerfilPlantadorController',
-            'Plantador\Controller\Campanha' => 'Plantador\Controller\CampanhaPlantadorController'
+            'Administrador\Controller\Dashboard' => 'Administrador\Controller\DashboardAdministradorController',
+            'Administrador\Controller\Campanha' => 'Administrador\Controller\CampanhaAdministradorController',
+
         ),
     ),
     'view_manager' => array(
@@ -49,18 +47,18 @@ return array(
         )
     ),
     'moduleLayouts' => array(
-        'Plantador' => 'layout/layout-plantador'
+        'Administrador' => 'layout/layout-administrador'
     ),
     'doctrine' => array(
         'driver' => array(
-            'plantador_entities' => array(
+            'administrador_entities' => array(
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
                 'cache' => 'array',
-                'paths' => array(__DIR__ . '/../src/Plantador/Entity')
+                'paths' => array(__DIR__ . '/../src/Administrador/Entity')
             ),
             'orm_default' => array(
                 'drivers' => array(
-                    'Plantador\Entity' => 'plantador_entities'
+                    'Administrador\Entity' => 'administrador_entities'
                 ),
             ),
         )

@@ -16,28 +16,28 @@ $url = $this->url('concedente', ['controller' => 'local', 'action' => 'editar'])
                             <div class="form-group">
                                 <label>Logradouro</label>
                                 <input type="text" class="form-control border-input" name="logradouro"
-                                       value="<?= $local->getLogradouro(); ?>">
+                                value="<?= $local->getLogradouro(); ?>">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>Número</label>
                                 <input type="text" class="form-control border-input" name="numero"
-                                       value="<?= $local->getNumero(); ?>">
+                                value="<?= $local->getNumero(); ?>">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Complemento</label>
                                 <input type="text" class="form-control border-input" name="complemento"
-                                       value="<?= $local->getComplemento(); ?>">
+                                value="<?= $local->getComplemento(); ?>">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>CEP</label>
                                 <input type="number" class="form-control border-input" name="cep"
-                                       value="<?= $local->getCep(); ?>">
+                                value="<?= $local->getCep(); ?>">
                             </div>
                         </div>
                     </div>
@@ -46,27 +46,39 @@ $url = $this->url('concedente', ['controller' => 'local', 'action' => 'editar'])
                             <div class="form-group">
                                 <label>Bairro</label>
                                 <input type="text" class="form-control border-input" name="bairro"
-                                       value="<?= $local->getBairro(); ?>">
+                                value="<?= $local->getBairro(); ?>">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Município</label>
                                 <input type="text" class="form-control border-input" name="municipio"
-                                       value="<?= $local->getMunicipio(); ?>">
+                                value="<?= $local->getMunicipio(); ?>">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>UF</label>
                                 <input type="text" class="form-control border-input" name="uf"
-                                       value="<?= $local->getUF(); ?>">
+                                value="<?= $local->getUF(); ?>">
                             </div>
                         </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Tipos de mudas</label>
+                                <input type="text" class="form-control border-input" name="mudas"
+                               
+                                value="<?= $local->getMudasToString(); ?>">
+                            </div>
+                        </div>
+
+
+
                     </div>
                     <div class="text-center">
                         <a type="button" onclick="window.history.back()"
-                           class="btn btn-info btn-fill btn-wd" style="margin: 3%">Cancelar</a>
+                        class="btn btn-info btn-fill btn-wd" style="margin: 3%">Cancelar</a>
                         <button type="submit" class="btn btn-info btn-fill btn-wd" style="margin: 3%">Confirmar
                         </button>
                     </div>

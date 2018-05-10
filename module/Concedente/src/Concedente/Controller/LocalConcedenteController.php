@@ -6,6 +6,7 @@ namespace Concedente\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Concedente\Entity\Local;
+use Application\Entity\TipoMuda;
 
 class LocalConcedenteController extends AbstractActionController
 {
@@ -14,12 +15,11 @@ class LocalConcedenteController extends AbstractActionController
         if ($user = $this->identity()) {
             $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
             $repositorio = $entityManager->getRepository('Concedente\Entity\Local');
-            $locais = $repositorio->findAll();
-
+            $locais = $repositorio->findBy(array('concedente'=>$user));
+            
             $view_params = array(
                 'concedente' => $user,
                 'locais' => $locais,
-
             );  
             return new ViewModel($view_params);
 
@@ -33,12 +33,8 @@ class LocalConcedenteController extends AbstractActionController
         $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 
         $repositorio = $entityManager->getRepository('Concedente\Entity\Concedente');
-       
-        if ($this->request->isPost()) {
 
-            /**
-            *Preenche as informações de local com os campos do formulario.
-            **/
+        if ($this->request->isPost()) {
             $logradouro = $this->request->getPost('logradouro');
             $bairro = $this->request->getPost('bairro');
             $municipio = $this->request->getPost('municipio');
@@ -49,24 +45,29 @@ class LocalConcedenteController extends AbstractActionController
             $latitude = "";
             $longitude = "";
 
-            /**
-            *Resgata o objeto usuario do tipo concedente por query,
-            *como parametro o id da sessao da identidade.
-            **/
+            $mudas=explode('-', $this->request->getPost('tiposMudaLocal'));
+           
             $user = $this->identity();
-            $query = $repositorio->createQueryBuilder('o')->where('o.id = :id')->setParameter('id', $user->getId())->getQuery();
-            $concedente = $query->getSingleResult();
-            
-            $local = new Local($uf, $municipio, $cep, $bairro, $logradouro, $numero, $complemento, $latitude, $longitude, $concedente);
+           
+            $local = new Local($uf, $municipio, $cep, $bairro, $logradouro, $numero, $complemento, $latitude, $longitude, $user);
 
-            //var_dump($local->getCep()); exit;
+            foreach ($mudas as $idmuda) {
+                $repositorio = $entityManager->getRepository('Application\Entity\TipoMuda');
+                $muda=$repositorio->find($idmuda);
+                $local->addTipoMuda($muda);
+            }
 
             $entityManager->persist($local);
             $entityManager->flush();
         }else{
+
+            $repositorio = $entityManager->getRepository('Application\Entity\TipoMuda');
+            $tiposMuda=$repositorio->findAll();
+
             if ($user = $this->identity()){
                 $view_params = array(
                     'concedente' => $user,
+                    'mudas'=>$tiposMuda
                 );
                 return new ViewModel($view_params);
             }
@@ -76,6 +77,7 @@ class LocalConcedenteController extends AbstractActionController
             'controller' => 'local',
             'action' => 'index',
         ));
+
     }
 
     public function removerAction()
@@ -143,4 +145,13 @@ class LocalConcedenteController extends AbstractActionController
 
         }
     }
+
+
+
+
+
+
+
+
+    
 }
