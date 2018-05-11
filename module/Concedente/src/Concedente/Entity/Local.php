@@ -32,6 +32,11 @@ class Local
     private $municipio;
 
     /**
+     * @ORM\Column(type="float")
+     */
+    private $area;
+
+    /**
      * @ORM\Column(type="string")
      */
     private $cep;
@@ -89,7 +94,7 @@ class Local
      private $listaMudas;
 
 
-     public function __construct($uf, $municipio, $cep, $bairro, $logradouro, $numero, $complemento, $latitude, $longitude, $concedente)
+     public function __construct($uf, $municipio, $cep, $bairro, $logradouro, $numero, $complemento, $latitude, $longitude, $concedente,$area)
      {
         $this->uf = $uf;
         $this->municipio = $municipio;
@@ -101,11 +106,21 @@ class Local
         $this->longitude = $longitude;
         $this->cep = $cep;
         $this->concedente = $concedente;
+        $this->area=$area;
         $this->listaMudas= new ArrayCollection();
     }
 
     public function addTipoMuda(TipoMuda $TMuda){
         $this->listaMudas->add($TMuda);
+
+    }
+
+    public function setArea($area){
+        $this->area=$area;
+    }
+
+    public function getArea(){
+        return $this->area;
 
     }
 
@@ -221,11 +236,13 @@ class Local
     }
 
     public function getMudasToString(){
-        $tMudas;
-        foreach ($this->getMudas() as $tMuda) {
-            $mudas.=$tMuda->dadosTipoMudaToString()." ";          
-        }
-        return $mudas;
+        $mudasString="";
+      foreach ($this->getMudas() as $tMuda) {
+          $mudasString.=$tMuda->TipoMudaToString();
+          $mudasString.=";";
+      }
+      return $mudasString;
+              
     }
 
 }

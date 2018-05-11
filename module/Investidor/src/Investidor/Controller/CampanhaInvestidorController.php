@@ -83,7 +83,6 @@ class CampanhaInvestidorController extends AbstractActionController
 }
 
 
-
 public function removerAction(){
 
  $id = $this->params()->fromRoute('id');

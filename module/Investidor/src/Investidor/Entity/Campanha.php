@@ -6,10 +6,13 @@ use Application\helper\Data;
 use Concedente\Entity\Local;
 use Investidor\Entity\Investidor;
 use Plantador\Entity\Plantador;
+use Administrador\Entity\Muda;
+use Investidor\Repository\RepoCampanha;
+use Administrador\Entity\TipoMuda;
 
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Investidor\Repository\RepoCampanha")
  */
 class Campanha {
 	
@@ -54,87 +57,111 @@ class Campanha {
 
 	 private $investidor;
 
-
-	 private $plantador;
-
 	 /**
 		*@ORM\Column(type="boolean", nullable=true)
 	 */
-	 private $status;
+	private $status;
+
+	/**
+	*@ORM\ManyToOne(targetEntity="Administrador\Entity\Muda", inversedBy="campanha")
+	*@ORM\JoinColumn(name="muda_id", referencedColumnName="id")
+	*/
+	private $estoqueMuda;
 
 
-	 public function __construct($nome, $valor, $dataInicio, $dataFinal, $investidor){
-	 	$this->nome=$nome;
-	 	$this->valor=$valor;
-	 	$this->setDataInicio($dataInicio);
-	 	$this->setDataFinal($dataFinal);
-	 	$this->investidor=$investidor;
-	 }
+	public function __construct($nome, $valor, $dataInicio, $dataFinal, $investidor){
+		$this->nome=$nome;
+		$this->valor=$valor;
+		$this->setDataInicio($dataInicio);
+		$this->setDataFinal($dataFinal);
+		$this->investidor=$investidor;
+	}
 
-	 public function getId(){
-	 	return $this->id;
-	 }
+	public function setEstoqueMuda($muda){
+		$this->estoqueMuda=$muda;
+	}
 
-	 public function getInvestidor(){
-	 	return $this->investidor;
-	 }
+	public function getEstqueMuda(){
+		$this->$estoqueMuda;
+	}
 
-	 public function getLocal(){
-	 	return $this->local;
-	 }
+	public function desestocarMuda(){
+		$qtdMudas=$this->getEstqueMuda();
+		$qtdMudas--;
+		$this->setEstoqueMuda($qtdMudas);
+	}
 
-	 public function setInvestidor($investidor){
-	 	$this->investidor=$investidor;
-	 }
 
-	 public function setLocal($local){
-	 	$this->local=$local;
+	public function estocarMuda(){
+		$qtdMudas=$this->getEstqueMuda();
+		$qtdMudas++;
+		$this->setEstoqueMuda($qtdMudas);
 
-	 }
+	}
 
-	 public function setNome($nome){
-	 	$this->nome=$nome;
+	public function getId(){
+		return $this->id;
+	}
 
-	 }
+	public function getInvestidor(){
+		return $this->investidor;
+	}
 
-	 public function getNome(){
-	 	return $this->nome;
-	 }
+	public function getLocal(){
+		return $this->local;
+	}
 
-	 public function setValor($valor){
-	 	$this->valor=$valor;
+	public function setInvestidor($investidor){
+		$this->investidor=$investidor;
+	}
 
-	 }
+	public function setLocal($local){
+		$this->local=$local;
 
-	 public function getValor(){
-	 	return $this->valor;
+	}
 
-	 }
+	public function setNome($nome){
+		$this->nome=$nome;
 
-	 public function getDataInicio(){
-	 	return $this->dataInicio;
-	 }
+	}
+	public function getNome(){
+		return $this->nome;
+	}
 
-	 public function getDataFinal(){
-	 	return $this->dataFinal;
-	 }
+	public function setValor($valor){
+		$this->valor=$valor;
 
-	 public function getDataFinalString(){
-	 	return Data::dataToString($this->getDataFinal());
-	 }
+	}
 
-	  public function getDataIncialString(){
-	 	return Data::dataToString($this->getDataInicio());
-	 }
+	public function getValor(){
+		return $this->valor;
 
-	 public function setDataInicio($data){
-	 	return $this->dataInicio=Data::setData($data);
-	 }
+	}
 
-	 public function setDataFinal($data){
-	 	return $this->dataFinal=Data::setData($data);
+	public function getDataInicio(){
+		return $this->dataInicio;
+	}
 
-	 }
+	public function getDataFinal(){
+		return $this->dataFinal;
+	}
+
+	public function getDataFinalString(){
+		return Data::dataToString($this->getDataFinal());
+	}
+
+	public function getDataIncialString(){
+		return Data::dataToString($this->getDataInicio());
+	}
+
+	public function setDataInicio($data){
+		return $this->dataInicio=Data::setData($data);
+	}
+
+	public function setDataFinal($data){
+		return $this->dataFinal=Data::setData($data);
+
+	}
 
 	public function getStatus(){
 		return $this->status;
@@ -144,10 +171,10 @@ class Campanha {
 		$this->status=$status;
 	}
 
-	 
-	}
+
+}
 
 
 
 
-	?>
+?>

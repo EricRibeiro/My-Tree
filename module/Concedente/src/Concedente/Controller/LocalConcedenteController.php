@@ -6,7 +6,7 @@ namespace Concedente\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Concedente\Entity\Local;
-use Application\Entity\TipoMuda;
+use Administrador\Entity\TipoMuda;
 
 class LocalConcedenteController extends AbstractActionController
 {
@@ -42,17 +42,19 @@ class LocalConcedenteController extends AbstractActionController
             $cep = $this->request->getPost('cep');
             $numero = $this->request->getPost('numero');
             $complemento = $this->request->getPost('complemento');
+            $areaLocal=$this->request->getPost('areaLocal');
             $latitude = "";
             $longitude = "";
+
 
             $mudas=explode('-', $this->request->getPost('tiposMudaLocal'));
            
             $user = $this->identity();
            
-            $local = new Local($uf, $municipio, $cep, $bairro, $logradouro, $numero, $complemento, $latitude, $longitude, $user);
+            $local = new Local($uf, $municipio, $cep, $bairro, $logradouro, $numero, $complemento, $latitude, $longitude, $user, $areaLocal);
 
             foreach ($mudas as $idmuda) {
-                $repositorio = $entityManager->getRepository('Application\Entity\TipoMuda');
+                $repositorio = $entityManager->getRepository('Administrador\Entity\TipoMuda');
                 $muda=$repositorio->find($idmuda);
                 $local->addTipoMuda($muda);
             }
@@ -61,7 +63,7 @@ class LocalConcedenteController extends AbstractActionController
             $entityManager->flush();
         }else{
 
-            $repositorio = $entityManager->getRepository('Application\Entity\TipoMuda');
+            $repositorio = $entityManager->getRepository('Administrador\Entity\TipoMuda');
             $tiposMuda=$repositorio->findAll();
 
             if ($user = $this->identity()){

@@ -74,25 +74,69 @@ $url = $this->url('administrador', ['controller' => 'campanha', 'action' => 'ind
       <h4 class="modal-title text-center">Gerenciar Campanha</h4>
     </div>
 
-    <div class="modal-body">
-      <form method="post" action="<?= $this->url('administrador', ['controller'=>'campanha','action' => 'cancelar']) ?>"> 
-        <input type="hidden" name="idCampanha" value="">
+    <ul class="nav nav-tabs">
+      <li class="active"><a data-toggle="tab" href="#liberarCampanha">Liberar</a></li>
+      <li><a data-toggle="tab" href="#cancelar">Cancelar</a></li>
 
-        <div class='form-group'>
-          <input  class= 'btn btn-primary center-block' type='submit' value='Liberar Campanha'>
-        </div>
+    </ul>
+
+    <div class="tab-content">
+      <div id="liberarCampanha" class="tab-pane fade in active">
+
+
+        <form method="post" action="<?= $this->url('administrador', ['controller'=>'campanha','action' => 'liberar']) ?>"> 
+          <input type="hidden" name="idCampanhaLiberar" value="">
+          <input type="hidden" name="idTipoMuda" value="">
+
+          <div class='form-group'>
+            <div class="row">
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Qtd de Mudas</label>
+                  <input type="text" class="form-control border-input" name="qtdMudas">
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="sel1">Tipos Muda</label>
+                  <select class="form-control border-input" id="sel1" name="tiposMuda">
+
+                  </select>
+                </div>
+              </div>
+
+              <input  class= 'btn btn-primary center-block' type='submit' value='Liberar Campanha'>
+
+            </div>
+
+          </div>
+        </form>
 
       </div>
-    </form>
+      <div id="cancelar" class="tab-pane fade">
 
-    <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+       <form method="post" action="<?= $this->url('administrador', ['controller'=>'campanha','action' => 'cancelar']) ?>"> 
+        <input type="hidden" name="idCampanhaCancelar" value="">
+        
+        <label for="comment">Motivo de cancelamento:</label>
+        
+        <textarea class="form-control" rows="6" id="comentario" style="border:solid 1px black;"></textarea>
+        <input  class= 'btn btn-danger center-block' type='submit' value='Cancelar Campanha'>
+      </form>
     </div>
   </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+  </div>
+</div>
+</div>
+</div>
 </div>
 
-</div>
-</div>
+
 
 <script>
 
@@ -114,42 +158,62 @@ $url = $this->url('administrador', ['controller' => 'campanha', 'action' => 'ind
 <script>
   jQuery(function ($) {
 
-   $("#modals").detach().appendTo('body');
-
    var table = $('#campanhas').DataTable();
    $('#campanhas tbody').on( 'click','tr' ,function () {
 
     var linhaSelecionada= table.row(this).index();
     var data = table.rows(linhaSelecionada).data();
+    
+    $("#modals").detach().appendTo('body');
     var infoCampanha=data[0];
     var nome=infoCampanha[0];
-    //var dataInicio= infoCampanha[1];
-    //var dataFinal= infoCampanha[2];
-    //var cidade= infoCampanha[3];
-    //var uf= infoCampanha[4];
-    //var cep= infoCampanha[5];
     var idCampanha= infoCampanha[6];
-    //var Tmudas=infoCampanha[7];
-    //alert(Tmudas);
+    var Tmudas=infoCampanha[8];
 
-    $("input[name='idCampanha']").val(idCampanha);
+    var mudas=Tmudas.split(";");
 
+    var option="";
+    var select= $('select');
 
-
-    //var statusCampanha=infoCampanha[8];
+    select.html('');
     
+    for(var i=0;i<mudas.length-1;i++){
+      var dadosTipoMuda=mudas[i].split('-');
+      option="<option value='"+dadosTipoMuda[0]+"'>" +dadosTipoMuda[1]+"-"+dadosTipoMuda[2]+ "</option>";
+      
+      select.append(option);
+    }
+
+    $("input[name='idTipoMuda']").val(1);
     
+    //$("input[name='idCampanhaLiberar']").val(idCampanha);
+    $("input[name='idCampanhaLiberar']").val(idCampanha);
+    $("input[name='idCampanhaCancelar']").val(idCampanha);
 
-
-
-
-
-
-
-
-
-
+    
   } );
+
+   /*
+   $('select').change(function(){
+    
+
+
+    var idTipoMuda=$("option:selected").val();
+    $("input[name='idTipoMuda']").val(idTipoMuda);
+
+    var id= $("input[name='idTipoMuda']").val();
+
+
+
+
+
+
+    //alert($("select[name=tiposMuda] option:first-child").val());
+
+  });
+  */
+
+
 
 
  });
@@ -157,6 +221,6 @@ $url = $this->url('administrador', ['controller' => 'campanha', 'action' => 'ind
 
 </script>
 
--->
+
 
 

@@ -71,6 +71,7 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
                 <th hidden>Telefone concedente</th>
                 <th hidden>Email concedente</th>
                 <th hidden>Nome concedente</th>
+                <th hidden>Espaço</th>
               </tr>
             </thead>
 
@@ -102,6 +103,7 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
               <td hidden><?= $local->getConcedente()->getTelefone();?></td>
               <td hidden><?= $local->getConcedente()->getEmail();?></td>
               <td hidden><?= $local->getConcedente()->getNome();?></td>
+              <td hidden><?= $local->getArea();?></td>
             </tr>
             <?php }?>
           </tbody>
@@ -124,6 +126,27 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
     <div class="clearfix"></div>
   </form>
 </div>
+</div>
+
+
+<div id='modals'>
+
+  <div id='detalhes-local' class='modal fade' role='dialog'>;
+   <div class='modal-dialog'>;
+     <div class='modal-content'>;
+       <div class='modal-header'>;
+         <button type='button' class='close' data-dismiss='modal'>&times;</button>;
+         <h4 class='modal-title' align='center'>Dados do local</h4>;
+       </div>;
+       <div class='modal-body'>;
+         <p id="corpo"></p>
+       </div>;
+       <div class='modal-footer'>;
+         <button type='button' class='btn btn-default' data-dismiss='modal'>Fechar</button>;
+       </div>;
+     </div>;
+   </div>;
+ </div>;
 </div>
 
 
@@ -150,65 +173,49 @@ echo $this->inlineScript()->prependFile($this->basePath() . '/js/investidor/camp
 
 <script>
 
- jQuery(function ($) {
-   var modal="<div id='detalhes-local' class='modal fade' role='dialog'>";
-   modal+="<div class='modal-dialog'>";
-   modal+="<div class='modal-content'>";
-   modal+=" <div class='modal-header'>";
-   modal+= "<button type='button' class='close' data-dismiss='modal'>&times;</button>";
-   modal+="<h4 class='modal-title' align='center'>Dados do local</h4>";
-   modal+="</div>";
-   modal+="<div class='modal-body'>";
-   modal+="<p id='corpo'></p>"
-   modal+=" </div>";
-   modal+="<div class='modal-footer'>";
-   modal+="<button type='button' class='btn btn-default' data-dismiss='modal'>Fechar</button>";
-   modal+="</div>";
-   modal+="</div>";
-   modal+="</div>";
-   modal+="</div>";
-   $('body').append(modal);
+ var table = $('#locais').DataTable();
+ $('#locais tbody').on( 'click', 'tr', function () {
+   $("#modals").detach().appendTo('body');
+   var linhaSelecionada= table.row(this).index();
+   var data = table.rows(linhaSelecionada).data();
+   var infoLocal=data[0];
+   var idLocal=infoLocal[1];
+   var cidade=infoLocal[2];
+   var uf=infoLocal[3];
+   var bairro=infoLocal[4];
+   var cep= infoLocal[5];
+   var complemento= infoLocal[7];
+   var logradouro=infoLocal[8];
+   var telConcedente=infoLocal[9];
+   var emailConcedente=infoLocal[10];
+   var nomeConcedente=infoLocal[11];
+   var espacoLocal=infoLocal[12];
 
+   var cadastro="Cidade: ";
+   cadastro+=cidade+"<br>";
+   cadastro+= "Estado: "
+   cadastro+=uf+"<br>";
+   cadastro+="Cep: ";
+   cadastro+=cep+"<br>";
+   cadastro+="Bairro: ";
+   cadastro+=bairro+"<br>";
+   cadastro+="Logradouro: ";
+   cadastro+=logradouro+"<br>";
+   cadastro+="Complemento: ";
+   cadastro+=complemento+"<br>";
+   cadastro+="<h4 class='modal-title' align='center'>Concedente</h4>";
+   cadastro+="<hr>";
+   cadastro+="Nome: ";
+   cadastro+=nomeConcedente+"<br>";
+   cadastro+="Telefone: ";
+   cadastro+=telConcedente+"<br>";
+   cadastro+="Email: ";
+   cadastro+=emailConcedente+"<br>";
+   cadastro+="Espaco: ";
+   cadastro+=espacoLocal+"<br>";
 
-   var table = $('#locais').DataTable();
-   $('#locais tbody').on( 'click', 'tr', function () {
-    var linhaSelecionada= table.row(this).index();
-    var data = table.rows(linhaSelecionada).data();
-    var infoLocal=data[0];
-    var idLocal=infoLocal[1];
-    var cidade=infoLocal[2];
-    var uf=infoLocal[3];
-    var bairro=infoLocal[4];
-    var cep= infoLocal[5];
-    var complemento= infoLocal[7];
-    var logradouro=infoLocal[8];
-    var telConcedente=infoLocal[9];
-    var emailConcedente=infoLocal[10];
-    var nomeConcedente=infoLocal[11];
-
-    var cadastro="Cidade: ";
-    cadastro+=cidade+"<br>";
-    cadastro+= "Estado: "
-    cadastro+=uf+"<br>";
-    cadastro+="Cep: ";
-    cadastro+=cep+"<br>";
-    cadastro+="Bairro: ";
-    cadastro+=bairro+"<br>";
-    cadastro+="Logradouro: ";
-    cadastro+=logradouro+"<br>";
-    cadastro+="Complemento: ";
-    cadastro+=complemento+"<br>";
-    cadastro+="<h4 class='modal-title' align='center'>Concedente</h4>";
-    cadastro+="<hr>";
-    cadastro+="Nome: ";
-    cadastro+=nomeConcedente+"<br>";
-    cadastro+="Telefone: ";
-    cadastro+=telConcedente+"<br>";
-    cadastro+="Email: ";
-    cadastro+=emailConcedente+"<br>";
-
-    $('#corpo').html(cadastro);
-  } );
- });
+   $('#corpo').html(cadastro);
+ } );
+});
 </script>
 

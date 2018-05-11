@@ -28,7 +28,7 @@ class CampanhaPlantadorController extends AbstractActionController
 			$entityManager->flush();
 		}else {
 			$repositorio = $entityManager->getRepository("Investidor\Entity\Campanha");
-			$campanhas=$repositorio->findAll();
+			$campanhas=$repositorio->findAllCampanhasVigentesComLocal();
 			$user=$this->identity();
 			$view_params = array(
 				'campanhas' => $campanhas,

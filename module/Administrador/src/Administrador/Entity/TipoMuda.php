@@ -2,7 +2,6 @@
 namespace Administrador\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * @ORM\Entity
 */
@@ -47,17 +46,12 @@ class TipoMuda{
 		return $this->nomePopular;
 	}
 
-	public function TipoMudaToString(){
-		return $this->getNomePopular();
-
-	}
-
 	public function getId(){
 		return $this->id;
 	}
 
-	public function dadosTipoMudaToString(){
-		return $this->getNomePopular().'-'.$this->getNomeCientifico();
+	public function TipoMudaToString(){
+		return $this->getId().'-'.$this->getNomePopular().'-'.$this->getNomeCientifico();
 
 	}
 
