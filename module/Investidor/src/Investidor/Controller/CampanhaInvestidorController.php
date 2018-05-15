@@ -13,24 +13,27 @@ class CampanhaInvestidorController extends AbstractActionController
   public function indexAction() {
 
     if ($user = $this->identity()) {
+      $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+      $qb=$entityManager->createQueryBuilder();
+      $qb->select("c")
+      ->from('Investidor\Entity\Campanha','c')
+      ->andWhere('c.suspensao IS NULL')
+      ->andWhere('c.investidor = :investidor')
+      ->setParameter('investidor',$user);
+      $campanhas=$qb->getQuery()->getResult();
 
-     $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-     $repositorio = $entityManager->getRepository('Investidor\Entity\Campanha');
+      $view_params= array(
+        "campanhas"=> $campanhas,
 
-     $campanhas = $repositorio->findBy(array('investidor'=>$user));
+      );      
 
-     $view_params= array(
-      "campanhas"=> $campanhas,
+      return new ViewModel($view_params);
+    }
+    return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
+  }
 
-    );      
 
-     return new ViewModel($view_params);
-   }
-   return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
- }
-
- 
- public function cadastrarAction(){
+  public function cadastrarAction(){
 
    $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 
@@ -53,7 +56,7 @@ class CampanhaInvestidorController extends AbstractActionController
       $entityManager->persist($campanha);
       $entityManager->flush();
 
-      $local->setCampanha($entityManager->getRepository('Investidor\Entity\Campanha')->findOneBy(array('local'=> $local)));
+      $local->setCampanha($campanha);
       
       $entityManager->persist($local);
       $entityManager->flush();
@@ -92,10 +95,9 @@ public function removerAction(){
   $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
   $repositorio = $entityManager->getRepository("Investidor\Entity\Campanha");
   $campanha = $repositorio->find($id);
-  
-  $entityManager->remove($campanha);
+  $campanha->suspender();
   $entityManager->flush();
-
+  
 }
 return $this->redirect()->toRoute('investidor', array(
   'controller' => 'campanha',

@@ -21,14 +21,25 @@ class CampanhaPlantadorController extends AbstractActionController
 			$idCampanha=$this->request->getPost('id');
 			$repositorio=$entityManager->getRepository("Investidor\Entity\Campanha");
 			$campanha=$repositorio->find($idCampanha);
-
 			$user=$this->identity();
+
+			$this->destocarMuda($campanha);
+			
 			$user->addCampanha($campanha);
 			$entityManager->persist($user);
 			$entityManager->flush();
 		}else {
-			$repositorio = $entityManager->getRepository("Investidor\Entity\Campanha");
-			$campanhas=$repositorio->findAllCampanhasVigentesComLocal();
+
+			$qb=$entityManager->createQueryBuilder();
+			$qb->select("c")
+			->from('Investidor\Entity\Campanha','c')
+			->innerJoin('Administrador\Entity\Muda','m','WITH','c.estoqueMuda=m.id')
+			->andWhere('c.status=true')
+			->andWhere('DATE_DIFF(CURRENT_DATE(), c.dataFinal) <= 0')
+			->andWhere('c.local is NOT NULL')
+			->andWhere('m.qtdMuda > 0');
+			$campanhas=$qb->getQuery()->getResult();
+			
 			$user=$this->identity();
 			$view_params = array(
 				'campanhas' => $campanhas,
@@ -42,6 +53,14 @@ class CampanhaPlantadorController extends AbstractActionController
 		));		
 	}
 
+	public function destocarMuda($campanha){
+		$entityManager=$this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+		$campanha->desestocarMuda();
+		$entityManager->persist($campanha);
+		$entityManager->flush();
+
+	}
+
 	public function sairAction(){
 
 		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
@@ -49,8 +68,10 @@ class CampanhaPlantadorController extends AbstractActionController
 		if($this->request->isPost()){
 			
 			$idCampanha=$this->request->getPost('id');
+
 			$repositorio=$entityManager->getRepository("Investidor\Entity\Campanha");
 			$campanha=$repositorio->find($idCampanha);
+			$this->estocarMuda($campanha);
 
 			$user=$this->identity();
 			$user->removeCampanha($campanha);
@@ -63,6 +84,14 @@ class CampanhaPlantadorController extends AbstractActionController
 			'action' => 'aderir',
 		));
 		
+	}
+
+	public function estocarMuda($campanha){
+		
+		$entityManager=$this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+		$campanha->estocarMuda();
+		$entityManager->persist($campanha);
+		$entityManager->flush();
 	}
 
 }

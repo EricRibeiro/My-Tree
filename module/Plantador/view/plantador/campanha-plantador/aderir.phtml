@@ -53,16 +53,13 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'editar
                  <?php } ?>
                </td>
 
-               <td>
+               <td hidden>
                  <?php if($plantador->isAderido($campanha)){ ?>
                  1
                  <?php } else {?>
                  0
                  <?php } ?>
                </td>
-
-
-
 
                <td hidden><?= $plantador->isAderido($campanha); ?></td>
                <td hidden><?= $campanha->getId(); ?></td>
@@ -100,31 +97,40 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'editar
   });
 </script>
 
+
+<div id="modals">
+
+  <div id='detalhes-local' class='modal fade' role='dialog'>
+   <div class='modal-dialog'>
+     <div class='modal-content'>
+       <div class='modal-header'>
+         <button type='button' class='close' data-dismiss='modal'>&times;</button>
+         <h4 class='modal-title' align='center'>Informações da Campanha</h4>
+       </div>
+       <div class='modal-body'>
+         <p id='corpo'></p>
+       </div>
+       <div class='modal-footer'>
+         <button type='button' class='btn btn-default' data-dismiss='modal'>Fechar</button>
+       </div>
+     </div>
+   </div>
+ </div>
+ 
+
+ 
+</div>
+
+
 <script>
   jQuery(function ($) {
-   var modal="<div id='detalhes-local' class='modal fade' role='dialog'>";
-   modal+="<div class='modal-dialog'>";
-   modal+="<div class='modal-content'>";
-   modal+=" <div class='modal-header'>";
-   modal+= "<button type='button' class='close' data-dismiss='modal'>&times;</button>";
-   modal+="<h4 class='modal-title' align='center'>Informações da Campanha</h4>";
-   modal+="</div>";
-   modal+="<div class='modal-body'>";
-   modal+="<p id='corpo'></p>"
-   modal+=" </div>";
-   modal+="<div class='modal-footer'>";
-   modal+="<button type='button' class='btn btn-default' data-dismiss='modal'>Fechar</button>";
-   modal+="</div>";
-   modal+="</div>";
-   modal+="</div>";
-   modal+="</div>";
-   $('body').append(modal);
-
 
    var table = $('#campanhas').DataTable();
    $('#campanhas tbody').on( 'click', 'tr', function () {
     var linhaSelecionada= table.row(this).index();
     var data = table.rows(linhaSelecionada).data();
+    
+    $("#modals").detach().appendTo('body');
     var infoCampanha=data[0];
     var nome=infoCampanha[0];
     var dataInicio= infoCampanha[1];
@@ -132,8 +138,8 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'editar
     var cidade= infoCampanha[3];
     var uf= infoCampanha[4];
     var cep= infoCampanha[5];
-    var idCampanha= infoCampanha[6];
-    var isAderido= infoCampanha[7];
+    var idCampanha= infoCampanha[9];
+    var isAderido= infoCampanha[8];
 
     var campanha="Nome: ";
     campanha+=nome+"<br>";

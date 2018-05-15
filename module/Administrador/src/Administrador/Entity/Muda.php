@@ -24,7 +24,7 @@ class Muda {
 	private $qtdMuda;
 	
 	/**
-	*@ORM\ManyToOne(targetEntity="Administrador\Entity\TipoMuda", inversedBy="muda")
+	*@ORM\ManyToOne(targetEntity="Administrador\Entity\TipoMuda", inversedBy="muda" )
 	*
 	*/
 	private $typeMuda;
@@ -60,7 +60,7 @@ class Muda {
 	}
 
 	public function getQuantidadeMudas(){
-		return $this->qtdMudas;
+		return $this->qtdMuda;
 	}
 
 }

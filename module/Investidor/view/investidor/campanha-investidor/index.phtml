@@ -5,102 +5,184 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
 ?>
 
 <div class="col-lg-12 col-md-12">
-    <div class="card">
-        <div class="header">
-            <h4 class="title">Campanhas cadastradas</h4>
-        </div>
-        <div class="content">       
-            <div class="row">
-                <div class="col-md-12">
-                    <table id="locais" class="table table-hover display" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>data Início</th>
-                                <th>data Término</th>
-                                <th>Cidade</th>
-                                <th>UF</th>
-                                <th>Estado</th>
-                                <th hidden>Complemento</th>
-                                <th hidden>Logradouro</th>
-                                <th hidden>Cep</th>
-                                <th hidden>Bairro</th>
-                                <th hidden>Numero</th>
-                                <th hidden>Telefone concedente</th>
-                                <th hidden>Email concedente</th>
-                                <th hidden>Nome concedente</th>
-                                <th>Local</th>
-                                <th>Ação</th>
-                            </tr>
-                        </thead>
+  <div class="card">
+    <div class="header">
+      <h4 class="title">Campanhas cadastradas</h4>
+    </div>
+    <div class="content">       
+      <div class="row">
+        <div class="col-md-12">
+          <table id="locais" class="table table-hover display" style="width:100%">
+            <thead>
+              <tr>
 
-                        <tbody>
+                <th>Nome</th>
+                <th>data Início</th>
+                <th>data Término</th>
+                <th>Cidade</th>
+                <th>UF</th>
+                <th>Status</th>
+                <th hidden>Complemento</th>
+                <th hidden>Logradouro</th>
+                <th hidden>Cep</th>
+                <th hidden>Bairro</th>
+                <th hidden>Numero</th>
+                <th hidden>Telefone concedente</th>
+                <th hidden>Email concedente</th>
+                <th hidden>Nome concedente</th>
+                <th>Ação</th>
+              </tr>
+            </thead>
 
-                            <?php foreach ($campanhas as $campanha) { ?>
-                            <tr>
+            <tbody>
 
-                                <td><?= $campanha->getNome(); ?></td>
-                                <td><?= $campanha->getDataIncialString(); ?></td>
-                                <td><?= $campanha->getDataFinalString(); ?></td>
-                                
-                                <?php if($campanha->getLocal()!=null) {?>
-                                <td><?= $campanha->getLocal()->getMunicipio(); ?></td> 
-                                <td><?= $campanha->getLocal()->getUF(); ?></td>
-                                <td>
-                                    
-                                    <?php if($campanha->getStatus()==null){ ?>
-                                        <td>A. Liberação</td>
-                                    <?php } else if ($campanha->getStatus()==true) { ?> 
-                                        <td>Liberada</td>
-                                    <?php } else { ?>
-                                        <td>Não liberada</td>
-                                    <?php } ?>
+              <?php foreach ($campanhas as $campanha) { ?>
+              <tr>
 
-                                </td>
-                                <td hidden><?= $campanha->getLocal()->getComplemento(); ?></td>
-                                <td hidden><?= $campanha->getLocal()->getLogradouro(); ?></td>
-                                <td hidden><?= $campanha->getLocal()->getCep(); ?></td>
-                                <td hidden><?= $campanha->getLocal()->getBairro(); ?></td>
-                                <td hidden><?= $campanha->getLocal()->getNumero(); ?></td>
-                                <td hidden><?= $campanha->getLocal()->getConcedente()->getTelefone();?></td>
-                                <td hidden><?= $campanha->getLocal()->getConcedente()->getEmail(); ?></td>
-                                <td hidden><?= $campanha->getLocal()->getConcedente()->getNome(); ?></td>
+                <td><?= $campanha->getNome(); ?></td>
+                <td><?= $campanha->getDataInicialString(); ?></td>
+                <td><?= $campanha->getDataFinalString(); ?></td>
 
-                                <?php }?>
-                                <?php if($campanha->getLocal()==null) {?>                               
-                                <td>-</td>
-                                <td>-</td>
-                                <td hidden></td>
-                                <td hidden></td>
-                                <td hidden></td>
-                                <td hidden></td>
-                                <td hidden></td>
-                                <td hidden></td>
-                                <td hidden></td>
-                                <td hidden></td>
-                                <?php }?>
+                <?php if($campanha->getLocal()!=null) {?>
+                <td><?= $campanha->getLocal()->getMunicipio(); ?></td> 
+                <td><?= $campanha->getLocal()->getUF(); ?></td>
 
-                                <td>
-                                    <button type="button" data-toggle="modal" data-target="#detalhes-local" class="btn btn-info btn-fill">>
+                <td hidden><?= $campanha->getLocal()->getComplemento(); ?></td>
+                <td hidden><?= $campanha->getLocal()->getLogradouro(); ?></td>
+                <td hidden><?= $campanha->getLocal()->getCep(); ?></td>
+                <td hidden><?= $campanha->getLocal()->getBairro(); ?></td>
+                <td hidden><?= $campanha->getLocal()->getNumero(); ?></td>
+                <td hidden><?= $campanha->getLocal()->getConcedente()->getTelefone();?></td>
+                <td hidden><?= $campanha->getLocal()->getConcedente()->getEmail(); ?></td>
+                <td hidden><?= $campanha->getLocal()->getConcedente()->getNome(); ?></td>
 
-                                        <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
-                                    </button>                                    
+                <?php }?>
 
-                                </td>
-                                <td>
-                                    <a href="<?= $this->url('investidor', [ 'controller'=>'campanha','action' => 'remover', 'id' => $campanha->getId()]) ?>"
-                                       class="btn btn-danger btn-fill">
-                                       <i class="fa fa-trash" aria-hidden="true" type="hidden"></i>
-                                   </a>
-                               </td>
-                           </tr>
-                           <?php }?>
-                       </tbody>
-                   </table>
-               </div>
-           </div>
+                <td>
+                  <?php if($campanha->getStatus()==null){ ?>
+
+                  <a href="#Aguardando" data-toggle="modal"> 
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                  </a>  
+                  
+                  <?php } else if ($campanha->getStatus()==true) { ?> 
+                  
+                  <a href="#campanhaLiberada" data-toggle="modal">
+                    <i class="fa fa-check text-success"  aria-hidden="true"></i>
+                  </a> 
+                  
+                  <?php } else { ?>
+
+                  <a href="#Cancelamento" data-toggle="modal">
+                    <i class="fa fa-times text-danger" aria-hidden="true"></i>
+                  </a> 
+
+                  <?php } ?>
+                </td>
+                <td>
+                  <button type="button" data-toggle="modal" data-target="#detalhes-local" class="btn btn-info btn-fill">
+
+                    <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+                  </button>                                    
+                  <a href="<?= $this->url('investidor', [ 'controller'=>'campanha','action' => 'remover', 'id' => $campanha->getId()]) ?>"
+                   class="btn btn-danger btn-fill">
+                   <i class="fa fa-trash" aria-hidden="true" type="hidden"></i>
+                 </a>
+               </td>
+
+             </tr>
+             <?php }?>
+           </tbody>
+         </table>
        </div>
+     </div>
    </div>
+ </div>
+</div>
+
+<div id="modals">
+
+  <div id='detalhes-local' class='modal fade' role='dialog'>
+   <div class='modal-dialog'>
+     <div class='modal-content'>
+       <div class='modal-header'>
+         <button type='button' class='close' data-dismiss='modal'>&times;</button>
+         <h4 class='modal-title' align='center'>Dados do local</h4>;
+       </div>
+
+       <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#dadosLocal">Local</a></li>
+        <li><a data-toggle="tab" href="#dadosConcedente">Concedente</a></li>
+      </ul>
+
+      <div class="tab-content">
+        <div id="dadosLocal" class="tab-pane fade in active">
+        </div>
+        <div id="dadosConcedente" class="tab-pane fade">
+        </div>
+      </div>
+
+      <div class='modal-footer'>
+       <button type='button' class='btn btn-default' data-dismiss='modal'>Fechar</button>
+     </div>
+   </div>
+ </div>
+</div>
+
+
+
+<div id='campanhaLiberada' class='modal fade' role='dialog'>
+ <div class='modal-dialog'>
+   <div class='modal-content'>
+     <div class='modal-header'>
+       <button type='button' class='close' data-dismiss='modal'>&times;</button>
+       <h4 class='modal-title' align='center'>Situação da campanha</h4>;
+     </div>
+     <div class='modal-body'>
+      <p>Campanha Liberada</p>
+    </div>
+    <div class='modal-footer'>
+     <button type='button' class='btn btn-default' data-dismiss='modal'>Fechar</button>
+   </div>
+ </div>
+</div>
+</div>
+
+
+<div id='Aguardando' class='modal fade' role='dialog'>
+ <div class='modal-dialog'>
+   <div class='modal-content'>
+     <div class='modal-header'>
+       <button type='button' class='close' data-dismiss='modal'>&times;</button>
+       <h4 class='modal-title' align='center'>Situação da campanha</h4>;
+     </div>
+     <div class='modal-body'>
+      <p>Por favor, aguarde a liberação da campanha</p>
+    </div>
+    <div class='modal-footer'>
+     <button type='button' class='btn btn-default' data-dismiss='modal'>Fechar</button>
+   </div>
+ </div>
+</div>
+</div>
+
+
+
+<div id='Cancelamento' class='modal fade' role='dialog'>
+ <div class='modal-dialog'>
+   <div class='modal-content'>
+     <div class='modal-header'>
+       <button type='button' class='close' data-dismiss='modal'>&times;</button>
+       <h4 class='modal-title' align='center'>Situação da campanha</h4>;
+     </div>
+     <div class='modal-body'>
+      <p>Campanha Cancelada</p>
+    </div>
+    <div class='modal-footer'>
+     <button type='button' class='btn btn-default' data-dismiss='modal'>Fechar</button>
+   </div>
+ </div>
+</div>
 </div>
 
 
@@ -115,106 +197,82 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
 
 
 
-
-
-
-
-
-
-
-
+</div>
 
 
 <script>
 
-    jQuery(function ($) {
-        $('#locais').DataTable( {
-            "columnDefs": [
+  jQuery(function ($) {
+    $('#locais').DataTable( {
+      "columnDefs": [
 
-            {"className": "dt-center", "targets": "_all"}
+      {"className": "dt-center", "targets": "_all"}
 
-            ],
-        });
-
+      ],
     });
+
+  });
 </script>
 
 <script>
 
-   jQuery(function ($) {
-     var modal="<div id='detalhes-local' class='modal fade' role='dialog'>";
-     modal+="<div class='modal-dialog'>";
-     modal+="<div class='modal-content'>";
-     modal+=" <div class='modal-header'>";
-     modal+= "<button type='button' class='close' data-dismiss='modal'>&times;</button>";
-     modal+="<h4 class='modal-title' align='center'>Dados do local</h4>";
-     modal+="</div>";
-     modal+="<div class='modal-body'>";
-     modal+="<p id='corpo'></p>"
-     modal+=" </div>";
-     modal+="<div class='modal-footer'>";
-     modal+="<button type='button' class='btn btn-default' data-dismiss='modal'>Fechar</button>";
-     modal+="</div>";
-     modal+="</div>";
-     modal+="</div>";
-     modal+="</div>";
-     $('body').append(modal);
+ jQuery(function ($) {
 
-     var table = $('#locais').DataTable();
-     $('#locais tbody').on( 'click', 'tr', function () {
-        var linhaSelecionada= table.row(this).index();
-        var data = table.rows(linhaSelecionada).data();
-        var infoLocal=data[0];
-        var cadastro;
-        var cidade=infoLocal[3];
+   var table = $('#locais').DataTable();
+   $('#locais tbody').on( 'click', 'tr', function () {
+    var linhaSelecionada= table.row(this).index();
+    var data = table.rows(linhaSelecionada).data();
+    $("#modals").detach().appendTo('body');
+    var infoLocal=data[0];
+    var cadastroLocal;
+    var cadastroConcedente;
+    var cidade=infoLocal[3];
 
-        if(cidade!="-"){
+    if(cidade!="-"){
 
-            var uf=infoLocal[4];
-            var complemento= infoLocal[5];
-            var logradouro=infoLocal[6];
-            var cep= infoLocal[7];
-            var bairro=infoLocal[8];
-            var numero=infoLocal[9];
-            var telConcedente=infoLocal[10];
-            var emailConcedente=infoLocal[11];
-            var nomeConcedente=infoLocal[12];
+      var uf=infoLocal[4];
+      var complemento= infoLocal[5];
+      var logradouro=infoLocal[6];
+      var cep= infoLocal[7];
+      var bairro=infoLocal[8];
+      var numero=infoLocal[9];
+      var telConcedente=infoLocal[10];
+      var emailConcedente=infoLocal[11];
+      var nomeConcedente=infoLocal[12];
 
-            cadastro="Cidade: ";
-            cadastro+=cidade+"<br>";
-            cadastro+= "Estado: "
-            cadastro+=uf+"<br>";
-            cadastro+="Cep: ";
-            cadastro+=cep+"<br>";
-            cadastro+="Bairro: ";
-            cadastro+=bairro+"<br>";
-            cadastro+="Numero: ";
-            cadastro+=numero+"<br>";
+      cadastroLocal="Cidade: ";
+      cadastroLocal+=cidade+"<br>";
+      cadastroLocal+= "Estado: "
+      cadastroLocal+=uf+"<br>";
+      cadastroLocal+="Cep: ";
+      cadastroLocal+=cep+"<br>";
+      cadastroLocal+="Bairro: ";
+      cadastroLocal+=bairro+"<br>";
+      cadastroLocal+="Numero: ";
+      cadastroLocal+=numero+"<br>";
 
-            cadastro+="Logradouro: ";
-            cadastro+=logradouro+"<br>";
-            cadastro+="Complemento: ";
-            cadastro+=complemento+"<br>";
-            cadastro+="<h4 class='modal-title' align='center'>Concedente</h4>";
-            cadastro+="<hr>";
-            cadastro+="Nome: ";
-            cadastro+=nomeConcedente+"<br>";
-            cadastro+="Telefone: ";
-            cadastro+=telConcedente+"<br>";
-            cadastro+="Email: ";
-            cadastro+=emailConcedente+"<br>";
-        } 
+      cadastroLocal+="Logradouro: ";
+      cadastroLocal+=logradouro+"<br>";
+      cadastroLocal+="Complemento: ";
+      cadastroLocal+=complemento+"<br>";
 
-        else {
-            cadastro="<p align='center'> Nenhum local vinculado a campanha</p>"
-        }
+      cadastroConcedente="Nome: ";
+      cadastroConcedente+=nomeConcedente+"<br>";
+      cadastroConcedente+="Telefone: ";
+      cadastroConcedente+=telConcedente+"<br>";
+      cadastroConcedente+="Email: ";
+      cadastroConcedente+=emailConcedente+"<br>";
 
+      $('#dadosLocal').html(cadastroLocal);
+      $('#dadosConcedente').html(cadastroConcedente);
 
-        $('#corpo').html(cadastro);
+    } 
 
+    else {
+      cadastroLocal="<p align='center'> Nenhum local vinculado a campanha</p>"
 
-
-    } );
+    }
+    $('#corpo').html(cadastro);
+  } );
  });
 </script>
-

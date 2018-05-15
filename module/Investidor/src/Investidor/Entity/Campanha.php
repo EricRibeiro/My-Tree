@@ -7,12 +7,10 @@ use Concedente\Entity\Local;
 use Investidor\Entity\Investidor;
 use Plantador\Entity\Plantador;
 use Administrador\Entity\Muda;
-use Investidor\Repository\RepoCampanha;
 use Administrador\Entity\TipoMuda;
 
-
 /**
- * @ORM\Entity(repositoryClass="Investidor\Repository\RepoCampanha")
+ * @ORM\Entity
  */
 class Campanha {
 	
@@ -57,10 +55,13 @@ class Campanha {
 
 	 private $investidor;
 
-	 /**
+	/**
 		*@ORM\Column(type="boolean", nullable=true)
-	 */
+	*/
 	private $status;
+
+	
+	private $estadoCampanha;
 
 	/**
 	*@ORM\ManyToOne(targetEntity="Administrador\Entity\Muda", inversedBy="campanha")
@@ -75,28 +76,6 @@ class Campanha {
 		$this->setDataInicio($dataInicio);
 		$this->setDataFinal($dataFinal);
 		$this->investidor=$investidor;
-	}
-
-	public function setEstoqueMuda($muda){
-		$this->estoqueMuda=$muda;
-	}
-
-	public function getEstqueMuda(){
-		$this->$estoqueMuda;
-	}
-
-	public function desestocarMuda(){
-		$qtdMudas=$this->getEstqueMuda();
-		$qtdMudas--;
-		$this->setEstoqueMuda($qtdMudas);
-	}
-
-
-	public function estocarMuda(){
-		$qtdMudas=$this->getEstqueMuda();
-		$qtdMudas++;
-		$this->setEstoqueMuda($qtdMudas);
-
 	}
 
 	public function getId(){
@@ -150,7 +129,7 @@ class Campanha {
 		return Data::dataToString($this->getDataFinal());
 	}
 
-	public function getDataIncialString(){
+	public function getDataInicialString(){
 		return Data::dataToString($this->getDataInicio());
 	}
 
@@ -170,6 +149,36 @@ class Campanha {
 	public function setStatus($status){
 		$this->status=$status;
 	}
+
+	public function setEstoqueMuda($muda){
+		$this->estoqueMuda=$muda;
+	}
+
+	public function getEstoqueMuda(){
+		return $this->estoqueMuda;
+	}
+
+	public function desestocarMuda(){
+		$eMudas=$this->getEstoqueMuda();
+		$qtdMudas=$eMudas->getQuantidadeMudas();
+		$qtdMudas--;
+		$eMudas->setQuantidadeMudas($qtdMudas);
+	}
+
+	public function estocarMuda(){
+		$eMudas=$this->getEstoqueMuda();
+		$qtdMudas=$eMudas->getQuantidadeMudas();
+		$qtdMudas++;
+		$eMudas->setQuantidadeMudas($qtdMudas);
+	}
+	
+	public function suspender(){
+		$this->suspensao=true;
+
+	}
+
+
+
 
 
 }
