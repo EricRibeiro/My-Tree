@@ -1,6 +1,6 @@
 <?php
 namespace Administrador\Entity;
-
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
@@ -16,52 +16,54 @@ class EstadoCampanha
 	private $id;
 
 	/**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */	
 	private $situacaoCampanha;
 	/**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
 	private $motivoCancelamento;
 
 	/**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
 	private $descricaoCancelamento;
 
-	
-	function __construct($campanha,$descricaoCancelamento)
-	{
-		$this->campanha=$campanha;
-		$this->descricaoCancelamento=$descricaoCancelamento;
-	}
+	/**
+     * @ORM\Column(type="string", nullable=true)
+     */
+	private $motivoSuspensao;
 
-	public function getDescricaoCancelamento(){
-		
+	/**
+	* @ORM\OneToOne(targetEntity="investidor\Entity\Campanha", mappedBy="estadoCampanha")
+	*/
+	private $campanha;
 
-		return $this->descricaoCancelamento;
+
+	public function setSituacaoCampanha($descricao){
+		$this->situacaoCampanha=$descricao;
 	}
 
 	public function getSituacaoCampanha(){
-			return $this->situacaoCampanha;
+		return $this->situacaoCampanha;
+	}
+	
+	public function setDescricaoCancelamento($descricao){
+		$this->motivoCancelamento=$descricao;
 	}
 
-	public function cancelarCampanha($descricao){
-		$this->situacaoCampanha="cancelada";
-		$this->descricaoCancelamento=$descricao;
+	public function getDescricaoCancelamento(){
+		return $this->motivoCancelamento;
 	}
 
-	public function suspenderCampanha(){
-		$this->situacaoCampanha="suspensa";
+	public function setMotivoSuspensao($descricao){
+		$this->motivoSuspensao=$descricao;
 	}
 
-	public function liberarCampanha(){
-		$this->situacaoCampanha="liberada";	
+	public function getMotivoSuspensao(){
+		return $this->motivoSuspensao;
+
 	}
-
-
-
-
 
 }
 

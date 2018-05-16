@@ -34,13 +34,16 @@ class CampanhaPlantadorController extends AbstractActionController
 			$qb->select("c")
 			->from('Investidor\Entity\Campanha','c')
 			->innerJoin('Administrador\Entity\Muda','m','WITH','c.estoqueMuda=m.id')
-			->andWhere('c.status=true')
+			->innerJoin('Administrador\Entity\EstadoCampanha','ec','WITH','ec.id=c.estadoCampanha')
+			->andWhere('ec.situacaoCampanha = :situacao')
 			->andWhere('DATE_DIFF(CURRENT_DATE(), c.dataFinal) <= 0')
 			->andWhere('c.local is NOT NULL')
-			->andWhere('m.qtdMuda > 0');
+			->andWhere('m.qtdMuda > 0')
+			->setParameter('situacao', "liberada");
 			$campanhas=$qb->getQuery()->getResult();
 			
 			$user=$this->identity();
+			
 			$view_params = array(
 				'campanhas' => $campanhas,
 				'plantador'=> $user

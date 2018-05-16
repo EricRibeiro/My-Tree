@@ -8,6 +8,7 @@ use Investidor\Entity\Investidor;
 use Plantador\Entity\Plantador;
 use Administrador\Entity\Muda;
 use Administrador\Entity\TipoMuda;
+use Administrador\Entity\EstadoCampanha;
 
 /**
  * @ORM\Entity
@@ -56,11 +57,10 @@ class Campanha {
 	 private $investidor;
 
 	/**
-		*@ORM\Column(type="boolean", nullable=true)
+	*@ORM\OneToOne(targetEntity="Administrador\Entity\EstadoCampanha", inversedBy="campanha")
+    *@ORM\JoinColumn(name="estado_campanha", referencedColumnName="id")
+	*
 	*/
-	private $status;
-
-	
 	private $estadoCampanha;
 
 	/**
@@ -139,15 +139,6 @@ class Campanha {
 
 	public function setDataFinal($data){
 		return $this->dataFinal=Data::setData($data);
-
-	}
-
-	public function getStatus(){
-		return $this->status;
-	}
-
-	public function setStatus($status){
-		$this->status=$status;
 	}
 
 	public function setEstoqueMuda($muda){
@@ -172,8 +163,12 @@ class Campanha {
 		$eMudas->setQuantidadeMudas($qtdMudas);
 	}
 	
-	public function suspender(){
-		$this->suspensao=true;
+	public function getEstadoCampanha(){
+		return $this->estadoCampanha;
+	} 
+
+	public function setEstadoCampanha($eCampanha){
+		$this->estadoCampanha=$eCampanha;
 
 	}
 

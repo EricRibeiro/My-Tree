@@ -7,6 +7,7 @@ use Concedente\Entity\Local;
 use Concedente\Entity\Concedente;
 use Investidor\Entity\Investidor;
 use Investidor\Entity\Campanha;
+use Administrador\Entity\EstadoCampanha;
 
 class CampanhaInvestidorController extends AbstractActionController
 {
@@ -17,7 +18,6 @@ class CampanhaInvestidorController extends AbstractActionController
       $qb=$entityManager->createQueryBuilder();
       $qb->select("c")
       ->from('Investidor\Entity\Campanha','c')
-      ->andWhere('c.suspensao IS NULL')
       ->andWhere('c.investidor = :investidor')
       ->setParameter('investidor',$user);
       $campanhas=$qb->getQuery()->getResult();
@@ -46,13 +46,17 @@ class CampanhaInvestidorController extends AbstractActionController
     $dataTermino= $this->request->getPost('dataTermino');
 
     $user = $this->identity();
-    $campanha = new Campanha($nome,$valor,$dataInicio,$dataTermino,$user);
+    $campanha=$this->criarCampanha($campanha,$nome,$valor,$dataInicio,$dataTermino,$user);
     
+
     if($idLocal!=""){
+
       $local=$entityManager->getRepository('Concedente\Entity\Local')->find($idLocal);
 
       $campanha->setLocal($local);
-      
+      $m="Aliberacao";
+
+      $campanha->getEstadoCampanha()->setSituacaoCampanha($m);
       $entityManager->persist($campanha);
       $entityManager->flush();
 
@@ -61,7 +65,10 @@ class CampanhaInvestidorController extends AbstractActionController
       $entityManager->persist($local);
       $entityManager->flush();
 
+
     } else {
+
+      $campanha->getEstadoCampanha()->setSituacaoCampanha("Alocal");
       $entityManager->persist($campanha);
       $entityManager->flush();
     }
@@ -86,6 +93,22 @@ class CampanhaInvestidorController extends AbstractActionController
 }
 
 
+private function criarCampanha($campanha,$nome,$valor,$dataInicio,$dataTermino,$user){
+
+
+  $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+  $eCampanha= new EstadoCampanha();
+  $entityManager->persist($eCampanha);
+  $entityManager->flush();
+
+
+  $campanha = new Campanha($nome,$valor,$dataInicio,$dataTermino,$user);
+  $campanha->setEstadoCampanha($eCampanha);
+  $entityManager->persist($campanha);
+  return $campanha;
+
+}
+
 public function removerAction(){
 
  $id = $this->params()->fromRoute('id');
@@ -94,10 +117,20 @@ public function removerAction(){
 
   $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
   $repositorio = $entityManager->getRepository("Investidor\Entity\Campanha");
-  $campanha = $repositorio->find($id);
-  $campanha->suspender();
-  $entityManager->flush();
   
+  $campanha = $repositorio->find($id);
+  
+  if($campanha->getEstadoCampanha()->getSituacaoCampanha()=="Alocal" || $campanha->getEstadoCampanha()->getSituacaoCampanha()=="Aliberacao" ){
+     $entityManager->remove($campanha);
+     $entityManager->flush();
+
+  } else {
+
+    $campanha->getEstadoCampanha()->setSituacaoCampanha("suspensa");
+    $entityManager->flush();
+
+  }
+
 }
 return $this->redirect()->toRoute('investidor', array(
   'controller' => 'campanha',

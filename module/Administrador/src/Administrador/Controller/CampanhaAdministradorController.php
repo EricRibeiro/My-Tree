@@ -17,10 +17,15 @@ class CampanhaAdministradorController extends AbstractActionController
 	}
 
 	public function gerenciarAction(){
-
+		
 		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-		$campanhas=$entityManager->createQuery('select c from Investidor\Entity\Campanha  c where c.status is null and DATE_DIFF(CURRENT_DATE(), c.dataFinal) <= 0')
-		->getResult();
+		$qb=$entityManager->createQueryBuilder();
+		$qb->select("c")
+		->from('Investidor\Entity\Campanha','c')
+		->innerJoin("Administrador\Entity\EstadoCampanha","ec","WITH","ec.id=c.estadoCampanha")
+		->andWhere('ec.situacaoCampanha = :situacao')
+		->setParameter('situacao',"Aliberacao");
+		$campanhas=$qb->getQuery()->getResult();
 
 		$view_params = array(
 			'campanhas'=>$campanhas
@@ -39,8 +44,7 @@ class CampanhaAdministradorController extends AbstractActionController
 			$idTMuda=$this->request->getPost('idTipoMuda');
 			
 			$campanha->setEstoqueMuda($this->associarMuda($idTMuda,$qtdMudas));
-			$liberar=true;
-			$campanha->setStatus($liberar);
+			$campanha->getEstadocampanha()->setSituacaoCampanha("liberada");
 			$entityManager->persist($campanha);
 			$entityManager->flush();
 		}
@@ -69,11 +73,12 @@ class CampanhaAdministradorController extends AbstractActionController
 		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 
 		if ($this->request->isPost()) {
-			$idCampanha=$this->request->getPost('idCampanha');
+			$idCampanha=$this->request->getPost('idCampanhaCancelar');
 			$descricaoCancel=$this->request->getPost('descricaoCancelamento');
 			$campanha= $entityManager->getRepository('Investidor\Entity\Campanha')->find($idCampanha);
-			$cancelar=false;
-			$campanha->setStatus($cancelar);
+
+			$campanha->getEstadocampanha()->setSituacaoCampanha("cancelada");
+			$campanha->getEstadocampanha()->setDescricaoCancelamento($descricaoCancel);
 			$entityManager->persist($campanha);
 			$entityManager->flush();
 		}
@@ -83,13 +88,7 @@ class CampanhaAdministradorController extends AbstractActionController
 			'action' => 'gerenciar',
 		));
 
-
-
-
 	}
-
-
-
 
 
 }
