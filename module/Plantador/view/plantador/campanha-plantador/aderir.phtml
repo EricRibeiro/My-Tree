@@ -26,8 +26,6 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'editar
                 <th hidden>aderiu-sort</th>
                 <th hidden>situacao</th>
                 <th hidden>idCampanha</th>
-
-
                 <th>Detalhes</th>
 
 
@@ -92,7 +90,7 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'editar
       { "orderData":[ 7 ],   "targets": [ 6 ] },
       ],
       order: [[6, 'desc']],
-      paging:false
+      paging:false,
     });
   });
 </script>
@@ -117,14 +115,11 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'editar
    </div>
  </div>
  
-
- 
 </div>
 
 
 <script>
   jQuery(function ($) {
-
    var table = $('#campanhas').DataTable();
    $('#campanhas tbody').on( 'click', 'tr', function () {
     var linhaSelecionada= table.row(this).index();
@@ -140,10 +135,10 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'editar
     var cep= infoCampanha[5];
     var idCampanha= infoCampanha[9];
     var isAderido= infoCampanha[8];
-
+    
     var campanha="Nome: ";
     campanha+=nome+"<br>";
-    campanha+= "Data inicio: "
+    campanha+= "Data inicio: ";
     campanha+=dataInicio+"<br>";
     campanha+="Data Final: ";
     campanha+=dataFinal+"<br>";
@@ -153,31 +148,26 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'editar
     campanha+=uf+"<br>";
     campanha+="Cep: ";
     campanha+=cep+"<br>";
-
-
+    
     if(!isAderido){
-      campanha+="<form method='post' action='<?= $this->url('plantador', [ 'controller'=>'campanha','action' =>'aderir'])?>'>";
-      campanha+="<input type='hidden' value='"+idCampanha+"' name='id'>";
-      campanha+="<div class='form-group'>"
-      campanha+="<input  class= 'btn btn-primary center-block' type='submit' value='aderir'>";
-      campanha+="</div>"
-      campanha+="</form>";
-
+        campanha+="<form method='post' action='<?= $this->url('plantador', [ 'controller'=>'campanha','action' =>'aderir'])?>'>";
+        campanha+="<input type='hidden' value='"+idCampanha+"' name='id'>";
+        campanha+="<div class='form-group'>";
+        campanha+="<input  class= 'btn btn-primary center-block' type='submit' value='aderir'>";
+        campanha+="</div>";
+        campanha+="</form>";
+    
     }else {
      campanha+="<form method='post' action='<?= $this->url('plantador', [ 'controller'=>'campanha','action' =>'sair'])?>'>";
      campanha+="<input type='hidden' value='"+idCampanha+"' name='id'>";
-     campanha+="<div class='form-group'>"
+     campanha+="<div class='form-group'>";
      campanha+="<input  class= 'btn btn-danger center-block' type='submit' value='sair'>";
-     campanha+="</div>"
+     campanha+="</div>";
      campanha+="</form>";
-
    }
-
    $('#corpo').html(campanha);
  } );
 
 
  });
-
-
 </script>

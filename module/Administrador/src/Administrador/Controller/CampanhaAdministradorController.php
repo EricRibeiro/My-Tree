@@ -42,7 +42,6 @@ class CampanhaAdministradorController extends AbstractActionController
 			$campanha= $entityManager->getRepository('Investidor\Entity\Campanha')->find($idCampanha);
 			$qtdMudas=$this->request->getPost('qtdMudas');
 			$idTMuda=$this->request->getPost('idTipoMuda');
-			
 			$campanha->setEstoqueMuda($this->associarMuda($idTMuda,$qtdMudas));
 			$campanha->getEstadocampanha()->setSituacaoCampanha("liberada");
 			$entityManager->persist($campanha);
@@ -88,6 +87,14 @@ class CampanhaAdministradorController extends AbstractActionController
 			'action' => 'gerenciar',
 		));
 
+	}
+
+
+	public function cadastrarAction(){
+		
+
+
+		
 	}
 
 

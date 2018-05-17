@@ -85,8 +85,8 @@ $url = $this->url('administrador', ['controller' => 'campanha', 'action' => 'ind
 
 
         <form method="post" action="<?= $this->url('administrador', ['controller'=>'campanha','action' => 'liberar']) ?>"> 
-          <input type="hidden" name="idCampanhaLiberar" value="">
-          <input type="hidden" name="idTipoMuda" value="">
+          <input type="hidden" name="idCampanhaLiberar">
+          <input type="hidden" name="idTipoMuda">
 
           <div class='form-group'>
             <div class="row">
@@ -137,6 +137,11 @@ $url = $this->url('administrador', ['controller' => 'campanha', 'action' => 'ind
 </div>
 </div>
 
+<?php
+echo $this->inlineScript()->prependFile($this->basePath() . '/js/Administrador/gerenciar.js');
+
+?>
+
 
 
 <script>
@@ -149,6 +154,7 @@ $url = $this->url('administrador', ['controller' => 'campanha', 'action' => 'ind
      {"className": "dt-center", "targets": "_all"}
 
      ],
+     retrieve: true,
      
 
    } );
@@ -156,69 +162,6 @@ $url = $this->url('administrador', ['controller' => 'campanha', 'action' => 'ind
 </script>
 
 
-<script>
-  jQuery(function ($) {
-
-   var table = $('#campanhas').DataTable();
-   $('#campanhas tbody').on( 'click','tr' ,function () {
-
-    var linhaSelecionada= table.row(this).index();
-    var data = table.rows(linhaSelecionada).data();
-    
-    $("#modals").detach().appendTo('body');
-    var infoCampanha=data[0];
-    var nome=infoCampanha[0];
-    var idCampanha= infoCampanha[6];
-    var Tmudas=infoCampanha[8];
-
-    var mudas=Tmudas.split(";");
-
-    var option="";
-    var select= $('select');
-
-    select.html('');
-    
-    for(var i=0;i<mudas.length-1;i++){
-      var dadosTipoMuda=mudas[i].split('-');
-      option="<option value='"+dadosTipoMuda[0]+"'>" +dadosTipoMuda[1]+"-"+dadosTipoMuda[2]+ "</option>";
-      
-      select.append(option);
-    }
-
-    $("input[name='idTipoMuda']").val(1);
-    $("input[name='idCampanhaLiberar']").val(idCampanha);
-    $("input[name='idCampanhaCancelar']").val(idCampanha);
-
-    
-  } );
-
-   /*
-   $('select').change(function(){
-    
-
-
-    var idTipoMuda=$("option:selected").val();
-    $("input[name='idTipoMuda']").val(idTipoMuda);
-
-    var id= $("input[name='idTipoMuda']").val();
-
-
-
-
-
-
-    //alert($("select[name=tiposMuda] option:first-child").val());
-
-  });
-  */
-
-
-
-
- });
-
-
-</script>
 
 
 

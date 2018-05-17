@@ -121,15 +121,15 @@ public function removerAction(){
   $campanha = $repositorio->find($id);
   
   if($campanha->getEstadoCampanha()->getSituacaoCampanha()=="Alocal" || $campanha->getEstadoCampanha()->getSituacaoCampanha()=="Aliberacao" ){
-     $entityManager->remove($campanha);
-     $entityManager->flush();
+   $entityManager->remove($campanha);
+   $entityManager->flush();
 
-  } else {
+ } else {
 
-    $campanha->getEstadoCampanha()->setSituacaoCampanha("suspensa");
-    $entityManager->flush();
+  $campanha->getEstadoCampanha()->setSituacaoCampanha("suspensa");
+  $entityManager->flush();
 
-  }
+}
 
 }
 return $this->redirect()->toRoute('investidor', array(
@@ -137,6 +137,76 @@ return $this->redirect()->toRoute('investidor', array(
   'action' => 'index',
 ));
 }
+
+
+
+public function editarAction(){
+
+ if ($user = $this->identity()) {
+   $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+   $repositorio = $entityManager->getRepository("Investidor\Entity\Campanha");
+
+   $id = $this->params()->fromRoute('id');
+
+
+   if (is_null($id)) {
+    $id = $this->request->getPost('id');
+  }
+
+  $campanha = $repositorio->find($id);
+
+  
+
+  if ($this->request->isPost()) {
+
+    $id = $this->request->getPost('id');
+    $novoLocal= $this->request->getPost('idLocalNovo');
+    $campanha->setNome($this->request->getPost('nome'));
+    $campanha->setValor($this->request->getPost('valor'));
+    $campanha->setDataInicio($this->request->getPost('dataInicio'));
+    $campanha->setDataFinal($this->request->getPost('dataFinal'));
+
+
+
+    if($novoLocal!=$campanha->getLocal()->getId()){
+      $entityManager->persist($campanha->getLocal()->setCampanha(null));
+      $entityManager->flush();
+
+
+      
+
+
+
+
+    }
+
+    $campanha->getEstadoCampanha()->setEstadoCampanha("Aliberacao");
+    $entityManager->persist($campanha);
+    $entityManager->flush();
+
+    return $this->redirect()->toRoute('concedente', array(
+      'controller' => 'local',
+      'action' => 'index',
+    ));
+
+  }
+  return new ViewModel(['campanha' => $local]);
+
+
+} else {
+  return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
+
+}
+
+
+
+
+
+
+}
+
+
+
 
 
 }
