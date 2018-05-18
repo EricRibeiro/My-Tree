@@ -18,10 +18,12 @@ class CampanhaInvestidorController extends AbstractActionController
       $qb=$entityManager->createQueryBuilder();
       $qb->select("c")
       ->from('Investidor\Entity\Campanha','c')
+      ->innerJoin('Administrador\Entity\EstadoCampanha','ec','WITH','ec.id=c.estadoCampanha')
       ->andWhere('c.investidor = :investidor')
+      ->orWhere('ec.motivoAborto IS NULL')
       ->setParameter('investidor',$user);
+      
       $campanhas=$qb->getQuery()->getResult();
-
       $view_params= array(
         "campanhas"=> $campanhas,
 
@@ -120,13 +122,16 @@ public function removerAction(){
   
   $campanha = $repositorio->find($id);
   
-  if($campanha->getEstadoCampanha()->getSituacaoCampanha()=="Alocal" || $campanha->getEstadoCampanha()->getSituacaoCampanha()=="Aliberacao" ){
-   $entityManager->remove($campanha);
+  if($campanha->getEstadoCampanha()->getSituacaoCampanha()=="liberada"){
+
+   $campanha->getEstadoCampanha()->setSituacaoCampanha("abortada");
+
+   $entityManager->persist($campanha);
    $entityManager->flush();
 
  } else {
 
-  $campanha->getEstadoCampanha()->setSituacaoCampanha("suspensa");
+  $entityManager->remove($campanha);
   $entityManager->flush();
 
 }
@@ -140,64 +145,6 @@ return $this->redirect()->toRoute('investidor', array(
 
 
 
-public function editarAction(){
-
- if ($user = $this->identity()) {
-   $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-   $repositorio = $entityManager->getRepository("Investidor\Entity\Campanha");
-
-   $id = $this->params()->fromRoute('id');
-
-
-   if (is_null($id)) {
-    $id = $this->request->getPost('id');
-  }
-
-  $campanha = $repositorio->find($id);
-
-  
-
-  if ($this->request->isPost()) {
-
-    $id = $this->request->getPost('id');
-    $novoLocal= $this->request->getPost('idLocalNovo');
-    $campanha->setNome($this->request->getPost('nome'));
-    $campanha->setValor($this->request->getPost('valor'));
-    $campanha->setDataInicio($this->request->getPost('dataInicio'));
-    $campanha->setDataFinal($this->request->getPost('dataFinal'));
-
-
-
-    if($novoLocal!=$campanha->getLocal()->getId()){
-      $entityManager->persist($campanha->getLocal()->setCampanha(null));
-      $entityManager->flush();
-
-
-      
-
-
-
-
-    }
-
-    $campanha->getEstadoCampanha()->setEstadoCampanha("Aliberacao");
-    $entityManager->persist($campanha);
-    $entityManager->flush();
-
-    return $this->redirect()->toRoute('concedente', array(
-      'controller' => 'local',
-      'action' => 'index',
-    ));
-
-  }
-  return new ViewModel(['campanha' => $local]);
-
-
-} else {
-  return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
-
-}
-
 
 
 
@@ -209,6 +156,6 @@ public function editarAction(){
 
 
 
-}
+
 
 ?>

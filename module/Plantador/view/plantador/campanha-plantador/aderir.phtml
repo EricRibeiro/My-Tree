@@ -42,11 +42,16 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'editar
                <td><?= $campanha->getLocal()->getUf(); ?></td>
                <td><?= $campanha->getLocal()->getCep(); ?></td>
                <td>
-                 <?php if($plantador->isAderido($campanha)){ ?>
-                 <i class="fa fa-check text-success"  aria-hidden="true"></i>
+
+                 <?php if($plantador->isAderido($campanha) && $campanha->getEstadoCampanha()->getSituacaoCampanha()=="abortada"){ ?>
+
+                    <i class="fa fa-times text-danger" aria-hidden="true"></i>
+
+                 <?php }else if($plantador->isAderido($campanha)){ ?>
+                  <i class="fa fa-check text-success"  aria-hidden="true"></i>
 
                  <?php } else {?>
-                 <i class="fa fa-times text-danger" aria-hidden="true"></i>
+                 <i class="fa fa-sign-in" aria-hidden="true"></i>
 
                  <?php } ?>
                </td>
@@ -150,13 +155,13 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'editar
     campanha+=cep+"<br>";
     
     if(!isAderido){
-        campanha+="<form method='post' action='<?= $this->url('plantador', [ 'controller'=>'campanha','action' =>'aderir'])?>'>";
-        campanha+="<input type='hidden' value='"+idCampanha+"' name='id'>";
-        campanha+="<div class='form-group'>";
-        campanha+="<input  class= 'btn btn-primary center-block' type='submit' value='aderir'>";
-        campanha+="</div>";
-        campanha+="</form>";
-    
+      campanha+="<form method='post' action='<?= $this->url('plantador', [ 'controller'=>'campanha','action' =>'aderir'])?>'>";
+      campanha+="<input type='hidden' value='"+idCampanha+"' name='id'>";
+      campanha+="<div class='form-group'>";
+      campanha+="<input  class= 'btn btn-primary center-block' type='submit' value='aderir'>";
+      campanha+="</div>";
+      campanha+="</form>";
+
     }else {
      campanha+="<form method='post' action='<?= $this->url('plantador', [ 'controller'=>'campanha','action' =>'sair'])?>'>";
      campanha+="<input type='hidden' value='"+idCampanha+"' name='id'>";

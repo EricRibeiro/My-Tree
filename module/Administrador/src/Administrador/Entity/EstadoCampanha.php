@@ -39,6 +39,20 @@ class EstadoCampanha
 	*/
 	private $campanha;
 
+	/**
+     * @ORM\Column(type="string", nullable=true)
+     */
+	private $motivoAborto;
+
+
+	public function getMotivoAborto(){
+		return $this->motivoAborto;
+
+	}
+
+	public function setMotivoAborto($motivo){
+		$this->motivoAborto=$motivo;
+	}
 
 	public function setSituacaoCampanha($descricao){
 		$this->situacaoCampanha=$descricao;

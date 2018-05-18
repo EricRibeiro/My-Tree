@@ -81,7 +81,7 @@ class LocalConcedenteController extends AbstractActionController
         ));
 
     }
-    /*
+    
     public function removerAction()
     {
         $id = $this->params()->fromRoute('id');
@@ -91,31 +91,30 @@ class LocalConcedenteController extends AbstractActionController
             $repositorio = $entityManager->getRepository("Concedente\Entity\Local");
             $local = $repositorio->find($id);
 
-            if(!is_null($local->getCampanha()){
-                $campanha=$local->getCampanha();
-                $campanha->getEstadoCampanha()->setSituacaoCampanha("suspensa");
-                $mSuspensao="O local foi indisponibilizado pelo concedente";
-                $campanha->getEstadoCampanha()->setMotivoSuspensao($mSuspensao);
-                $entityManager->getRepository("Investidor\Entity\campanha");
-                $entityManager->persist($campanha);
-                $entityManager->flush();
-            }else {
+            if(!is_null($local->getCampanha())){
+
+               $campanha=$local->getCampanha();
+               $campanha->getEstadoCampanha()->setSituacaoCampanha("abortada");
+               $motivo="O concedente indisponibilizou o local";
+               $campanha->getEstadoCampanha()->setMotivoAborto($motivo);
+               $entityManager->persist($campanha);
+               $entityManager->flush();
+           }else {
                $entityManager->remove($local);
                $entityManager->flush();
-
            }
 
-       }
 
+       }
        return $this->redirect()->toRoute('concedente', array(
         'controller' => 'local',
         'action' => 'index',
     ));
 
-}
-*/
-public function editarAction()
-{
+   }
+
+   public function editarAction()
+   {
     if ($user = $this->identity()) {
 
         $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');

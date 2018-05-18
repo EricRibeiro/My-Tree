@@ -39,9 +39,12 @@ class CampanhaPlantadorController extends AbstractActionController
 			->andWhere('DATE_DIFF(CURRENT_DATE(), c.dataFinal) <= 0')
 			->andWhere('c.local is NOT NULL')
 			->andWhere('m.qtdMuda > 0')
-			->setParameter('situacao', "liberada");
+			->orWhere('ec.situacaoCampanha = :situacao2')
+			->setParameter('situacao', "liberada")
+			->setParameter('situacao2', "abortada");
 			$campanhas=$qb->getQuery()->getResult();
-			
+
+
 			$user=$this->identity();
 			
 			$view_params = array(

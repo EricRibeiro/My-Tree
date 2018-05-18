@@ -1,6 +1,9 @@
 <?php
 $url = $this->url('administrador', ['controller' => 'campanha', 'action' => 'index']);
 
+$urlTipoMuda = $this->url('administrador', ['controller' => 'campanha', 'action' => 'muda']);
+
+
 ?>
 
 <div class="col-lg-12 col-md-12">
@@ -9,58 +12,88 @@ $url = $this->url('administrador', ['controller' => 'campanha', 'action' => 'ind
       <h4 class="title">Gerenciar Campanhas</h4>
     </div>
     <div class="content">
-     <form method="post" action="<?= $url; ?>">
-       <input type="hidden" value="" name="">
 
+     <form method="post" action="<?= $urlTipoMuda; ?>">
        <div class="row">
-        <div class="col-md-12">
-          <table id="campanhas" class="table table-hover display" style="width:100%">
-            <thead>
-              <tr>
-                <th>Nome</th>
-                <th>Data Inicio</th>
-                <th>Data Termino</th>
-                <th>cidade</th>
-                <th>UF</th>
-                <th>CEP</th>
-                <th hidden>idCampanha</th>
-                <th>Acao</th>
-                <th hidden>Tipos Muda</th>
-              </tr>
-            </thead>
-
-            <tbody>
-
-              <?php foreach ($campanhas as $campanha) {
-                if($campanha->getLocal()!=NULL){
-                 ?>
-                 <tr>
-                   <td><?= $campanha->getNome(); ?></td>
-                   <td><?= $campanha->getDataInicialString(); ?></td>
-                   <td><?= $campanha->getDataFinalString(); ?></td>
-                   <td><?= $campanha->getLocal()->getMunicipio(); ?></td>
-                   <td><?= $campanha->getLocal()->getUf(); ?></td>
-                   <td><?= $campanha->getLocal()->getCep(); ?></td>
-                   <td hidden><?= $campanha->getId(); ?></td>
-                   <td>
-                    <button type="button" data-toggle="modal" data-target="#modalLiberar" class="btn btn-info btn-fill">
-                      <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
-                    </button>
-                  </td>
-
-                  <td hidden><?= $campanha->getLocal()->getMudasToString();?></td>
-                  
-                </tr>
-                <?php }}?>
-
-              </tbody>
-            </table>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Nome Popular</label>
+            <input type="text" class="form-control border-input" name="nomePopular">
           </div>
         </div>
-        <div class="clearfix"></div>
-      </form>
-    </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Nome Científico</label>
+            <input type="text" class="form-control border-input" name="nomeCientifico">
+          </div>
+        </div>
+      </div>
+
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-info btn-fill btn-wd">Cadastrar</button>
+      </div>
+      <div class="clearfix"></div>
+    </form>
+
+
+
+
+    <form method="post" action="<?= $url; ?>">
+     <input type="hidden" value="" name="">
+
+
+
+     <div class="row">
+      <div class="col-md-12">
+        <table id="campanhas" class="table table-hover display" style="width:100%">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Data Inicio</th>
+              <th>Data Termino</th>
+              <th>cidade</th>
+              <th>UF</th>
+              <th>CEP</th>
+              <th hidden>idCampanha</th>
+              <th>Acao</th>
+              <th hidden>Tipos Muda</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <?php foreach ($campanhas as $campanha) {
+              if($campanha->getLocal()!=NULL){
+               ?>
+               <tr>
+                 <td><?= $campanha->getNome(); ?></td>
+                 <td><?= $campanha->getDataInicialString(); ?></td>
+                 <td><?= $campanha->getDataFinalString(); ?></td>
+                 <td><?= $campanha->getLocal()->getMunicipio(); ?></td>
+                 <td><?= $campanha->getLocal()->getUf(); ?></td>
+                 <td><?= $campanha->getLocal()->getCep(); ?></td>
+                 <td hidden><?= $campanha->getId(); ?></td>
+                 <td>
+                  <button type="button" data-toggle="modal" data-target="#modalLiberar" class="btn btn-info btn-fill">
+                    <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+                  </button>
+                </td>
+
+                <td hidden><?= $campanha->getLocal()->getMudasToString();?></td>
+
+              </tr>
+              <?php }}?>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </form>
   </div>
+</div>
 </div>
 
 <div id="modals">
@@ -122,7 +155,7 @@ $url = $this->url('administrador', ['controller' => 'campanha', 'action' => 'ind
         
         <label for="comment">Motivo de cancelamento:</label>
         
-       <textarea class="form-control" rows="6" name="descricaoCancelamento" style="border:solid 1px black;"></textarea>
+        <textarea class="form-control" rows="6" name="descricaoCancelamento" style="border:solid 1px black;"></textarea>
 
         <input  class= 'btn btn-danger center-block' type='submit' value='Cancelar Campanha'>
       </form>

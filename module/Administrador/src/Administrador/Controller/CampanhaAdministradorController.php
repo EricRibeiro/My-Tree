@@ -4,6 +4,7 @@ namespace Administrador\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Administrador\Entity\Muda;
+use Administrador\Entity\TipoMuda;
 
 class CampanhaAdministradorController extends AbstractActionController
 {
@@ -90,12 +91,25 @@ class CampanhaAdministradorController extends AbstractActionController
 	}
 
 
-	public function cadastrarAction(){
+	public function mudaAction(){
 		
-
-
+		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 		
+		if ($this->request->isPost()) {
+			$nPopular=$this->request->getPost('nomePopular');
+			$nCientifico=$this->request->getPost('nomeCientifico');
+			$tipoMuda= new TipoMuda($nPopular,$nomeCientifico);
+			$entityManager->persist($tipoMuda);
+			$entityManager->flush();
+	
+		}
+		return $this->redirect()->toRoute('administrador', array(
+			'controller' => 'campanha',
+			'action' => 'gerenciar',
+		));
+
 	}
+
 
 
 }

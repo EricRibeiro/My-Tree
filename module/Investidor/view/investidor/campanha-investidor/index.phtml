@@ -92,6 +92,14 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
                     <i class="fa fa-home" aria-hidden="true"></i>
                   </a> 
 
+                  <?php } else if ($campanha->getEstadoCampanha()->getSituacaoCampanha()=="abortada" && $campanha->getEstadoCampanha()->getMotivoAborto()!="" ) { ?>
+
+                  <input type="hidden" id="mAborto" value="<?= $campanha->getEstadoCampanha()->getMotivoAborto();  ?>">
+
+                  <a href="#motivoAborto" data-toggle="modal">
+                    <i class="fa fa-ban" aria-hidden="true"></i>
+                  </a> 
+
                   <?php } else { ?>
 
                   <input type="hidden" id="motivoCancelamento" value="<?= $campanha->getEstadoCampanha()->getDescricaoCancelamento();  ?>">
@@ -227,6 +235,30 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
 </div>
 </div>
 
+
+<div id='motivoAborto' class='modal fade' role='dialog'>
+ <div class='modal-dialog'>
+   <div class='modal-content'>
+     <div class='modal-header'>
+       <button type='button' class='close' data-dismiss='modal'>&times;</button>
+       <h4 class='modal-title' align='center'>Situação da campanha</h4>;
+     </div>
+     <div class='modal-body'>
+      <p>A campanha foi abortada pelo seguinte motivo: </p>
+      <p id='motivo'></p>
+    </div>
+    <div class='modal-footer'>
+     <button type='button' class='btn btn-default' data-dismiss='modal'>Fechar</button>
+   </div>
+ </div>
+</div>
+</div>
+
+
+
+
+
+
 </div>
 
 
@@ -253,6 +285,31 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
       var linhaSelecionada= table.row(this).index();
       var data = table.rows(linhaSelecionada).data();
       $("#modals").detach().appendTo('body');
+      var motivoAborto=$("#mAborto").val();
+
+      $('#motivo').html(motivoAborto);
+
+
+    });
+
+  });
+
+</script>
+
+
+
+
+
+
+
+<script>
+  jQuery(function ($) {
+
+    var table = $('#locais').DataTable();
+    $('#locais tbody').on( 'click', 'tr', function () {
+      var linhaSelecionada= table.row(this).index();
+      var data = table.rows(linhaSelecionada).data();
+      $("#modals").detach().appendTo('body');
       var motivoCancelamento=$("#motivoCancelamento").val();
 
       $('#corpoCancelamento').html(motivoCancelamento);
@@ -262,8 +319,8 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
 
   });
 
-
 </script>
+
 
 
 

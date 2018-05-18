@@ -93,6 +93,11 @@ class Local
      */
      private $listaMudas;
 
+     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+     private $disponibilidade;
+
 
      public function __construct($uf, $municipio, $cep, $bairro, $logradouro, $numero, $complemento, $latitude, $longitude, $concedente,$area)
      {
@@ -237,13 +242,13 @@ class Local
 
     public function getMudasToString(){
         $mudasString="";
-      foreach ($this->getMudas() as $tMuda) {
+        foreach ($this->getMudas() as $tMuda) {
           $mudasString.=$tMuda->TipoMudaToString();
           $mudasString.=";";
       }
       return $mudasString;
-              
-    }
+
+  }
 
 }
 
