@@ -23,11 +23,7 @@ class TipoMuda{
     */
 	private $nomeCientifico;
 
-	/**
-	*@ORM\ManyToOne(targetEntity="Administrador\Entity\TipoMuda", inversedBy="muda")
-	*
-	*/
-	private $muda;
+	
 
 
 	public function __construct($nomePopular,$nomeCientifico){
