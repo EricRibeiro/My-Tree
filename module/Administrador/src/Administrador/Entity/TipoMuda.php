@@ -2,7 +2,6 @@
 namespace Administrador\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * @ORM\Entity
 */
@@ -24,17 +23,10 @@ class TipoMuda{
     */
 	private $nomeCientifico;
 
-
-	private $local;
-
-	/**
-	*@ORM\ManyToOne(targetEntity="Administrador\Entity\TipoMuda", inversedBy="muda")
-	*
-	*/
-	private $muda;
+	
 
 
-	public function __construct($nomePopular,$nomeCientifico ){
+	public function __construct($nomePopular,$nomeCientifico){
 		$this->nomePopular=$nomePopular;
 		$this->nomeCientifico=$nomeCientifico;
 	}
@@ -47,17 +39,12 @@ class TipoMuda{
 		return $this->nomePopular;
 	}
 
-	public function TipoMudaToString(){
-		return $this->getNomePopular();
-
-	}
-
 	public function getId(){
 		return $this->id;
 	}
 
-	public function dadosTipoMudaToString(){
-		return $this->getNomePopular().'-'.$this->getNomeCientifico();
+	public function TipoMudaToString(){
+		return $this->getId().'-'.$this->getNomePopular().'-'.$this->getNomeCientifico();
 
 	}
 

@@ -19,88 +19,118 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'editar
                 <th>Nome</th>
                 <th>Data Inicio</th>
                 <th>Data Termino</th>
-                <th>cidade</th>
+                <th>Cidade</th>
                 <th>UF</th>
                 <th>CEP</th>
-                <th hidden>idCampanha</th>
+                <th>Aderiu</th>
+                <th hidden>aderiu-sort</th>
                 <th hidden>situacao</th>
+                <th hidden>idCampanha</th>
                 <th>Detalhes</th>
+
 
               </tr>
             </thead>
 
             <tbody>
-              <?php foreach ($campanhas as $campanha) {
-                if($campanha->getLocal()!=NULL && $campanha->getDataFinal()>new \DateTime()){
-                 ?>
-                 <tr>
-                   <td><?= $campanha->getNome(); ?></td>
-                   <td><?= $campanha->getDataIncialString(); ?></td>
-                   <td><?= $campanha->getDataFinalString(); ?></td>
-                   <td><?= $campanha->getLocal()->getMunicipio(); ?></td>
-                   <td><?= $campanha->getLocal()->getUf(); ?></td>
-                   <td><?= $campanha->getLocal()->getCep(); ?></td>
-                   <td hidden><?= $campanha->getId(); ?></td>
-                   <td hidden><?= $plantador->isAderido($campanha); ?></td>
-                   <td>
-                    <button type="button" data-toggle="modal" data-target="#detalhes-local" class="btn btn-info btn-fill">
+              <?php foreach ($campanhas as $campanha) {?>
+              <tr>
+               <td><?= $campanha->getNome(); ?></td>
+               <td><?= $campanha->getDataInicialString(); ?></td>
+               <td><?= $campanha->getDataFinalString(); ?></td>
+               <td><?= $campanha->getLocal()->getMunicipio(); ?></td>
+               <td><?= $campanha->getLocal()->getUf(); ?></td>
+               <td><?= $campanha->getLocal()->getCep(); ?></td>
+               <td>
 
-                      <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+                 <?php if($plantador->isAderido($campanha) && $campanha->getEstadoCampanha()->getSituacaoCampanha()=="abortada"){ ?>
 
-                    </button>
-                  </td>
-                </tr>
-                <?php }}?>
+                    <i class="fa fa-times text-danger" aria-hidden="true"></i>
 
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="clearfix"></div>
-      </form>
+                 <?php }else if($plantador->isAderido($campanha)){ ?>
+                  <i class="fa fa-check text-success"  aria-hidden="true"></i>
+
+                 <?php } else {?>
+                 <i class="fa fa-sign-in" aria-hidden="true"></i>
+
+                 <?php } ?>
+               </td>
+
+               <td hidden>
+                 <?php if($plantador->isAderido($campanha)){ ?>
+                 1
+                 <?php } else {?>
+                 0
+                 <?php } ?>
+               </td>
+
+               <td hidden><?= $plantador->isAderido($campanha); ?></td>
+               <td hidden><?= $campanha->getId(); ?></td>
+               <td>
+                <button type="button" data-toggle="modal" data-target="#detalhes-local" class="btn btn-info btn-fill">
+
+                  <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+
+                </button>
+              </td>
+            </tr>
+            <?php }?>
+
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
+    <div class="clearfix"></div>
+  </form>
+</div>
+</div>
 </div>
 
 <script>
   jQuery(function ($) {
     $('#campanhas').DataTable( {
-
-     "columnDefs": [
-
-     {"className": "dt-center", "targets": "_all"}
-
-     ],
-
-   } );
+      columnDefs: [
+      {targets: '_all', className: 'dt-center'},
+      { "orderable": false, "targets": [ 1, 2 ] },
+      { "orderData":[ 7 ],   "targets": [ 6 ] },
+      ],
+      order: [[6, 'desc']],
+      paging:false,
+    });
   });
 </script>
 
+
+<div id="modals">
+
+  <div id='detalhes-local' class='modal fade' role='dialog'>
+   <div class='modal-dialog'>
+     <div class='modal-content'>
+       <div class='modal-header'>
+         <button type='button' class='close' data-dismiss='modal'>&times;</button>
+         <h4 class='modal-title' align='center'>Informações da Campanha</h4>
+       </div>
+       <div class='modal-body'>
+         <p id='corpo'></p>
+       </div>
+       <div class='modal-footer'>
+         <button type='button' class='btn btn-default' data-dismiss='modal'>Fechar</button>
+       </div>
+     </div>
+   </div>
+ </div>
+ 
+</div>
+
+
 <script>
   jQuery(function ($) {
-   var modal="<div id='detalhes-local' class='modal fade' role='dialog'>";
-   modal+="<div class='modal-dialog'>";
-   modal+="<div class='modal-content'>";
-   modal+=" <div class='modal-header'>";
-   modal+= "<button type='button' class='close' data-dismiss='modal'>&times;</button>";
-   modal+="<h4 class='modal-title' align='center'>Informações da Campanha</h4>";
-   modal+="</div>";
-   modal+="<div class='modal-body'>";
-   modal+="<p id='corpo'></p>"
-   modal+=" </div>";
-   modal+="<div class='modal-footer'>";
-   modal+="<button type='button' class='btn btn-default' data-dismiss='modal'>Fechar</button>";
-   modal+="</div>";
-   modal+="</div>";
-   modal+="</div>";
-   modal+="</div>";
-   $('body').append(modal);
-
-
    var table = $('#campanhas').DataTable();
    $('#campanhas tbody').on( 'click', 'tr', function () {
     var linhaSelecionada= table.row(this).index();
     var data = table.rows(linhaSelecionada).data();
+    
+    $("#modals").detach().appendTo('body');
     var infoCampanha=data[0];
     var nome=infoCampanha[0];
     var dataInicio= infoCampanha[1];
@@ -108,12 +138,12 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'editar
     var cidade= infoCampanha[3];
     var uf= infoCampanha[4];
     var cep= infoCampanha[5];
-    var idCampanha= infoCampanha[6];
-    var isAderido= infoCampanha[7];
-  
+    var idCampanha= infoCampanha[9];
+    var isAderido= infoCampanha[8];
+    
     var campanha="Nome: ";
     campanha+=nome+"<br>";
-    campanha+= "Data inicio: "
+    campanha+= "Data inicio: ";
     campanha+=dataInicio+"<br>";
     campanha+="Data Final: ";
     campanha+=dataFinal+"<br>";
@@ -123,31 +153,26 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'editar
     campanha+=uf+"<br>";
     campanha+="Cep: ";
     campanha+=cep+"<br>";
-
-
+    
     if(!isAderido){
       campanha+="<form method='post' action='<?= $this->url('plantador', [ 'controller'=>'campanha','action' =>'aderir'])?>'>";
       campanha+="<input type='hidden' value='"+idCampanha+"' name='id'>";
-      campanha+="<div class='form-group'>"
+      campanha+="<div class='form-group'>";
       campanha+="<input  class= 'btn btn-primary center-block' type='submit' value='aderir'>";
-      campanha+="</div>"
-      campanha+="</fom>";
+      campanha+="</div>";
+      campanha+="</form>";
 
     }else {
      campanha+="<form method='post' action='<?= $this->url('plantador', [ 'controller'=>'campanha','action' =>'sair'])?>'>";
      campanha+="<input type='hidden' value='"+idCampanha+"' name='id'>";
-     campanha+="<div class='form-group'>"
+     campanha+="<div class='form-group'>";
      campanha+="<input  class= 'btn btn-danger center-block' type='submit' value='sair'>";
-     campanha+="</div>"
-     campanha+="</fom>";
-
+     campanha+="</div>";
+     campanha+="</form>";
    }
-
    $('#corpo').html(campanha);
  } );
 
 
  });
-
-
 </script>

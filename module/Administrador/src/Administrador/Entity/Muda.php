@@ -4,7 +4,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Administrador\Entity\TipoMuda;
 use Investidor\Entity\Campanha;
 
-//true liber, false não liberado null - nao analisada
+/**
+ * @ORM\Entity
+ */
 class Muda {
 
 
@@ -22,40 +24,44 @@ class Muda {
 	private $qtdMuda;
 	
 	/**
-	*@ORM\ManyToOne(targetEntity="Administrador\Entity\TipoMuda", mappedBy="muda")
+	*@ORM\ManyToOne(targetEntity="Administrador\Entity\TipoMuda", inversedBy="muda" )
 	*
 	*/
 	private $typeMuda;
 
 	
+	/**
+	*@ORM\OneToMany(targetEntity="Investidor\Entity\Campanha", mappedBy="campanha")
+	*/
 	private $campanha;
 
 
-	public function __construct($campanha,$typeMuda){
+	public function __construct($typeMuda,$quantidade){
+		$this->qtdMuda=$quantidade;
+		$this->typeMuda=$typeMuda;
+	}
+
+	public function getId(){
+		return $this->id;
 
 	}
 
-	public function setCampanha($campanha){
-
-	}
-
-	public function getCampanha(){
-
-	}
-
-
-	
 	public function setTipoMuda($typeMuda){
 		$this->typeMuda=$typeMuda;
 	}
-		
+
 	public function getTipoMuda(){
-		return $typeMuda;
+		return $this->typeMuda;
+	}
+
+	public function setQuantidadeMudas($qtdMudas){
+		$this->qtdMuda=$qtdMudas;
 
 	}
 
-
-
+	public function getQuantidadeMudas(){
+		return $this->qtdMuda;
+	}
 
 }
 

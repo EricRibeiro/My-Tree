@@ -3,6 +3,8 @@ namespace Administrador\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Administrador\Entity\Muda;
+use Administrador\Entity\TipoMuda;
 
 class CampanhaAdministradorController extends AbstractActionController
 {
@@ -15,73 +17,98 @@ class CampanhaAdministradorController extends AbstractActionController
 		return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
 	}
 
-
-
-
 	public function gerenciarAction(){
-
-
+		
 		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-		$repositorio = $entityManager->getRepository('Investidor\Entity\Campanha');
-		$campanhas=$repositorio->findAll();
+		$qb=$entityManager->createQueryBuilder();
+		$qb->select("c")
+		->from('Investidor\Entity\Campanha','c')
+		->innerJoin("Administrador\Entity\EstadoCampanha","ec","WITH","ec.id=c.estadoCampanha")
+		->andWhere('ec.situacaoCampanha = :situacao')
+		->setParameter('situacao',"Aliberacao");
+		$campanhas=$qb->getQuery()->getResult();
+
 		$view_params = array(
 			'campanhas'=>$campanhas
 		);
 		return new ViewModel($view_params);
-
-	/*
-	return $this->redirect()->toRoute('Administrador', array(
-		'controller' => 'index',
-		'action' => 'index',
-	));
-	*/
-}
-
-public function liberarAction(){
-
-	$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-
-	if ($this->request->isPost()) {
-		$idCampanha=$this->request->getPost('idCampanha');
-		$campanha= $entityManager->getRepository('Investidor\Entity\Campanha')->find($idCampanha);
-		$liberar=true;
-		$campanha->setStatus($liberar);
-		$entityManager->persist($campanha);
-		$entityManager->flush();
 	}
 
-	return $this->redirect()->toRoute('administrador', array(
-		'controller' => 'campanha',
-		'action' => 'gerenciar',
-	));
+	public function liberarAction(){
 
+		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+
+		if ($this->request->isPost()) {
+			$idCampanha=$this->request->getPost('idCampanhaLiberar');
+			$campanha= $entityManager->getRepository('Investidor\Entity\Campanha')->find($idCampanha);
+			$qtdMudas=$this->request->getPost('qtdMudas');
+			$idTMuda=$this->request->getPost('idTipoMuda');
+			$campanha->setEstoqueMuda($this->associarMuda($idTMuda,$qtdMudas));
+			$campanha->getEstadocampanha()->setSituacaoCampanha("liberada");
+			$entityManager->persist($campanha);
+			$entityManager->flush();
+		}
+
+		return $this->redirect()->toRoute('administrador', array(
+			'controller' => 'campanha',
+			'action' => 'gerenciar',
+		));
+
+	}
+
+	public function associarMuda($idTmuda,$qtdMudas){
+
+		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+		$tipoMuda=$entityManager->getRepository('Administrador\Entity\TipoMuda')->find($idTmuda);
+		$muda = new Muda($tipoMuda,$qtdMudas);
+		$entityManager->persist($muda);
+		$entityManager->flush();
+		
+		return $entityManager->getRepository('Administrador\Entity\Muda')->find($muda->getId()); 
+		
+	}
+
+	public function cancelarAction(){
+
+		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+
+		if ($this->request->isPost()) {
+			$idCampanha=$this->request->getPost('idCampanhaCancelar');
+			$descricaoCancel=$this->request->getPost('descricaoCancelamento');
+			$campanha= $entityManager->getRepository('Investidor\Entity\Campanha')->find($idCampanha);
+
+			$campanha->getEstadocampanha()->setSituacaoCampanha("cancelada");
+			$campanha->getEstadocampanha()->setDescricaoCancelamento($descricaoCancel);
+			$entityManager->persist($campanha);
+			$entityManager->flush();
+		}
+
+		return $this->redirect()->toRoute('administrador', array(
+			'controller' => 'campanha',
+			'action' => 'gerenciar',
+		));
+
+	}
+
+
+	public function mudaAction(){
+		
+		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+		
+		if ($this->request->isPost()) {
+			$nPopular=$this->request->getPost('nomePopular');
+			$nCientifico=$this->request->getPost('nomeCientifico');
+			$tipoMuda= new TipoMuda($nPopular,$nomeCientifico);
+			$entityManager->persist($tipoMuda);
+			$entityManager->flush();
 	
-}
+		}
+		return $this->redirect()->toRoute('administrador', array(
+			'controller' => 'campanha',
+			'action' => 'gerenciar',
+		));
 
-public function cancelarAction(){
-
-	$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-
-	if ($this->request->isPost()) {
-		$idCampanha=$this->request->getPost('idCampanha');
-		$campanha= $entityManager->getRepository('Investidor\Entity\Campanha')->find($idCampanha);
-		$cancelar=false;
-		$campanha->setStatus($cancelar);
-		$entityManager->persist($campanha);
-		$entityManager->flush();
 	}
-
-	return $this->redirect()->toRoute('administrador', array(
-		'controller' => 'campanha',
-		'action' => 'gerenciar',
-	));
-
-
-
-
-}
-
-
 
 
 
