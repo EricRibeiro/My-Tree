@@ -57,7 +57,7 @@ class Campanha {
 	 private $investidor;
 
 	/**
-	*@ORM\OneToOne(targetEntity="Administrador\Entity\EstadoCampanha", inversedBy="campanha")
+	*@ORM\ManyToOne(targetEntity="Administrador\Entity\EstadoCampanha", inversedBy="campanha")
     *@ORM\JoinColumn(name="estado_campanha", referencedColumnName="id")
 	*
 	*/
