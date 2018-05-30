@@ -23,8 +23,6 @@ class TipoMuda{
     */
 	private $nomeCientifico;
 
-	
-
 
 	public function __construct($nomePopular,$nomeCientifico){
 		$this->nomePopular=$nomePopular;
@@ -45,8 +43,16 @@ class TipoMuda{
 
 	public function TipoMudaToString(){
 		return $this->getId().'-'.$this->getNomePopular().'-'.$this->getNomeCientifico();
-
 	}
+
+	
+
+	
+
+
+
+
+
 
 }
 

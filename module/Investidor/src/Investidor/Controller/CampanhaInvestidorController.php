@@ -12,7 +12,6 @@ use Administrador\Entity\EstadoCampanha;
 class CampanhaInvestidorController extends AbstractActionController
 {
   public function indexAction() {
-
     if ($user = $this->identity()) {
       $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
       $qb=$entityManager->createQueryBuilder();
@@ -26,12 +25,20 @@ class CampanhaInvestidorController extends AbstractActionController
       $campanhas=$qb->getQuery()->getResult();
       $view_params= array(
         "campanhas"=> $campanhas,
-
       );      
-
       return new ViewModel($view_params);
     }
     return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
+    
+  }
+
+
+  private function getLocaisDisponiveis(){
+    $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+    $repositorio = $entityManager->getRepository('Concedente\Entity\Local');
+    $locais = $repositorio->findBy(array("campanha"=>null));
+    return $locais;
+
   }
 
 
@@ -82,13 +89,9 @@ class CampanhaInvestidorController extends AbstractActionController
     ));
   }
 
-  $repositorio = $entityManager->getRepository('Concedente\Entity\Local');
-
-  $locais = $repositorio->findBy(array("campanha"=>null));
-  
 
   $view_params = array(
-    'locais' => $locais,
+    'locais' => $this->getLocaisDisponiveis()
   );  
 
   return new ViewModel($view_params);
@@ -141,19 +144,28 @@ return $this->redirect()->toRoute('investidor', array(
   'controller' => 'campanha',
   'action' => 'index',
 ));
-}
-
-
-
-
-
-
-
 
 }
 
 
 
+
+public function editarAction(){
+
+ $idCampanha=$this->params()->fromRoute('id');
+ $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+ $repositorio= $entityManager->getRepository("Investidor\Entity\Campanha");
+ $campanha=$repositorio->find($idCampanha);
+ 
+
+ 
+ return new ViewModel(['campanha'=>$campanha, 'locais'=>$this->getLocaisDisponiveis()]);
+
+
+}
+
+
+}
 
 
 

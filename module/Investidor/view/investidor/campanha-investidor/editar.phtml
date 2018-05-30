@@ -1,12 +1,12 @@
 <?php
-$url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadastrar']);
+//$url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'editar']);
 ?>
 
 
 <div class="col-lg-12 col-md-12">
   <div class="card">
     <div class="header">
-      <h4 class="title">Cadastrar Campanha</h4>
+      <h4 class="title">Editar Campanha</h4>
     </div>
     <div class="content">
      <form method="post" action="<?= $url; ?>">
@@ -14,13 +14,13 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
         <div class="col-md-6">
           <div class="form-group">
             <label>Nome</label>
-            <input type="text" class="form-control border-input" placeholder="Nome da Campanha" name="nome">
+            <input type="text" class="form-control border-input" placeholder="Nome da Campanha" name="nome" value="<?= $campanha->getNome(); ?>">
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label>Valor:</label>
-            <input type="text" class="form-control border-input" placeholder="Valor para a Campanha" name="valor">
+            <input type="text" class="form-control border-input" placeholder="Valor para a Campanha" name="valor" value="<?= $campanha->getValor(); ?>">
           </div>
         </div>
       </div>
@@ -30,6 +30,7 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
             <label>Data de Início da Campanha</label>
             <input type="text"
             class="form-control border-input validate-date"
+            value="<?= $campanha->getDataInicialString(); ?>" 
             name="dataInicio"
             placeholder="Dia/Mês/Ano"
             data-mask="00/00/0000"
@@ -44,6 +45,7 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
             <label>Data de Término da Campanha</label>
             <input type="text"
             class="form-control border-input validate-date"
+            value="<?= $campanha->getDataFinalString(); ?>" 
             name="dataTermino"
             placeholder="Dia/Mês/Ano"
             data-mask="00/00/0000"
@@ -54,6 +56,46 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
         </div>
       </div>
 
+      <div class="row">
+        <div class="col-md-6">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" href="#collapse1">Local Atual</a>
+                </h4>
+              </div>
+              <div id="collapse1" class="panel-collapse collapse">
+
+                <?php if($campanha->getLocal()==null){ ?>
+                <div class="panel-body">Atualmente a campanha denominada <?=$campanha->getNome(); ?> não possui Local</div>
+                <?php }else{?>
+                <ul class="list-group">
+                  <li class="list-group-item">Cidade: <?= $campanha->getlocal()->getMunicipio(); ?></li>
+                  
+                  <li class="list-group-item">UF: <?= $campanha->getlocal()->getUF(); ?></li>
+                  
+                  <li class="list-group-item">Bairro: <?= $campanha->getlocal()->getBairro(); ?></li>
+                  
+                  <li class="list-group-item">Cep: <?= $campanha->getlocal()->getCep(); ?></li>
+                  
+                  <li class="list-group-item">Complemento: <?= $campanha->getlocal()->getComplemento(); ?></li>
+                </ul>
+                <?php } ?>  
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <label>Deseja Alterar o local ? </label>
+          <button type="button" id="btnSim">Sim</button>
+          <button type="button" id="btnNao">Não</button>
+        </div>
+      </div>
+      
       <div class="row">
         <div class="col-md-12">
           <table id="locais" class="table table-hover display" style="width:100%">
@@ -121,7 +163,7 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
 
 
     <div class="text-center ">
-      <button type="submit" class="btn btn-info btn-fill btn-wd">Cadastrar</button>
+      <button type="submit" class="btn btn-info btn-fill btn-wd">Editar</button>
     </div>
     <div class="clearfix"></div>
   </form>
@@ -156,19 +198,59 @@ echo $this->inlineScript()->prependFile($this->basePath() . '/js/investidor/camp
 
 ?>
 
+
 <script>
-  jQuery(function ($) {
-    $('#locais').DataTable( {
 
-     "columnDefs": [
 
-     {"className": "dt-center", "targets": "_all"}
+ jQuery(function ($) {
 
-     ],
-      retrieve: true,
+  var table=$('#locais').DataTable( {
 
-   } );
-  });
+   "columnDefs": [
+
+   {"className": "dt-center", "targets": "_all"}
+
+   ],
+
+   retrieve: true,
+
+ } );
+
+  var tableContainer = $(table.table().container());
+  tableContainer.css( 'display', true ? 'none' : 'block' );
+
+
+
+});
 </script>
+
+<script>
+
+  jQuery(function ($) {
+    var table= $('#locais').DataTable();
+
+
+    var tableContainer = $(table.table().container());
+
+    $('#btnNao').on('click', function () {
+      tableContainer.css( 'display', true ? 'none' : 'block' );
+    } );
+
+
+    $('#btnSim').on('click', function () {
+      tableContainer.css( 'display', false ? 'none' : 'block' );
+    } );
+
+  });
+
+</script>
+
+
+
+
+
+
+
+
 
 

@@ -14,25 +14,25 @@ $url = $this->url('concedente', ['controller' => 'local', 'action' => 'cadastrar
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Logradouro</label>
-                                <input type="text" class="form-control border-input" placeholder="Ex: Rua Feliz" name="logradouro">
+                                <input type="text" class="form-control border-input" placeholder="Ex: Rua Feliz" name="logradouro" required>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>Número</label>
-                                <input type="text" class="form-control border-input" placeholder="Ex: 143" name="numero">
+                                <input type="text" class="form-control border-input" placeholder="Ex: 143" name="numero" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Complemento</label>
-                                <input type="text" class="form-control border-input" placeholder="Ex: Perto do Shopping" name="complemento">
+                                <input type="text" class="form-control border-input" placeholder="Ex: Perto do Shopping" name="complemento" required>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>CEP</label>
-                                <input type="number" class="form-control border-input" placeholder="Ex: 30450650" name="cep">
+                                <input type="number" class="form-control border-input" placeholder="Ex: 30450650" name="cep" required>
                             </div>
                         </div>
                     </div>
@@ -40,19 +40,19 @@ $url = $this->url('concedente', ['controller' => 'local', 'action' => 'cadastrar
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Bairro</label>
-                                <input type="text" class="form-control border-input" placeholder="Ex: Jardins" name="bairro">
+                                <input type="text" class="form-control border-input" placeholder="Ex: Jardins" name="bairro" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Município</label>
-                                <input type="text" class="form-control border-input" placeholder="Ex: Belo Horizonte" name="municipio">
+                                <input type="text" class="form-control border-input" placeholder="Ex: Belo Horizonte" name="municipio" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>UF</label>
-                                <input type="text" class="form-control border-input" placeholder="Ex: Minas Gerais" name="uf">
+                                <input type="text" class="form-control border-input" placeholder="Ex: Minas Gerais" name="uf" required>
                             </div>
                         </div>
                     </div>
@@ -61,20 +61,20 @@ $url = $this->url('concedente', ['controller' => 'local', 'action' => 'cadastrar
                        <div class="col-md-4">
                         <div class="form-group">
                             <label>Area</label>
-                            <input type="text" class="form-control border-input" placeholder="Ex: 1000" name="areaLocal">
+                            <input type="text" class="form-control border-input" placeholder="Ex: 1000" name="areaLocal" required>
                         </div>
                     </div>
 
 
                     <div class="col-md-7">
                         <div class="form-group">
-                          <label>Selecione os tipos de Muda: </label>      
-                          <select id="example-getting-started" multiple="multiple">
+                          <label>Selecione os tipos de Mudas: </label>      
+                          <select id="example-getting-started" multiple="multiple" required>
                             <?php
 
                             foreach ($mudas as $muda){
-                                $idMuda=$muda->getId();
-                                echo "<option value='$idMuda'>".$muda->TipoMudaToString(). "</option>";
+                                $dadosMuda=explode('-', $muda->TipoMudaToString());
+                                echo "<option value='$dadosMuda[0]'>".$dadosMuda[1].'-'.$dadosMuda[2]. "</option>";
                             }
                             ?>
                         </select>

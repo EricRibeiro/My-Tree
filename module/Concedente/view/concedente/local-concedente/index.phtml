@@ -15,6 +15,7 @@
                             <th>Bairro</th>
                             <th>Município</th>
                             <th>CEP</th>
+                            <th>Ações</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -48,3 +49,23 @@
         </div>
     </div>
 </div>
+
+
+
+<script>
+
+  jQuery(function ($) {
+    $('#locais').DataTable( {
+      "columnDefs": [
+
+      {"className": "dt-center", "targets": "_all"}
+
+      ],
+    });
+
+  });
+</script>
+
+
+
+

@@ -1,7 +1,5 @@
 <?php
-
 $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadastrar']);
-
 ?>
 
 <div class="col-lg-12 col-md-12">
@@ -83,7 +81,7 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
                   <?php } else if ($campanha->getEstadoCampanha()->getSituacaoCampanha()=="liberada") { ?> 
                   
                   <a href="#campanhaLiberada" data-toggle="modal">
-                    <i class="fa fa-check text-success"  aria-hidden="true"></i>
+                    <i class="fa fa-check text-success" aria-hidden="true"></i>
                   </a> 
                   
                   <?php } else if ($campanha->getEstadoCampanha()->getSituacaoCampanha()=="Alocal") { ?> 
@@ -118,6 +116,16 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
                    class="btn btn-danger btn-fill">
                    <i class="fa fa-trash" aria-hidden="true" type="hidden"></i>
                  </a>
+
+                 <a href="<?= $this->url('investidor', [ 'controller'=>'campanha','action' => 'editar', 'id' => $campanha->getId()]) ?>"
+                  class="btn btn-warning btn-fill"
+
+                  <?php if ($campanha->getEstadoCampanha()->getSituacaoCampanha()=="liberada") { ?>
+                      disabled
+                  <?php } ?>
+                  >
+                   <i class="fa fa-pencil" aria-hidden="true"></i>
+                 </a>
                </td>
 
              </tr>
@@ -137,7 +145,7 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
      <div class='modal-content'>
        <div class='modal-header'>
          <button type='button' class='close' data-dismiss='modal'>&times;</button>
-         <h4 class='modal-title' align='center'>Dados do local</h4>;
+         <h4 class='modal-title' align='center'>Dados do local</h4>
        </div>
 
        <ul class="nav nav-tabs">
@@ -166,7 +174,7 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
    <div class='modal-content'>
      <div class='modal-header'>
        <button type='button' class='close' data-dismiss='modal'>&times;</button>
-       <h4 class='modal-title' align='center'>Situação da campanha</h4>;
+       <h4 class='modal-title' align='center'>Situação da campanha</h4>
      </div>
      <div class='modal-body'>
       <p>Campanha Liberada</p>
@@ -184,7 +192,7 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
    <div class='modal-content'>
      <div class='modal-header'>
        <button type='button' class='close' data-dismiss='modal'>&times;</button>
-       <h4 class='modal-title' align='center'>Situação da campanha</h4>;
+       <h4 class='modal-title' align='center'>Situação da campanha</h4>
      </div>
      <div class='modal-body'>
       <p>Por favor, aguarde a liberação da campanha pela equipe My-Tree</p>
@@ -203,7 +211,7 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
    <div class='modal-content'>
      <div class='modal-header'>
        <button type='button' class='close' data-dismiss='modal'>&times;</button>
-       <h4 class='modal-title' align='center'>Situação da campanha</h4>;
+       <h4 class='modal-title' align='center'>Situação da campanha</h4>
      </div>
      <div class='modal-body'>
       <p>Campanha Cancelada</p><br>
@@ -223,7 +231,7 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
    <div class='modal-content'>
      <div class='modal-header'>
        <button type='button' class='close' data-dismiss='modal'>&times;</button>
-       <h4 class='modal-title' align='center'>Situação da campanha</h4>;
+       <h4 class='modal-title' align='center'>Situação da campanha</h4>
      </div>
      <div class='modal-body'>
       <p>Escolha um local para que a campanha seja liberada</p>
@@ -241,7 +249,7 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
    <div class='modal-content'>
      <div class='modal-header'>
        <button type='button' class='close' data-dismiss='modal'>&times;</button>
-       <h4 class='modal-title' align='center'>Situação da campanha</h4>;
+       <h4 class='modal-title' align='center'>Situação da campanha</h4>
      </div>
      <div class='modal-body'>
       <p>A campanha foi abortada pelo seguinte motivo: </p>
@@ -263,37 +271,27 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
 
 
 <script>
-
   jQuery(function ($) {
     $('#locais').DataTable( {
       "columnDefs": [
-
       {"className": "dt-center", "targets": "_all"}
-
       ],
     });
-
   });
 </script>
 
 
 <script>
   jQuery(function ($) {
-
     var table = $('#locais').DataTable();
     $('#locais tbody').on( 'click', 'tr', function () {
       var linhaSelecionada= table.row(this).index();
       var data = table.rows(linhaSelecionada).data();
       $("#modals").detach().appendTo('body');
       var motivoAborto=$("#mAborto").val();
-
       $('#motivo').html(motivoAborto);
-
-
     });
-
   });
-
 </script>
 
 
@@ -304,30 +302,22 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
 
 <script>
   jQuery(function ($) {
-
     var table = $('#locais').DataTable();
     $('#locais tbody').on( 'click', 'tr', function () {
       var linhaSelecionada= table.row(this).index();
       var data = table.rows(linhaSelecionada).data();
       $("#modals").detach().appendTo('body');
       var motivoCancelamento=$("#motivoCancelamento").val();
-
       $('#corpoCancelamento').html(motivoCancelamento);
-
-
     });
-
   });
-
 </script>
 
 
 
 
 <script>
-
  jQuery(function ($) {
-
    var table = $('#locais').DataTable();
    $('#locais tbody').on( 'click', 'tr', function () {
     var linhaSelecionada= table.row(this).index();
@@ -337,9 +327,7 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
     var cadastroLocal;
     var cadastroConcedente;
     var cidade=infoLocal[3];
-
     if(cidade!="-"){
-
       var uf=infoLocal[4];
       var complemento= infoLocal[5];
       var logradouro=infoLocal[6];
@@ -349,7 +337,6 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
       var telConcedente=infoLocal[10];
       var emailConcedente=infoLocal[11];
       var nomeConcedente=infoLocal[12];
-
       cadastroLocal="Cidade: ";
       cadastroLocal+=cidade+"<br>";
       cadastroLocal+= "Estado: "
@@ -360,27 +347,21 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
       cadastroLocal+=bairro+"<br>";
       cadastroLocal+="Numero: ";
       cadastroLocal+=numero+"<br>";
-
       cadastroLocal+="Logradouro: ";
       cadastroLocal+=logradouro+"<br>";
       cadastroLocal+="Complemento: ";
       cadastroLocal+=complemento+"<br>";
-
       cadastroConcedente="Nome: ";
       cadastroConcedente+=nomeConcedente+"<br>";
       cadastroConcedente+="Telefone: ";
       cadastroConcedente+=telConcedente+"<br>";
       cadastroConcedente+="Email: ";
       cadastroConcedente+=emailConcedente+"<br>";
-
       $('#dadosLocal').html(cadastroLocal);
       $('#dadosConcedente').html(cadastroConcedente);
-
     } 
-
     else {
       cadastroLocal="<p align='center'> Nenhum local vinculado a campanha</p>"
-
     }
     $('#corpo').html(cadastro);
   } );

@@ -1,9 +1,6 @@
 <?php
 $url = $this->url('administrador', ['controller' => 'campanha', 'action' => 'index']);
 
-$urlTipoMuda = $this->url('administrador', ['controller' => 'campanha', 'action' => 'muda']);
-
-
 ?>
 
 <div class="col-lg-12 col-md-12">
@@ -13,38 +10,8 @@ $urlTipoMuda = $this->url('administrador', ['controller' => 'campanha', 'action'
     </div>
     <div class="content">
 
-     <form method="post" action="<?= $urlTipoMuda; ?>">
-       <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>Nome Popular</label>
-            <input type="text" class="form-control border-input" name="nomePopular">
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>Nome Científico</label>
-            <input type="text" class="form-control border-input" name="nomeCientifico">
-          </div>
-        </div>
-      </div>
-
-
-      <div class="text-center">
-        <button type="submit" class="btn btn-info btn-fill btn-wd">Cadastrar</button>
-      </div>
-      <div class="clearfix"></div>
-    </form>
-
-
-
-
     <form method="post" action="<?= $url; ?>">
      <input type="hidden" value="" name="">
-
-
-
      <div class="row">
       <div class="col-md-12">
         <table id="campanhas" class="table table-hover display" style="width:100%">
@@ -174,8 +141,6 @@ $urlTipoMuda = $this->url('administrador', ['controller' => 'campanha', 'action'
 echo $this->inlineScript()->prependFile($this->basePath() . '/js/Administrador/gerenciar.js');
 
 ?>
-
-
 
 <script>
 

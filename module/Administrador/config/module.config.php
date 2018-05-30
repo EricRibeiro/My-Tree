@@ -38,7 +38,7 @@ return array(
         'invokables' => array(
             'Administrador\Controller\Dashboard' => 'Administrador\Controller\DashboardAdministradorController',
             'Administrador\Controller\Campanha' => 'Administrador\Controller\CampanhaAdministradorController',
-
+            'Administrador\Controller\tipomuda' => 'Administrador\Controller\MudaAdministradorController',
         ),
     ),
     'view_manager' => array(
