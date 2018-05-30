@@ -13,5 +13,14 @@ jQuery(function ($) {
 	});
 
 
+	$('#btnNao').on('click', function(){
+		$("input[name='idLocal']").val("");
+
+	});
+
+
+
+
+
 
 });
