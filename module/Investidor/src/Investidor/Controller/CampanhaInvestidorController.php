@@ -42,6 +42,7 @@ class CampanhaInvestidorController extends AbstractActionController
   }
 
 
+
   public function cadastrarAction(){
 
    $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
@@ -56,33 +57,8 @@ class CampanhaInvestidorController extends AbstractActionController
 
     $user = $this->identity();
     $campanha=$this->criarCampanha($campanha,$nome,$valor,$dataInicio,$dataTermino,$user);
+    $this->associarLocalACampanha($idLocal,$campanha,$entityManager);
     
-
-    if($idLocal!=""){
-
-      $local=$entityManager->getRepository('Concedente\Entity\Local')->find($idLocal);
-
-      $campanha->setLocal($local);
-      $m="Aliberacao";
-
-      $campanha->getEstadoCampanha()->setSituacaoCampanha($m);
-      $entityManager->persist($campanha);
-      $entityManager->flush();
-
-      $local->setCampanha($campanha);
-      
-      $entityManager->persist($local);
-      $entityManager->flush();
-
-
-    } else {
-
-      $campanha->getEstadoCampanha()->setSituacaoCampanha("Alocal");
-      $entityManager->persist($campanha);
-      $entityManager->flush();
-    }
-
-
     return $this->redirect()->toRoute('investidor', array(
       'controller' => 'campanha',
       'action' => 'index',
@@ -96,6 +72,51 @@ class CampanhaInvestidorController extends AbstractActionController
 
   return new ViewModel($view_params);
 }
+
+private function retirarCampanhaDoLocal($campanha,$entityManager){
+
+ if(!is_null($campanha->getLocal())){
+
+   $local=$campanha->getLocal()->setCampanha(null);
+   $entityManager->persist($local);
+   $entityManager->flush();
+ }
+
+
+}
+
+
+private function associarLocalACampanha($idLocal, $campanha,$entityManager){
+
+ if($idLocal!=""){
+  $this->retirarCampanhaDoLocal($campanha,$entityManager);
+
+  $local=$entityManager->getRepository('Concedente\Entity\Local')->find($idLocal);
+
+  $campanha->setLocal($local);
+  $m="Aliberacao";
+
+  $campanha->getEstadoCampanha()->setSituacaoCampanha($m);
+  $entityManager->persist($campanha);
+  $entityManager->flush();
+
+  $local->setCampanha($campanha);
+
+  $entityManager->persist($local);
+  $entityManager->flush();
+
+
+} else {
+
+  $this->retirarCampanhaDoLocal($campanha,$entityManager);
+  $campanha->getEstadoCampanha()->setSituacaoCampanha("Alocal");
+  $entityManager->persist($campanha);
+  $entityManager->flush();
+}
+
+
+}
+
 
 
 private function criarCampanha($campanha,$nome,$valor,$dataInicio,$dataTermino,$user){
@@ -148,18 +169,31 @@ return $this->redirect()->toRoute('investidor', array(
 }
 
 
-
-
 public function editarAction(){
 
- $idCampanha=$this->params()->fromRoute('id');
- $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
- $repositorio= $entityManager->getRepository("Investidor\Entity\Campanha");
- $campanha=$repositorio->find($idCampanha);
- 
 
- 
- return new ViewModel(['campanha'=>$campanha, 'locais'=>$this->getLocaisDisponiveis()]);
+   $idCampanha=$this->params()->fromRoute('id');
+   $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+   $repositorio= $entityManager->getRepository("Investidor\Entity\Campanha");
+   $campanha=$repositorio->find($idCampanha);
+
+   if($this->request->isPost()){
+
+    $campanha->setNome($this->request->getPost('nome'));
+    $campanha->setValor($this->request->getPost('valor'));
+    $campanha->setDataInicio( $this->request->getPost('dataInicio'));
+    $campanha->setDataFinal($this->request->getPost('dataTermino'));
+
+    $idLocal=$this->request->getPost('idLocal');
+
+    $this->associarLocalACampanha($idLocal,$campanha,$entityManager);
+
+     return $this->redirect()->toRoute('investidor', ['controller' => 'index', 'action' => 'index']);
+
+  }
+
+
+return new ViewModel(['campanha'=>$campanha, 'locais'=>$this->getLocaisDisponiveis()]);
 
 
 }

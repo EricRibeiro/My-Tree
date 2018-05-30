@@ -14,13 +14,13 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
         <div class="col-md-6">
           <div class="form-group">
             <label>Nome</label>
-            <input type="text" class="form-control border-input" placeholder="Nome da Campanha" name="nome">
+            <input type="text" class="form-control border-input" placeholder="Nome da Campanha" name="nome" required>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label>Valor:</label>
-            <input type="text" class="form-control border-input" placeholder="Valor para a Campanha" name="valor">
+            <input type="text" class="form-control border-input" placeholder="Valor para a Campanha" name="valor" required>
           </div>
         </div>
       </div>
@@ -30,12 +30,14 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
             <label>Data de Início da Campanha</label>
             <input type="text"
             class="form-control border-input validate-date"
-            name="dataInicio"
             placeholder="Dia/Mês/Ano"
             data-mask="00/00/0000"
+            name="dataInicio"
+            
             oninvalid="this.setCustomValidity('Insira uma data válida no formato: Dia/Mês/Ano')"
             oninput="setCustomValidity('')"
             required/>
+
           </div>
         </div>
 
@@ -165,7 +167,7 @@ echo $this->inlineScript()->prependFile($this->basePath() . '/js/investidor/camp
      {"className": "dt-center", "targets": "_all"}
 
      ],
-      retrieve: true,
+     retrieve: true,
 
    } );
   });

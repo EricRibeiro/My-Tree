@@ -1,5 +1,5 @@
 <?php
-//$url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'editar']);
+$url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'editar',"id"=>$campanha->getId()]);
 ?>
 
 
@@ -197,10 +197,7 @@ echo $this->inlineScript()->prependFile($this->basePath() . '/js/investidor/camp
 echo $this->inlineScript()->prependFile($this->basePath() . '/js/investidor/campanha/dadosLocal.js');
 
 ?>
-
-
 <script>
-
 
  jQuery(function ($) {
 
@@ -244,7 +241,6 @@ echo $this->inlineScript()->prependFile($this->basePath() . '/js/investidor/camp
   });
 
 </script>
-
 
 
 
