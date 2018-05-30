@@ -58,6 +58,15 @@
                         <p>Campanhas a gerenciar</p>
                     </a>
                 </li>
+
+                <li class="perfil aba">
+                    <a href="<?= $this->url('administrador', array('controller' => 'tipomuda', 'action' => 'index')); ?>">
+                        <i class="ti-user"></i>
+                        <p>Tipos de muda</p>
+                    </a>
+                </li>
+
+
                 <li class="active-pro">
                     <a href="<?= $this->url('application', array('controller' => 'login', 'action' => 'logout')); ?>">
                         <i class="ti-power-off"></i>
@@ -165,10 +174,6 @@
 ->prependFile($this->basePath() . '/js/data-tables/dataTables.select.min.js')
 ->prependFile($this->basePath() . '/js/data-tables/jquery.dataTables.min.js')
 ->prependFile($this->basePath() . '/js/vendor/bootstrap.min.js');
-
-
-
-
 
 ?>
 

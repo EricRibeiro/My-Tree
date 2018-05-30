@@ -15,6 +15,7 @@
     ->prependStylesheet('https://fonts.googleapis.com/css?family=Muli:400,300')
     ->prependStylesheet($this->basePath() . '/css/paper-dashboard/themify-icons.css')
     ->prependStylesheet($this->basePath() . '/css/paper-dashboard/paper-dashboard.css')
+     ->prependStylesheet($this->basePath() . '/css/data-tables/jquery.dataTables.min.css')
     ->prependStylesheet($this->basePath() . '/css/vendor/font-awesome.min.css')
     ->prependStylesheet($this->basePath() . '/css/vendor/animate.min.css')
     ->prependStylesheet($this->basePath() . '/css/vendor/bootstrap.min.css')
@@ -184,6 +185,9 @@
 ->prependFile($this->basePath() . '/js/jquery.min.js')
 ->prependFile($this->basePath() . '/js/vendor/prettify.min.js')
 ->prependFile($this->basePath() . '/js/vendor/require-2.3.5.min.js')
+->prependFile($this->basePath() . '/js/data-tables/jquery.js')
+->prependFile($this->basePath() . '/js/data-tables/dataTables.select.min.js')
+->prependFile($this->basePath() . '/js/data-tables/jquery.dataTables.min.js')
 
 
 ?>

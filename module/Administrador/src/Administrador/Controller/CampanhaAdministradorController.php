@@ -91,7 +91,7 @@ class CampanhaAdministradorController extends AbstractActionController
 	}
 
 
-	public function mudaAction(){
+	public function tipomudaAction(){
 		
 		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 		
@@ -109,6 +109,12 @@ class CampanhaAdministradorController extends AbstractActionController
 		));
 
 	}
+
+
+
+
+
+	
 
 
 
