@@ -1,0 +1,102 @@
+<?php
+$url = $this->url('administrador', ['controller' => 'campanha', 'action' => 'index']);
+
+?>
+
+<div class="col-lg-12 col-md-12">
+  <div class="card">
+    <div class="header">
+      <h4 class="title">Gerenciar Campanhas</h4>
+    </div>
+    <div class="content">
+
+      <form method="post" action="<?= $url; ?>">
+       <input type="hidden" value="" name="">
+       <div class="row">
+        <div class="col-md-12">
+          <table id="campanhas" class="table table-hover display" style="width:100%">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Data Inicio</th>
+                <th>Data Termino</th>
+                <th>cidade</th>
+                <th>UF</th>
+                <th>CEP</th>
+                <th hidden>idCampanha</th>
+                <th>Qtd Mudas Liberadas</th>
+                <th>Qtd de inscritos</th>
+                <th>Confirmar Presença</th>
+                <th>Finalizar Campanha</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              <?php foreach ($campanhas as $campanha) {
+                if($campanha->getLocal()!=NULL){
+                 ?>
+                 <tr>
+                   <td><?= $campanha->getNome(); ?></td>
+                   <td><?= $campanha->getDataInicialString(); ?></td>
+                   <td><?= $campanha->getDataFinalString(); ?></td>
+                   <td><?= $campanha->getLocal()->getMunicipio(); ?></td>
+                   <td><?= $campanha->getLocal()->getUf(); ?></td>
+                   <td><?= $campanha->getLocal()->getCep(); ?></td>
+                   <td hidden><?= $campanha->getId(); ?></td>
+                   <td><?= $campanha->getEstoqueMuda()->getTotalMudasDisponibilizadas(); ?></td>
+
+                   <td><?= $campanha->getEstoqueMuda()->totalPlantadoresInscritos(); ?></td>
+                   <td>
+
+                     <a href="<?= $this->url('administrador', array('controller' => 'participacao', 'action' => 'confirmar','id'=>$campanha->getId())); ?>"
+                      class="btn btn-warning btn-fill"
+                      >
+                      <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                  </td>
+
+                  <td>
+                  
+                    <a href="<?= $this->url('administrador', array('controller' => 'campanha', 'action' => 'finalizar','id'=>$campanha->getId())); ?>"
+                      class="btn btn-danger btn-fill"
+                      >
+                      <i class="fa fa-stop-circle-o" aria-hidden="true"></i>
+                    </a>
+                  </td>
+
+                </tr>
+                <?php }}?>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  jQuery(function ($) {
+    $('#campanhas').DataTable( {
+
+     "columnDefs": [
+
+     {"className": "dt-center", "targets": "_all"}
+
+     ],
+     retrieve: true,
+
+
+   } );
+  });
+</script>
+
+
+
+
+
+

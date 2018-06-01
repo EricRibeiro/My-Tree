@@ -15,7 +15,7 @@
     ->prependStylesheet('https://fonts.googleapis.com/css?family=Muli:400,300')
     ->prependStylesheet($this->basePath() . '/css/paper-dashboard/themify-icons.css')
     ->prependStylesheet($this->basePath() . '/css/paper-dashboard/paper-dashboard.css')
-     ->prependStylesheet($this->basePath() . '/css/data-tables/jquery.dataTables.min.css')
+    ->prependStylesheet($this->basePath() . '/css/data-tables/jquery.dataTables.min.css')
     ->prependStylesheet($this->basePath() . '/css/vendor/font-awesome.min.css')
     ->prependStylesheet($this->basePath() . '/css/vendor/animate.min.css')
     ->prependStylesheet($this->basePath() . '/css/vendor/bootstrap.min.css')
@@ -62,13 +62,13 @@
                 </li>
                 <li class="cadastrar aba">
                     <a href="<?= $this->url('concedente', array('controller' => 'local', 'action' => 'cadastrar')); ?>">
-                        <i class="ti-map"></i>
+                        <i class="fa fa-home"></i>
                         <p>Cadastrar Local</p>
                     </a>
                 </li>
                 <li class="gerenciar aba">
                     <a href="<?= $this->url('concedente', array('controller' => 'local', 'action' => 'index')); ?>">
-                        <i class="ti-map"></i>
+                        <i class="fa fa-building"></i>
                         <p>Gerenciar Locais</p>
                     </a>
                 </li>

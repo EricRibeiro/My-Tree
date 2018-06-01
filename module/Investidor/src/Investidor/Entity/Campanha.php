@@ -9,6 +9,8 @@ use Plantador\Entity\Plantador;
 use Administrador\Entity\Muda;
 use Administrador\Entity\TipoMuda;
 use Administrador\Entity\EstadoCampanha;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -69,6 +71,14 @@ class Campanha {
 	*/
 	private $estoqueMuda;
 
+	/**
+	*@ORM\ManyToMany(targetEntity="Plantador\Entity\Plantador", mappedBy="listaCampanhas")
+	*/
+
+	private $plantadores;
+
+	
+
 
 	public function __construct($nome, $valor, $dataInicio, $dataFinal, $investidor){
 		$this->nome=$nome;
@@ -76,6 +86,8 @@ class Campanha {
 		$this->setDataInicio($dataInicio);
 		$this->setDataFinal($dataFinal);
 		$this->investidor=$investidor;
+		$this->$plantadores=new ArrayCollection();
+
 	}
 
 	public function getId(){
@@ -171,6 +183,23 @@ class Campanha {
 		$this->estadoCampanha=$eCampanha;
 
 	}
+
+	public function getPlantadores(){
+		return $this->plantadores;
+	}
+
+	public function addPlantador(Plantador $plantador){
+		return $this->getPlantadores()->add($plantador);
+	}
+
+	public function removePlantador(Plantador $plantador){
+		return $this->getPlantadores()->removeElement($plantador);
+
+	}
+
+	
+
+
 
 
 

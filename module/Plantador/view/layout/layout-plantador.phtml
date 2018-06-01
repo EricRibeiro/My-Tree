@@ -59,16 +59,24 @@
 
                 <li class="mapa aba">
                     <a href="<?= $this->url('plantador', array('controller' => 'mapa', 'action' => 'index')); ?>">
-                        <i class="ti-map"></i>
+                        <i class="fa fa-map-marker"></i>
                         <p>Mapa</p>
                     </a>
 
                     <li class="mapa aba">
                         <a href="<?= $this->url('plantador', array('controller' => 'campanha', 'action' => 'aderir')); ?>">
-                            <i class="ti-map"></i>
+                            <i class="fa fa-sign-in" ></i>
                             <p>Aderir a Campanha</p>
                         </a>
                     </li>
+
+                    <li class="active-pro">
+                        <a href="<?= $this->url('plantador', array('controller' => 'campanha', 'action' => 'campanhasparticipadas')); ?>">
+                            <i class="fa fa-th-list"></i>
+                            <p>Campanhas participadas</p>
+                        </a>
+                    </li>
+                    
                     <li class="active-pro">
                         <a href="<?= $this->url('application', array('controller' => 'login', 'action' => 'logout')); ?>">
                             <i class="ti-power-off"></i>

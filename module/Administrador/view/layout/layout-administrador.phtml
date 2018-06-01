@@ -55,18 +55,31 @@
                 </li>
                 <li class="perfil aba">
                     <a href="<?= $this->url('administrador', array('controller' => 'campanha', 'action' => 'gerenciar')); ?>">
-                        <i class="ti-user"></i>
+                        <i class="fa fa-calendar"></i>
                         <p>Campanhas a gerenciar</p>
+                    </a>
+                </li>
+
+                <li class="active-pro">
+                    <a href="<?= $this->url('administrador', array('controller' => 'participacao', 'action' => 'index')); ?>">
+                        <i class="fa fa-calendar"></i>
+                        <p>Campanhas em andamento</p>
+                    </a>
+                </li>
+
+                <li class="active-pro">
+                    <a href="<?= $this->url('administrador', array('controller' => 'campanha', 'action' => 'campanhasfinalizadas')); ?>">
+                        <i class="fa fa-stop-circle-o"></i>
+                        <p>Campanhas Finalizadas</p>
                     </a>
                 </li>
 
                 <li class="perfil aba">
                     <a href="<?= $this->url('administrador', array('controller' => 'tipomuda', 'action' => 'index')); ?>">
-                        <i class="ti-user"></i>
+                        <i class="fa fa-leaf"></i>
                         <p>Tipos de muda</p>
                     </a>
                 </li>
-
 
                 <li class="active-pro">
                     <a href="<?= $this->url('application', array('controller' => 'login', 'action' => 'logout')); ?>">
