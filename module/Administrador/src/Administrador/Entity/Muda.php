@@ -21,15 +21,21 @@ class Muda {
 	*@ORM\Column(type="integer")
 	*
 	*/
-	private $qtdMuda;
+	private $estoqueMuda;
 	
+	/**
+	*@ORM\Column(type="integer")
+	*
+	*/
+	private $qtdInicialMuda;
+
+
 	/**
 	*@ORM\ManyToOne(targetEntity="Administrador\Entity\TipoMuda", inversedBy="muda" )
 	*
 	*/
 	private $typeMuda;
 
-	
 	/**
 	*@ORM\OneToMany(targetEntity="Investidor\Entity\Campanha", mappedBy="campanha")
 	*/
@@ -37,13 +43,13 @@ class Muda {
 
 
 	public function __construct($typeMuda,$quantidade){
-		$this->qtdMuda=$quantidade;
+		$this->estoqueMuda=$quantidade;
 		$this->typeMuda=$typeMuda;
+		$this->qtdInicialMuda=$quantidade;
 	}
 
 	public function getId(){
 		return $this->id;
-
 	}
 
 	public function setTipoMuda($typeMuda){
@@ -55,12 +61,22 @@ class Muda {
 	}
 
 	public function setQuantidadeMudas($qtdMudas){
-		$this->qtdMuda=$qtdMudas;
+		$this->estoqueMuda=$qtdMudas;
 
 	}
 
 	public function getQuantidadeMudas(){
-		return $this->qtdMuda;
+		return $this->estoqueMuda;
+	}
+
+	public function totalPlantadoresInscritos(){
+		return ($this->qtdInicialMuda-$this->estoqueMuda);
+	}
+
+	public function getTotalMudasDisponibilizadas(){
+		return $this->qtdInicialMuda;
+
+
 	}
 
 }

@@ -98,6 +98,11 @@ class Local
      */
      private $disponibilidade;
 
+     /**
+     * @ORM\Column(type="integer", nullable=true )
+     */
+     private $qtdMudasPlantadas;
+
 
      public function __construct($uf, $municipio, $cep, $bairro, $logradouro, $numero, $complemento, $latitude, $longitude, $concedente,$area)
      {
@@ -249,6 +254,16 @@ class Local
       return $mudasString;
 
   }
+
+  public function qtdMudasPlantadas(){
+        return $this->qtdMudasPlantadas;
+  }
+
+ public function altualizarQtdMudasPlantadas($qtd){
+    $qtdMudas= $this->qtdMudasPlantadas();
+    $qtdMudas+=$qtd;
+    $this->qtdMudasPlantadas=$qtdMudas;
+ }
 
 }
 

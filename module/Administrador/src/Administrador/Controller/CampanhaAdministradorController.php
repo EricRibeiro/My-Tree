@@ -89,8 +89,6 @@ class CampanhaAdministradorController extends AbstractActionController
 		));
 
 	}
-
-
 	public function tipomudaAction(){
 		
 		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
@@ -101,7 +99,7 @@ class CampanhaAdministradorController extends AbstractActionController
 			$tipoMuda= new TipoMuda($nPopular,$nomeCientifico);
 			$entityManager->persist($tipoMuda);
 			$entityManager->flush();
-	
+
 		}
 		return $this->redirect()->toRoute('administrador', array(
 			'controller' => 'campanha',
@@ -110,12 +108,46 @@ class CampanhaAdministradorController extends AbstractActionController
 
 	}
 
+	public function finalizarAction(){
+
+		$idCampanha=$this->params()->fromRoute('id');
+
+		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+		$repositorio=$entityManager->getRepository("Investidor\Entity\Campanha");
+		$campanha=$repositorio->find($idCampanha);
+
+		$campanha->getEstadocampanha()->setSituacaoCampanha("finalizada");
+		$entityManager->persist($campanha);
+		$entityManager->flush();
+
+		return $this->redirect()->toRoute('administrador', array(
+			'controller' => 'participacao',
+			'action' => 'index',
+		));
+	}
 
 
 
+	public function campanhasfinalizadasAction(){
+		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 
-	
+		if ($user = $this->identity()) {
+			
+			$qb=$entityManager->createQueryBuilder();
+			$qb->select("c")
+			->from('Investidor\Entity\Campanha','c')
+			->innerJoin('Administrador\Entity\EstadoCampanha','ec','WITH','ec.id=c.estadoCampanha')
+			->andWhere('ec.situacaoCampanha = :situacao')
+			->andWhere('c.local is NOT NULL')
+			->setParameter('situacao', "finalizada");
+			$campanhas=$qb->getQuery()->getResult();
 
+			return new ViewModel(['campanhas'=>$campanhas]);
 
+		}
+		return $this->redirect()->toRoute('administrador', ['controller' => 'login', 'action' => 'index']);
+	}
 
 }
+
+?>

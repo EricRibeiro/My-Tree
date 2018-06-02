@@ -1,0 +1,119 @@
+<?php
+$url = $this->url('administrador', ['controller' => 'participacao', 'action' => 'confirmar']);
+?>
+
+<div class="col-lg-12 col-md-12">
+  <div class="card">
+    <div class="header">
+      <h4 class="title">Confirmar Presença</h4>
+    </div>
+    <div class="content">
+      <form method="post" action="<?= $url; ?>">
+        <input type="hidden" name="idCampanha" value="<?= $campanha->getId(); ?>">
+        <div class="row">
+          <div class="col-md-12">
+            <table id="plantadores" class="table table-hover display" style="width:100%">
+              <thead>
+                <tr>
+                  <th>id</th>
+                  <th>Nome</th>
+                  <th>Telefone</th>
+                  <th>Email</th>
+                  <th>Confirmar Presença</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                <?php foreach ($plantadores as $plantador) {?>
+                <tr>
+                  <td><?= $plantador->getId(); ?></td>
+                  <td><?= $plantador->getNome(); ?></td>
+                  <td><?= $plantador->getTelefone(); ?></td>
+                  <td><?= $plantador->getEmail(); ?></td>
+                  <td>
+                   <div class="checkbox">
+                    <?php 
+                    $idPlantador=$plantador->getId();
+                    echo "<input class='input-checkbox' type='checkbox' value='$idPlantador' name='presenca'>";
+                    ?>
+                  </div>
+                </td> 
+              </tr>
+              <?php }?>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="row" style="display: none;">
+        <div class="col-md-12">
+          <div class="form-group">
+            <input type="text" name="IDsPlantadores"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center ">
+        <button type="submit" class="btn btn-info btn-fill btn-wd">Confirmar</button>
+      </div>
+      <div class="clearfix"></div>
+    </form>
+
+
+  </div>
+</div>
+</div>
+
+
+<?php
+
+?>
+
+<script>
+
+  jQuery(function ($) {
+    $('#plantadores').DataTable( {
+
+     "columnDefs": [
+
+     {"className": "dt-center", "targets": "_all"}
+
+     ],
+     retrieve: true,
+     
+
+   } );
+  });
+</script>
+
+
+<script>
+
+  jQuery(function ($) {
+
+    var plantadores=[];
+
+    $('.input-checkbox').unbind().change(function(){
+
+      if ($(this).is(':checked')) {
+        plantadores.push($(this).val());
+        $("input[name='IDsPlantadores']").val(plantadores.join('-'));
+
+      } else {
+        var indice=plantadores.indexOf($(this).val());
+        plantadores.splice(indice,1);
+        $("input[name='IDsPlantadores']").val(plantadores.join('-'));
+      }
+
+    });
+
+  });
+  
+
+</script>
+
+
+
+

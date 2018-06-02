@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Investidor\Entity\Campanha;
 
-
 /**
  * @ORM\Entity
  */
@@ -27,12 +26,24 @@ class Plantador extends Usuario
     /**
      *@var \Doctrine\Common\Collections\Collection|listaCampanhas[]
      *@ORM\ManyToMany(targetEntity="Investidor\Entity\Campanha", inversedBy="plantador")
-     *@ORM\JoinTable(name="PlantadorCampanha",
+     *@ORM\JoinTable(name="HistoricoCampanhas",
      joinColumns={@ORM\JoinColumn(name="plantador_id", referencedColumnName="id")},
-     inverseJoinColumns={@ORM\JoinColumn(name="campanha_id", referencedColumnName="id")}
+     inverseJoinColumns={@ORM\JoinColumn(name="campanha_id", referencedColumnName="id")},
      )
      */
      private $listaCampanhas;
+
+      /**
+     *@var \Doctrine\Common\Collections\Collection|campanhasParticipadas[]
+     *@ORM\ManyToMany(targetEntity="Investidor\Entity\Campanha", inversedBy="plantador")
+     *@ORM\JoinTable(name="CampanhasParticipadas",
+     joinColumns={@ORM\JoinColumn(name="plantador_id", referencedColumnName="id")},
+     inverseJoinColumns={@ORM\JoinColumn(name="campanha_id", referencedColumnName="id")},
+     )
+     */
+     private $campanhasParticipadas;
+
+
 
      public function __construct($nome, $email, $senha, $telefone)
      {
@@ -47,10 +58,12 @@ class Plantador extends Usuario
     }
     
     public function addCampanha(Campanha $campanha){
+        $campanha->addPlantador($this);
         $this->listaCampanhas->add($campanha);
     }
 
     public function removeCampanha(Campanha $campanha){
+        $campanha->removePlantador($this);
         $this->getListaCampanhas()->removeElement($campanha);
     }
 
@@ -77,6 +90,19 @@ class Plantador extends Usuario
     {
         $this->telefone = $telefone;
     }
+
+    public function confirmarPresenca(Campanha $campanha){
+        $this->campanhasParticipadas->add($campanha);
+    }
+
+    public function getCampanhasParticipadas(){
+        return $this->campanhasParticipadas;
+
+
+    }
+
+
+
 }
 
 ?>

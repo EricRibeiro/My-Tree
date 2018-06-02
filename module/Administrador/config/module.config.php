@@ -39,6 +39,7 @@ return array(
             'Administrador\Controller\Dashboard' => 'Administrador\Controller\DashboardAdministradorController',
             'Administrador\Controller\Campanha' => 'Administrador\Controller\CampanhaAdministradorController',
             'Administrador\Controller\tipomuda' => 'Administrador\Controller\MudaAdministradorController',
+            'Administrador\Controller\participacao' => 'Administrador\Controller\ParticipacaoAdministradorController',
         ),
     ),
     'view_manager' => array(

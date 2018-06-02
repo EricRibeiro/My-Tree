@@ -7,12 +7,6 @@ use Zend\View\Model\ViewModel;
 class CampanhaPlantadorController extends AbstractActionController
 {
 
-	public function indexAction(){
-
-
-		return new ViewModel();
-	}
-
 	public function aderirAction(){
 		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 		
@@ -38,7 +32,7 @@ class CampanhaPlantadorController extends AbstractActionController
 			->andWhere('ec.situacaoCampanha = :situacao')
 			->andWhere('DATE_DIFF(CURRENT_DATE(), c.dataFinal) <= 0')
 			->andWhere('c.local is NOT NULL')
-			->andWhere('m.qtdMuda > 0')
+			->andWhere('m.estoqueMuda > 0')
 			->orWhere('ec.situacaoCampanha = :situacao2')
 			->setParameter('situacao', "liberada")
 			->setParameter('situacao2', "abortada");
@@ -99,6 +93,31 @@ class CampanhaPlantadorController extends AbstractActionController
 		$entityManager->persist($campanha);
 		$entityManager->flush();
 	}
+
+	public function campanhasparticipadasAction(){
+		if ($user = $this->identity()) {
+			
+			$view_params = array(
+				'campanhas' => $user->getCampanhasParticipadas(),
+			);
+			return new ViewModel($view_params);
+
+		}
+
+
+
+		return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
+
+		
+	}
+
+
+
+
+
+
+
+
 
 }
 
