@@ -89,24 +89,6 @@ class CampanhaAdministradorController extends AbstractActionController
 		));
 
 	}
-	public function tipomudaAction(){
-		
-		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-		
-		if ($this->request->isPost()) {
-			$nPopular=$this->request->getPost('nomePopular');
-			$nCientifico=$this->request->getPost('nomeCientifico');
-			$tipoMuda= new TipoMuda($nPopular,$nomeCientifico);
-			$entityManager->persist($tipoMuda);
-			$entityManager->flush();
-
-		}
-		return $this->redirect()->toRoute('administrador', array(
-			'controller' => 'campanha',
-			'action' => 'gerenciar',
-		));
-
-	}
 
 	public function finalizarAction(){
 

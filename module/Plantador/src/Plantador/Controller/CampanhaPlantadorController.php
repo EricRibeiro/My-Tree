@@ -53,7 +53,7 @@ class CampanhaPlantadorController extends AbstractActionController
 		));		
 	}
 
-	public function destocarMuda($campanha){
+	private function destocarMuda($campanha){
 		$entityManager=$this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 		$campanha->desestocarMuda();
 		$entityManager->persist($campanha);
@@ -86,7 +86,7 @@ class CampanhaPlantadorController extends AbstractActionController
 		
 	}
 
-	public function estocarMuda($campanha){
+	private function estocarMuda($campanha){
 		
 		$entityManager=$this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 		$campanha->estocarMuda();
