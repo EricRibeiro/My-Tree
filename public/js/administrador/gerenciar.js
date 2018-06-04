@@ -19,6 +19,8 @@
 
     select.html('');
     
+    select.append("<option></option>");
+
     for(var i=0;i<mudas.length-1;i++){
       var dadosTipoMuda=mudas[i].split('-');
       option="<option value='"+dadosTipoMuda[0]+"'>" +dadosTipoMuda[1]+"-"+dadosTipoMuda[2]+ "</option>";

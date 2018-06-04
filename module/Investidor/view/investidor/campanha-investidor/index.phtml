@@ -98,44 +98,61 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
                     <i class="fa fa-ban" aria-hidden="true"></i>
                   </a> 
 
+                  <?php } else if ($campanha->getEstadoCampanha()->getSituacaoCampanha()=="finalizada") { ?>
+
+                  <a href="#campanhaFinalizada" data-toggle="modal">
+                    <i class="fa fa-flag" aria-hidden="true"></i>
+                  </a> 
+
+
                   <?php } else { ?>
 
                   <input type="hidden" id="motivoCancelamento" value="<?= $campanha->getEstadoCampanha()->getDescricaoCancelamento();  ?>">
                   <a href="#cancelamento" data-toggle="modal">
                     <i class="fa fa-times text-danger" aria-hidden="true"></i>
                   </a> 
-
                   <?php } ?>
+
                 </td>
                 <td>
                   <button type="button" data-toggle="modal" data-target="#detalhes-local" class="btn btn-info btn-fill">
-
                     <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
-                  </button>                                    
+                  </button>
+
                   <a href="<?= $this->url('investidor', [ 'controller'=>'campanha','action' => 'remover', 'id' => $campanha->getId()]) ?>"
-                   class="btn btn-danger btn-fill">
+                   class="btn btn-danger btn-fill"
+
+                   <?php 
+                   $situacao=$campanha->getEstadoCampanha()->getSituacaoCampanha();
+                   if ($situacao=="liberada" ||$situacao=="finalizada" ) { ?>
+                   disabled
+                   <?php } ?>
+
+                   >
                    <i class="fa fa-trash" aria-hidden="true" type="hidden"></i>
                  </a>
 
                  <a href="<?= $this->url('investidor', [ 'controller'=>'campanha','action' => 'editar', 'id' => $campanha->getId()]) ?>"
                   class="btn btn-warning btn-fill"
 
-                  <?php if ($campanha->getEstadoCampanha()->getSituacaoCampanha()=="liberada") { ?>
-                      disabled
+                  <?php 
+                  $situacao=$campanha->getEstadoCampanha()->getSituacaoCampanha();
+                  if ($situacao=="liberada" ||$situacao=="finalizada" ) { ?>
+                  disabled
                   <?php } ?>
                   >
-                   <i class="fa fa-pencil" aria-hidden="true"></i>
-                 </a>
-               </td>
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </a>
+              </td>
 
-             </tr>
-             <?php }?>
-           </tbody>
-         </table>
-       </div>
-     </div>
-   </div>
- </div>
+            </tr>
+            <?php }?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 
 <div id="modals">
@@ -264,6 +281,23 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
 
 
 
+<div id='campanhaFinalizada' class='modal fade' role='dialog'>
+ <div class='modal-dialog'>
+   <div class='modal-content'>
+     <div class='modal-header'>
+       <button type='button' class='close' data-dismiss='modal'>&times;</button>
+       <h4 class='modal-title' align='center'>Situação da campanha</h4>
+     </div>
+     <div class='modal-body'>
+      <p>A campanha foi realizada</p>
+    </div>
+    <div class='modal-footer'>
+     <button type='button' class='btn btn-default' data-dismiss='modal'>Fechar</button>
+   </div>
+ </div>
+</div>
+</div>
+
 
 
 
@@ -296,10 +330,6 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
 
 
 
-
-
-
-
 <script>
   jQuery(function ($) {
     var table = $('#locais').DataTable();
@@ -312,8 +342,6 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
     });
   });
 </script>
-
-
 
 
 <script>
