@@ -104,8 +104,6 @@ class CampanhaPlantadorController extends AbstractActionController
 
 		}
 
-
-
 		return $this->redirect()->toRoute('application', ['controller' => 'login', 'action' => 'index']);
 
 		
