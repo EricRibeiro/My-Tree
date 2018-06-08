@@ -32,13 +32,15 @@ $url = $this->url('administrador', ['controller' => 'participacao', 'action' => 
                   <td><?= $plantador->getTelefone(); ?></td>
                   <td><?= $plantador->getEmail(); ?></td>
                   <td>
-                   <div class="checkbox">
-                    <?php 
-                    $idPlantador=$plantador->getId();
-                    echo "<input class='input-checkbox' type='checkbox' value='$idPlantador' name='presenca'>";
-                    ?>
-                  </div>
-                </td> 
+                     <div class="checkbox" style="margin-left: 45%; margin-top: 5%;">
+                      <label>
+                      <?php 
+                      $idPlantador=$plantador->getId();
+                      echo "<input class='input-checkbox' type='checkbox' value='$idPlantador' name='presenca'>";
+                      ?>
+                      </label>
+                    </div>
+                  </td> 
               </tr>
               <?php }?>
 
