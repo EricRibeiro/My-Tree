@@ -14,13 +14,13 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'editar
         <div class="col-md-6">
           <div class="form-group">
             <label>Nome</label>
-            <input type="text" class="form-control border-input" placeholder="Nome da Campanha" name="nome" value="<?= $campanha->getNome(); ?>">
+            <input type="text" class="form-control border-input" placeholder="Nome da Campanha" name="nome" value="<?= $campanha->getNome(); ?>" required>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label>Valor:</label>
-            <input type="text" class="form-control border-input" placeholder="Valor para a Campanha" name="valor" value="<?= $campanha->getValor(); ?>">
+            <input type="text" class="form-control border-input" placeholder="Valor para a Campanha" name="valor" value="<?= $campanha->getValor(); ?>" required>
           </div>
         </div>
       </div>
@@ -177,7 +177,7 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'editar
    <div class='modal-dialog'>
      <div class='modal-content'>
        <div class='modal-header'>
-         <button type='button' class='close' data-dismiss='modal'>&times;</button>;
+         <button type='button' class='close' data-dismiss='modal'>&times;</button>
          <h4 class='modal-title' align='center'>Dados do local</h4>
        </div>
        <div class='modal-body'>
@@ -216,8 +216,6 @@ echo $this->inlineScript()->prependFile($this->basePath() . '/js/investidor/camp
   var tableContainer = $(table.table().container());
   tableContainer.css( 'display', true ? 'none' : 'block' );
 
-
-
 });
 </script>
 
@@ -226,11 +224,11 @@ echo $this->inlineScript()->prependFile($this->basePath() . '/js/investidor/camp
   jQuery(function ($) {
     var table= $('#locais').DataTable();
 
-
     var tableContainer = $(table.table().container());
 
     $('#btnNao').on('click', function () {
       tableContainer.css( 'display', true ? 'none' : 'block' );
+
     } );
 
 

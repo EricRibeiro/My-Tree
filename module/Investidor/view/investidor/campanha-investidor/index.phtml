@@ -5,7 +5,7 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
 <div class="col-lg-12 col-md-12">
   <div class="card">
     <div class="header">
-      <h4 class="title">Campanhas cadastradas</h4>
+      <h4 class="title">Gerenciar Campanhas</h4>
     </div>
     <div class="content">       
       <div class="row">
@@ -115,43 +115,50 @@ $url = $this->url('investidor', ['controller' => 'campanha', 'action' => 'cadast
 
                 </td>
                 <td>
-                  <button type="button" data-toggle="modal" data-target="#detalhes-local" class="btn btn-info btn-fill">
-                    <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
-                  </button>
-
-                  <a href="<?= $this->url('investidor', [ 'controller'=>'campanha','action' => 'remover', 'id' => $campanha->getId()]) ?>"
-                   class="btn btn-danger btn-fill"
-
-                   <?php 
-                   $situacao=$campanha->getEstadoCampanha()->getSituacaoCampanha();
-                   if ($situacao=="liberada" ||$situacao=="finalizada" ) { ?>
-                   disabled
-                   <?php } ?>
-
-                   >
-                   <i class="fa fa-trash" aria-hidden="true" type="hidden"></i>
-                 </a>
-
-                 <a href="<?= $this->url('investidor', [ 'controller'=>'campanha','action' => 'editar', 'id' => $campanha->getId()]) ?>"
-                  class="btn btn-warning btn-fill"
+                  <button type="button" data-toggle="modal" data-target="#detalhes-local" class="btn btn-info btn-fill" 
 
                   <?php 
                   $situacao=$campanha->getEstadoCampanha()->getSituacaoCampanha();
-                  if ($situacao=="liberada" ||$situacao=="finalizada" ) { ?>
+                  if ($situacao=="Alocal" ) { ?>
                   disabled
                   <?php } ?>
                   >
-                  <i class="fa fa-pencil" aria-hidden="true"></i>
-                </a>
-              </td>
+                  <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+                </button>
 
-            </tr>
-            <?php }?>
-          </tbody>
-        </table>
-      </div>
+                <a href="<?= $this->url('investidor', [ 'controller'=>'campanha','action' => 'remover', 'id' => $campanha->getId()]) ?>"
+                 class="btn btn-danger btn-fill"
+
+                 <?php 
+                 $situacao=$campanha->getEstadoCampanha()->getSituacaoCampanha();
+                 if ($situacao=="finalizada" ) { ?>
+                 disabled
+                 <?php } ?>
+
+                 >
+                 <i class="fa fa-trash" aria-hidden="true" type="hidden"></i>
+               </a>
+
+               <a href="<?= $this->url('investidor', [ 'controller'=>'campanha','action' => 'editar', 'id' => $campanha->getId()]) ?>"
+                class="btn btn-warning btn-fill"
+
+                <?php 
+                $situacao=$campanha->getEstadoCampanha()->getSituacaoCampanha();
+                if ($situacao=="liberada" ||$situacao=="finalizada" ) { ?>
+                disabled
+                <?php } ?>
+                >
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </a>
+            </td>
+
+          </tr>
+          <?php }?>
+        </tbody>
+      </table>
     </div>
   </div>
+</div>
 </div>
 </div>
 

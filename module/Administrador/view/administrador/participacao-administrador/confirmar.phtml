@@ -15,7 +15,7 @@ $url = $this->url('administrador', ['controller' => 'participacao', 'action' => 
             <table id="plantadores" class="table table-hover display" style="width:100%">
               <thead>
                 <tr>
-                  <th>id</th>
+                  <th hidden>id</th>
                   <th>Nome</th>
                   <th>Telefone</th>
                   <th>Email</th>
@@ -27,20 +27,20 @@ $url = $this->url('administrador', ['controller' => 'participacao', 'action' => 
 
                 <?php foreach ($plantadores as $plantador) {?>
                 <tr>
-                  <td><?= $plantador->getId(); ?></td>
+                  <td hidden><?= $plantador->getId(); ?></td>
                   <td><?= $plantador->getNome(); ?></td>
                   <td><?= $plantador->getTelefone(); ?></td>
                   <td><?= $plantador->getEmail(); ?></td>
                   <td>
-                     <div class="checkbox" style="margin-left: 45%; margin-top: 5%;">
-                      <label>
+                   <div class="checkbox" style="margin-left: 45%; margin-top: 5%;">
+                    <label>
                       <?php 
                       $idPlantador=$plantador->getId();
                       echo "<input class='input-checkbox' type='checkbox' value='$idPlantador' name='presenca'>";
                       ?>
-                      </label>
-                    </div>
-                  </td> 
+                    </label>
+                  </div>
+                </td> 
               </tr>
               <?php }?>
 
@@ -59,13 +59,11 @@ $url = $this->url('administrador', ['controller' => 'participacao', 'action' => 
 
       <div class="text-center ">
         <button type="submit" class="btn btn-info btn-fill btn-wd">Confirmar</button>
-      </div>
-      <div class="clearfix"></div>
-    </form>
+        <div class="clearfix"></div>
+      </form>
 
-
+    </div>
   </div>
-</div>
 </div>
 
 
