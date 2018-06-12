@@ -40,34 +40,42 @@
                    <td hidden><?= $campanha->getId(); ?></td>
                    <td><?= $campanha->getEstoqueMuda()->getTotalMudasDisponibilizadas(); ?></td>
                    <td><?= $campanha->getEstoqueMuda()->totalPlantadoresInscritos(); ?></td>
-                   <td><?= $campanha->getLocal()->qtdMudasPlantadas(); ?></td>
-                 </tr>
-                 <?php }}?>
+                   
+                   <?php 
+                   if($campanha->getLocal()->qtdMudasPlantadas() !=0){
+                     ?>
+                     <td><?= $campanha->getLocal()->qtdMudasPlantadas(); ?></td>
+                     <?php }else{ ?>
+                     <td>0</td>
+                     <?php }?>
 
-               </tbody>
-             </table>
+                   </tr>
+                   <?php }}?>
+
+                 </tbody>
+               </table>
+             </div>
            </div>
-         </div>
-         <div class="clearfix"></div>
-       </form>
+           <div class="clearfix"></div>
+         </form>
+       </div>
      </div>
    </div>
- </div>
 
 
- <script>
-  jQuery(function ($) {
-    $('#campanhas').DataTable( {
+   <script>
+    jQuery(function ($) {
+      $('#campanhas').DataTable( {
 
-     "columnDefs": [
+       "columnDefs": [
 
-     {"className": "dt-center", "targets": "_all"}
+       {"className": "dt-center", "targets": "_all"}
 
-     ],
-  
-   } );
-  });
-</script>
+       ],
+
+     } );
+    });
+  </script>
 
 
 
